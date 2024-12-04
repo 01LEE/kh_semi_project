@@ -29,6 +29,10 @@
 		FROM BOARDS
 		WHERE POST_NUMBER = #{postNumber, jdbcType=INTEGER}
 	</select>
+	
+	<delete id="deleteBoardByPostNumber">
+		DELETE FROM BOARDS WHERE POST_NUMBER = #{postNumber, jdbcType=INTEGER}
+	</delete>
 
 
 </mapper>

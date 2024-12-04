@@ -8,6 +8,9 @@ public interface Boardsmapper {
 	List<BoardsDTO> selectAllBoards();
 
 	List<BoardsDTO> selectBoardByPostNumber(int postNumber);
+
+	int deleteBoardByPostNumber(int postNumber);
+
 	
 
 }
