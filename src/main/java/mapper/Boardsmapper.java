@@ -13,6 +13,8 @@ public interface Boardsmapper {
 
 	int insertBoard(BoardsDTO dto);
 
+	void updateBoard(BoardsDTO board);
+
 	
 
 }

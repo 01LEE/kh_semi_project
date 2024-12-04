@@ -1,28 +1,29 @@
 package servlet;
 
-import java.io.IOException;
-
-import config.DBManager;
-import dto.BoardsDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import mapper.Boardsmapper;
 
+import java.io.IOException;
+import java.util.List;
+
+import config.DBManager;
+import dto.BoardsDTO;
+
 /**
- * Servlet implementation class insertBoardServlet
+ * Servlet implementation class UpdateBoardSelvert
  */
-@WebServlet("/insertBoard.do")
-public class insertBoardServlet extends HttpServlet {
+@WebServlet("/syncBoard.do")
+public class UpdateBoardSelvert2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public insertBoardServlet() {
+	public UpdateBoardSelvert2() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,19 +36,21 @@ public class insertBoardServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
-		// HttpSession session = request.getSession();
-		int postNumber = 101;
-		int userNumber = 2;
-		System.out.println(postNumber);
-		System.out.println(userNumber);
-		BoardsDTO dto = new BoardsDTO(postNumber, userNumber, title, description);
-		Boardsmapper mapper = DBManager.getInstance().getSession().getMapper(Boardsmapper.class);
+		String postNumberStr = request.getParameter("postNumber");
+		int postNumber = Integer.parseInt(postNumberStr);
 
-		// 데이터 등록
-		int count = mapper.insertBoard(dto);
-		System.out.println("데이터 등록 결과 : " + count);
-		// 전체 사용자 조회 페이지로 이동
-		response.sendRedirect("./allBoard.do");
+		// 게시글 객체 생성 후 수정 내용 설정
+		BoardsDTO board = new BoardsDTO();
+		board.setPostNumber(postNumber);
+		board.setTitle(title);
+		board.setDescription(description);
+
+		// 게시글 업데이트
+		Boardsmapper mapper = DBManager.getInstance().getSession().getMapper(Boardsmapper.class);
+		mapper.updateBoard(board);
+
+		// 수정 후 게시글 목록 페이지로 리디렉션
+		response.sendRedirect("./boardDetail.do");
 	}
 
 	/**
