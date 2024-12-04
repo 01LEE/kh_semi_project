@@ -23,6 +23,15 @@ public class BoardsDTO {
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
+	
+
+	public BoardsDTO(int postNumber, int userNumber, String title, String description) {
+		super();
+		this.postNumber = postNumber;
+		this.userNumber = userNumber;
+		this.title = title;
+		this.description = description;
+	}
 
 	public int getPostNumber() {
 		return postNumber;

@@ -20,19 +20,25 @@
 		SELECT POST_NUMBER,
 		USER_NUMBER, TITLE, DESCRIPTION, CREATE_TIME,
 		UPDATE_TIME
-		FROM BOARDS order by post_number
+		FROM BOARDS
+		order by post_number
 	</select>
 
 	<select id="selectBoardByPostNumber" resultMap="boards">
-		SELECT POST_NUMBER, USER_NUMBER, TITLE, DESCRIPTION, CREATE_TIME,
+		SELECT
+		POST_NUMBER, USER_NUMBER, TITLE, DESCRIPTION, CREATE_TIME,
 		UPDATE_TIME
 		FROM BOARDS
 		WHERE POST_NUMBER = #{postNumber, jdbcType=INTEGER}
 	</select>
-	
-	<delete id="deleteBoardByPostNumber">
-		DELETE FROM BOARDS WHERE POST_NUMBER = #{postNumber, jdbcType=INTEGER}
-	</delete>
 
+	<delete id="deleteBoardByPostNumber">
+		DELETE FROM BOARDS WHERE POST_NUMBER = #{postNumber,
+		jdbcType=INTEGER}
+	</delete>
+	<!-- 게시판 글쓰기 쿼리 -->
+	<insert id="insertBoard" parameterType="dto.BoardsDTO">
+		insert into boards(post_number, user_number, title, description) values(#{postNumber},#{userNumber},#{title},#{description})
+	</insert>
 
 </mapper>
