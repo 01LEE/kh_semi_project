@@ -50,13 +50,8 @@ public class UpdateBoardSelvert2 extends HttpServlet {
 		mapper.updateBoard(board);
 
 		// 수정 후 게시글 목록 페이지로 리디렉션
-<<<<<<< HEAD
 		response.sendRedirect("./boardDetail.do?postNumber=" + postNumber);	
-		}
-=======
-		response.sendRedirect("./boardDetail.do");
 	}
->>>>>>> 89b342d4bfa1b347066001de2ea9c29b9d27c7cc
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
