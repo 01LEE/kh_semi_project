@@ -40,14 +40,14 @@
 	<!-- 게시판 글쓰기 쿼리 -->
 	<insert id="insertBoard" parameterType="dto.BoardsDTO">
 		insert into
-		boards(post_number, user_number, title, description)
-		values(#{postNumber},#{userNumber},#{title},#{description})
+		boards(post_number, user_number, title, description, create_time)
+		values(#{postNumber},#{userNumber},#{title},#{description}, sysdate)
 	</insert>
 
 
 	<!-- 게시판 글 수정 쿼리 -->
 	<update id="updateBoard" parameterType="dto.BoardsDTO">
-		UPDATE boards SET title = #{title}, description = #{description}
+		UPDATE boards SET title = #{title}, description = #{description}, update_time = sysdate
 		WHERE post_number = #{postNumber}
 	</update>
 </mapper>

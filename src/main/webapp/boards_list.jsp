@@ -21,7 +21,7 @@
 				<tr>
 					<td>${board.postNumber}</td>
 					<td><a href="./boardDetail.do?postNumber=${board.postNumber}">${board.title}</a></td>
-
+				
 				</tr>
 			</c:forEach>
 		</tbody>

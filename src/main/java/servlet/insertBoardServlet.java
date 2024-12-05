@@ -37,7 +37,7 @@ public class insertBoardServlet extends HttpServlet {
 		String description = request.getParameter("description");
 		// HttpSession session = request.getSession();
 		int postNumber = 101;
-		int userNumber = 2;
+		int userNumber = 1;
 		System.out.println(postNumber);
 		System.out.println(userNumber);
 		BoardsDTO dto = new BoardsDTO(postNumber, userNumber, title, description);
