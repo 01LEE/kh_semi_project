@@ -21,10 +21,11 @@
 				<tr>
 					<td>${board.postNumber}</td>
 					<td><a href="./boardDetail.do?postNumber=${board.postNumber}">${board.title}</a></td>
-
+				
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+	<a href="insert_board.jsp">글쓰기</a>
 </body>
 </html>

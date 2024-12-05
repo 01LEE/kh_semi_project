@@ -11,6 +11,10 @@ public interface Boardsmapper {
 
 	int deleteBoardByPostNumber(int postNumber);
 
+	int insertBoard(BoardsDTO dto);
+
+	void updateBoard(BoardsDTO board);
+
 	
 
 }
