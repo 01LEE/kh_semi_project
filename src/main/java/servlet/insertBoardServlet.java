@@ -47,7 +47,7 @@ public class insertBoardServlet extends HttpServlet {
 		int count = mapper.insertBoard(dto);
 		System.out.println("데이터 등록 결과 : " + count);
 		// 전체 사용자 조회 페이지로 이동
-		response.sendRedirect("boards_list.jsp");
+		response.sendRedirect("./allBoard.do");
 	}
 
 	/**
