@@ -3,7 +3,7 @@ package mapper;
 import java.util.List;
 import dto.BoardsDTO;
 
-public interface Boardsmapper {
+public interface BoardsMapper {
 
 	List<BoardsDTO> selectAllBoards();
 
@@ -13,7 +13,7 @@ public interface Boardsmapper {
 
 	int insertBoard(BoardsDTO dto);
 
-	void updateBoard(BoardsDTO board);
+	int updateBoard(BoardsDTO board);
 
 	
 

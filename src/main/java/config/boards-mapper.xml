@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- mapper에 접근할 클래스 명 or 인터페이스 명 -->
-<mapper namespace="mapper.Boardsmapper">
+<mapper namespace="mapper.BoardsMapper">
 
 	<!-- 게시판 결과를 매핑하는 resultMap -->
 	<resultMap type="dto.BoardsDTO" id="boards">
