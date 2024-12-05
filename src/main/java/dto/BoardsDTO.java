@@ -32,6 +32,15 @@ public class BoardsDTO {
 		this.title = title;
 		this.description = description;
 	}
+	
+	
+	
+	public BoardsDTO(int userNumber, String title, String description) {
+		super();
+		this.userNumber = userNumber;
+		this.title = title;
+		this.description = description;
+	}
 
 	public int getPostNumber() {
 		return postNumber;

@@ -26,5 +26,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<a href="insert_board.jsp">글쓰기</a>
 </body>
 </html>
