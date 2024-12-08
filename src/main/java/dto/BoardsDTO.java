@@ -26,6 +26,8 @@ public class BoardsDTO {
 	// 게시글 수정 시간
 	private Timestamp updateTime;
 
+	private String tag;
+
 	// UsersDTO 연동
 	private UsersDTO users;
 
@@ -79,15 +81,16 @@ public class BoardsDTO {
 	 * @param title       게시글 제목
 	 * @param description 게시글 내용
 	 */
-	public BoardsDTO(int userNumber, String title, String description) {
+	public BoardsDTO(int userNumber, String title, String description, String tag) {
 		super();
 		this.userNumber = userNumber;
 		this.title = title;
 		this.description = description;
+		this.tag = tag;
 	}
 
 	public BoardsDTO(int postNumber, int userNumber, String title, String description, Timestamp createTime,
-			Timestamp updateTime, UsersDTO users) {
+			Timestamp updateTime, UsersDTO users, String tag) {
 		super();
 		this.postNumber = postNumber;
 		this.userNumber = userNumber;
@@ -96,6 +99,7 @@ public class BoardsDTO {
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		this.users = users;
+		this.tag = tag;
 	}
 
 	// Getter와 Setter 메서드
@@ -153,6 +157,14 @@ public class BoardsDTO {
 
 	public void setUsers(UsersDTO users) {
 		this.users = users;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 
 	public String getFormattedCreateTime() {

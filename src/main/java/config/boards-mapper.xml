@@ -11,6 +11,7 @@
 		<result column="user_number" property="userNumber" />
 		<result column="title" property="title" />
 		<result column="description" property="description" />
+		<result column="tag" property="tag" />
 		<result column="create_time" property="createTime" />
 		<result column="update_time" property="updateTime" />
 		<association property="users" javaType="dto.UsersDTO">
@@ -23,6 +24,7 @@
 		SELECT
 		b.post_number,
 		b.user_number,
+		b.tag,
 		b.title,
 		b.description,
 		b.create_time,
@@ -38,6 +40,7 @@
 		SELECT
 		b.POST_NUMBER,
 		b.USER_NUMBER,
+		b.tag,
 		b.TITLE,
 		b.DESCRIPTION,
 		b.CREATE_TIME,
@@ -57,16 +60,16 @@
 	<!-- 게시판 글쓰기 쿼리 -->
 	<insert id="insertBoard" parameterType="dto.BoardsDTO">
 		INSERT INTO
-		boards(post_number, user_number, title, description, create_time)
-		VALUES(post_number_seq.NEXTVAL, #{userNumber}, #{title},
-		#{description}, SYSDATE)
+		boards(post_number, user_number, title, description, create_time, tag)
+		VALUES(post_number_seq.NEXTVAL, #{userNumber}, #{title}, 
+		#{description}, SYSDATE, #{tag})
 	</insert>
 
 
 	<!-- 게시판 글 수정 쿼리 -->
 	<update id="updateBoard" parameterType="dto.BoardsDTO">
 		UPDATE boards SET title =
-		#{title}, description = #{description}, update_time = sysdate
+		#{title}, description = #{description}, update_time = sysdate, tag = #{tag}
 		WHERE
 		post_number = #{postNumber}
 	</update>

@@ -27,7 +27,7 @@ public class SelectBoardByPostNumber implements Controller {
 		// 게시글 상세 조회 서비스 호출
         BoardsDTO board = BoardsService.getInstance().selectBoardByPostNumber(postNumber);
 		
-		//유저 번호가 null이 아닌 경우 보트의 
+		//유저 번호가 null이 아닌 경우
         boolean writer = false;
         if (user != null && board != null) {
         	writer = (user.getUserNumber() == board.getUserNumber());

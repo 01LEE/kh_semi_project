@@ -11,13 +11,20 @@
 	<form action="./syncBoard.do" method="post">
 		<c:if test="${not empty board}">
 			<!-- 하나의 게시글 객체에서 제목을 가져와서 입력 필드에 표시 -->
+			<label for="tag">태그 선택:</label>
+			<select id="tag" name="tag">
+				<option>자유</option>
+				<option>팁</option>
+				<option>후기</option>
+			</select>
 			<div class="form-group">
-				<label for="title">제목</label>
-				<input type="text" id="title" name="title" value="${board.title}" required>
+				<label for="title">제목</label> <input type="text" id="title"
+					name="title" value="${board.title}" required>
 			</div>
 			<div class="form-group">
-				<label for="description">내용</label>
-				<input type="text" id="description" name="description" value="${board.description}" required>
+				<label for="description">내용</label> <input type="text"
+					id="description" name="description" value="${board.description}"
+					required>
 			</div>
 			<div class="form-group">
 				<input type="hidden" name="postNumber" value="${board.postNumber}">

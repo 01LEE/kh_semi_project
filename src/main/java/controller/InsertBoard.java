@@ -31,8 +31,9 @@ public class InsertBoard implements Controller {
 		// 파라미터로 전달된 게시글 제목과 설명을 가져옴
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
+		String tag = request.getParameter("tag");
 
-		BoardsDTO dto = new BoardsDTO(userNumber, title, description);
+		BoardsDTO dto = new BoardsDTO(userNumber, title, description, tag);
 
 		int count = BoardsService.getInstance().insertBoard(dto);
 
