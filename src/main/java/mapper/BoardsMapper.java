@@ -7,7 +7,7 @@ public interface BoardsMapper {
 
 	List<BoardsDTO> selectAllBoards();
 
-	List<BoardsDTO> selectBoardByPostNumber(int postNumber);
+	BoardsDTO selectBoardByPostNumber(int postNumber);
 
 	int deleteBoardByPostNumber(int postNumber);
 

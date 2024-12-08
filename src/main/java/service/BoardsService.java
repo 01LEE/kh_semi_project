@@ -51,7 +51,7 @@ public class BoardsService {
 	 * @param postNumber 게시글 번호
 	 * @return 해당 게시글의 상세 정보 (List 형태로 반환)
 	 */
-	public List<BoardsDTO> selectBoardByPostNumber(int postNumber) {
+	public BoardsDTO selectBoardByPostNumber(int postNumber) {
 		return mapper.selectBoardByPostNumber(postNumber);
 	}
 
