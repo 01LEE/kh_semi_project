@@ -13,9 +13,9 @@
 			<!-- 하나의 게시글 객체에서 제목을 가져와서 입력 필드에 표시 -->
 			<label for="tag">태그 선택:</label>
 			<select id="tag" name="tag">
-				<option>자유</option>
-				<option>팁</option>
-				<option>후기</option>
+				<option value="자유" <c:if test="${board.tag == '자유'}">selected</c:if>>자유</option>
+				<option value="팁" <c:if test="${board.tag == '팁'}">selected</c:if>>팁</option>
+				<option value="후기" <c:if test="${board.tag == '후기'}">selected</c:if>>후기</option>
 			</select>
 			<div class="form-group">
 				<label for="title">제목</label> <input type="text" id="title"
