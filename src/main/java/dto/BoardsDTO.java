@@ -1,6 +1,7 @@
 package dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 /**
  * BoardsDTO 클래스는 게시판 데이터베이스의 게시글 정보를 캡슐화하는 데이터 전송 객체(Data Transfer Object)입니다.
@@ -152,6 +153,22 @@ public class BoardsDTO {
 
 	public void setUsers(UsersDTO users) {
 		this.users = users;
+	}
+
+	public String getFormattedCreateTime() {
+		if (createTime != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			return sdf.format(createTime);
+		}
+		return null;
+	}
+
+	public String getFormattedUpdateTime() {
+		if (updateTime != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			return sdf.format(updateTime);
+		}
+		return null;
 	}
 
 	/**

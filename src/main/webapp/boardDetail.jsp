@@ -88,6 +88,10 @@ a:hover {
 				<td>${board.postNumber}</td>
 			</tr>
 			<tr>
+				<th>Nick Name</th>
+				<td>${board.users.nickName}</td>
+			</tr>
+			<tr>
 				<th>Title</th>
 				<td>${board.title}</td>
 			</tr>

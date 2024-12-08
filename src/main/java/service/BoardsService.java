@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import config.DBManager;
 import dto.BoardsDTO;
@@ -83,5 +84,13 @@ public class BoardsService {
 	 */
 	public int updateBoard(BoardsDTO board) {
 		return mapper.updateBoard(board);
+	}
+
+	public List<BoardsDTO> searchBoardsByTitleSorted(Map<String, Object> params) {
+		return mapper.searchBoardsByTitleSorted(params);
+	}
+
+	public List<BoardsDTO> searchBoardsByWriterSorted(Map<String, Object> params) {
+		return mapper.searchBoardsByWriterSorted(params);
 	}
 }
