@@ -6,7 +6,7 @@
 </head>
 <body>
 	<!-- 공통 헤더 -->
-	<jsp:include page="header.html" />
+	<jsp:include page="header.jsp" />
 	<h1>수정</h1>
 	<form action="./syncBoard.do" method="post">
 		<c:if test="${not empty board}">

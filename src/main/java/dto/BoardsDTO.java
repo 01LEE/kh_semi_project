@@ -29,8 +29,13 @@ public class BoardsDTO {
 	private String tag;
 
 	// UsersDTO 연동
-	private UsersDTO users;
+	private String nickName;
 
+	//조회수
+	private int bcount;
+	
+	//좋아요
+	private int blike;
 	/**
 	 * 기본 생성자
 	 */
@@ -88,9 +93,11 @@ public class BoardsDTO {
 		this.description = description;
 		this.tag = tag;
 	}
+	
+	
 
 	public BoardsDTO(int postNumber, int userNumber, String title, String description, Timestamp createTime,
-			Timestamp updateTime, UsersDTO users, String tag) {
+			Timestamp updateTime, String tag, String nickName, int bcount, int blike) {
 		super();
 		this.postNumber = postNumber;
 		this.userNumber = userNumber;
@@ -98,8 +105,10 @@ public class BoardsDTO {
 		this.description = description;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
-		this.users = users;
 		this.tag = tag;
+		this.nickName = nickName;
+		this.bcount = bcount;
+		this.blike = blike;
 	}
 
 	// Getter와 Setter 메서드
@@ -151,20 +160,36 @@ public class BoardsDTO {
 		this.updateTime = updateTime;
 	}
 
-	public UsersDTO getUsers() {
-		return users;
-	}
-
-	public void setUsers(UsersDTO users) {
-		this.users = users;
-	}
-
 	public String getTag() {
 		return tag;
 	}
 
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+	
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public int getBcount() {
+		return bcount;
+	}
+
+	public void setBcount(int bcount) {
+		this.bcount = bcount;
+	}
+
+	public int getBlike() {
+		return blike;
+	}
+
+	public void setBlike(int blike) {
+		this.blike = blike;
 	}
 
 	public String getFormattedCreateTime() {

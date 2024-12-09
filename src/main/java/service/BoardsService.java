@@ -3,6 +3,8 @@ package service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+
 import config.DBManager;
 import dto.BoardsDTO;
 import mapper.BoardsMapper;
@@ -43,7 +45,10 @@ public class BoardsService {
 	 * @return 게시글 목록 (List 형태로 반환)
 	 */
 	public List<BoardsDTO> selectAllBoards() {
-		return mapper.selectAllBoards();
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			return mapper.selectAllBoards();
+		}
 	}
 
 	/**

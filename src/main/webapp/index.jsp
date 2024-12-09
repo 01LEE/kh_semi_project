@@ -13,7 +13,7 @@
 </head>
 <body>
 	<!-- 공통 헤더 -->
-	<jsp:include page="header.html" />
+	<jsp:include page="header.jsp" />
 
 	<%
 	// 세션 확인 및 복구

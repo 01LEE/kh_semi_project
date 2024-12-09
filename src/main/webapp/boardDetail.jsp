@@ -79,7 +79,7 @@ a:hover {
 </style>
 <body>
 	<!-- 공통 헤더 -->
-	<jsp:include page="header.html" />
+	<jsp:include page="header.jsp" />
 	<c:if test="${not empty board}">
 		<table border="1">
 			<!-- 단일 게시글이므로 반복문을 제거하고, 바로 board 객체를 사용 -->
@@ -93,7 +93,7 @@ a:hover {
 			</tr>
 			<tr>
 				<th>Nick Name</th>
-				<td>${board.users.nickName}</td>
+				<td>${board.nickName}</td>
 			</tr>
 			<tr>
 				<th>Title</th>
@@ -116,6 +116,14 @@ a:hover {
 						<c:otherwise>${board.createTime}</c:otherwise>
 					</c:choose>
 				</td>
+			</tr>
+			<tr>
+				<th>view count</th>
+				<td>${board.bcount }</td>
+			</tr>
+			<tr>
+				<th>like count</th>
+				<td>${board.blike }</td>
 			</tr>
 		</table>
 	</c:if>

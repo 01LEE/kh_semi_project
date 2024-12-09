@@ -108,7 +108,7 @@ body {
 </head>
 <body>
 	<!-- 공통 헤더 -->
-	<jsp:include page="header.html" />
+	<jsp:include page="header.jsp" />
 	<div class="login-container">
 		<h1>로그인</h1>
 		<!-- 로그인 처리 form -->

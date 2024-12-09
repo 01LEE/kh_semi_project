@@ -27,6 +27,9 @@ public class HandlerMapping {
 		case "deleteBoard":
 			controller = new DeleteBoardByPostNumber();
 			break;
+		case "boardWriteView":
+			controller = new BoardWriteViewController();
+			break;
 		case "insertBoard":
 			controller = new InsertBoard();
 			break;

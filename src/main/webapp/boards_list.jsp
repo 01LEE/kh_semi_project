@@ -9,7 +9,7 @@
 </head>
 <body>
 	<!-- 공통 헤더 -->
-	<jsp:include page="header.html" />
+	<jsp:include page="header.jsp" />
 
 	<h1>게시글 목록</h1>
 
@@ -55,6 +55,8 @@
 					<th>nickName</th>
 					<th>Title</th>
 					<th>Created/Updated</th>
+					<th>view count</th>
+					<th>like count</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -63,7 +65,7 @@
 						<td>${board.postNumber}</td>
 						<!-- tag 값이 null일 경우 빈 문자열로 출력 -->
 						<td>${board.tag != null ? board.tag : ''}</td>
-						<td>${board.users.nickName}</td>
+						<td>${board.nickName}</td>
 						<td><a href="./boardDetail.do?postNumber=${board.postNumber}">${board.title}</a></td>
 						<td><c:choose>
 								<c:when test="${board.updateTime != null}">
@@ -73,6 +75,8 @@
                                     ${board.formattedCreateTime}
                                 </c:otherwise>
 							</c:choose></td>
+							<td>${board.bcount }</td>
+							<td>${board.blike }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -85,7 +89,7 @@
 	</c:if>
 
 	<!-- 글쓰기 링크 -->
-	<a href="insert_board.jsp">글쓰기</a>
+	<a href="./boardWriteView.do">글쓰기</a>
 
 	<!-- 목록으로 돌아가기 링크 -->
 	<br>

@@ -33,8 +33,12 @@ public class InsertBoard implements Controller {
 		String description = request.getParameter("description");
 		String tag = request.getParameter("tag");
 
-		BoardsDTO dto = new BoardsDTO(userNumber, title, description, tag);
-
+		BoardsDTO dto = new BoardsDTO();
+		dto.setUserNumber(userNumber);
+		dto.setTag(tag);
+		dto.setTitle(title);
+		dto.setDescription(description);
+		
 		int count = BoardsService.getInstance().insertBoard(dto);
 
 		ModelAndView view = new ModelAndView();
