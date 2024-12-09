@@ -3,6 +3,10 @@
 <html>
 <head>
 <title>수정</title>
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<script
+	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 </head>
 <body>
 	<!-- 공통 헤더 -->
@@ -22,9 +26,9 @@
 					name="title" value="${board.title}" required>
 			</div>
 			<div class="form-group">
-				<label for="description">내용</label> <input type="text"
-					id="description" name="description" value="${board.description}"
-					required>
+				<label for="description">내용</label>
+				<div id="description">${board.description}</div>
+				<input type="hidden" name="description">
 			</div>
 			<div class="form-group">
 				<input type="hidden" name="postNumber" value="${board.postNumber}">
@@ -34,5 +38,23 @@
 		</c:if>
 	</form>
 </body>
+<script>
+        window.onload = () => {
+        	const editor = new toastui.Editor({
+        		  el: document.querySelector('#description'),
+        		  height: '500px',
+        		  initialEditType: 'wysiwyg',
+        		  previewStyle: 'vertical',
+        		  initialValue: "${board.description}"
+        		});
+
+        	document.querySelector('form').onsubmit = (e) => {
+        		//e.preventDefault();
+        		console.log(editor.getHTML());
+        		console.log(editor.getMarkdown());
+        		document.querySelector('input[name=description]').value = editor.getHTML();
+        	}	
+        }
+</script>
 </html>
 
