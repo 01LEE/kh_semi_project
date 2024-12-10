@@ -98,7 +98,8 @@ public class BoardsService {
 	public List<BoardsDTO> searchBoardsByWriterSorted(Map<String, Object> params) {
 		return mapper.searchBoardsByWriterSorted(params);
 	}
-
+	
+	//조회수 
 	public int updateBoardsCount(int postNumber) {
 		return mapper.updateBoardsCount(postNumber);
 		

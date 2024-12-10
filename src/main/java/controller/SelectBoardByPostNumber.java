@@ -22,6 +22,8 @@ public class SelectBoardByPostNumber implements Controller {
 		int postNumber = Integer.parseInt(request.getParameter("postNumber"));
 		//유저 번호 가져오기
 		HttpSession session = request.getSession();
+		UsersDTO user = (UsersDTO) session.getAttribute("user");
+		//조회수
 		HashSet<Integer> history = (HashSet<Integer>) session.getAttribute("history");
 		if(history == null) {
 			history = new HashSet<Integer>();
@@ -30,7 +32,6 @@ public class SelectBoardByPostNumber implements Controller {
 		if(history.add(postNumber))
 			BoardsService.getInstance().updateBoardsCount(postNumber);
 		
-        UsersDTO user = (UsersDTO) session.getAttribute("user");
         
 		// 게시글 상세 조회 서비스 호출
         BoardsDTO board = BoardsService.getInstance().selectBoardByPostNumber(postNumber);

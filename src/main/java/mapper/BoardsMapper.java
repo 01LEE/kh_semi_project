@@ -24,7 +24,8 @@ public interface BoardsMapper {
 	List<BoardsDTO> searchBoardsByTitleSorted(Map<String, Object> params);
 
 	List<BoardsDTO> searchBoardsByWriterSorted(Map<String, Object> params);
-
+	
+	//조회수
 	int updateBoardsCount(int postNumber);
 
 }
