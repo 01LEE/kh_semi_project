@@ -59,6 +59,12 @@ public class HandlerMapping {
 			System.out.println("[HandlerMapping] LogoutController 생성 -> LogoutController.java");
 			controller = new LogoutController();
 			break;
+		case "commentWrite":
+			controller = new CommentWriteController();
+			break;
+		case "commentDelete":
+			controller = new CommentDeleteController();
+			break;
 		}
 		return controller;
 	}

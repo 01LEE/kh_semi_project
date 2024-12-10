@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import dto.BoardsDTO;
+import dto.CommentsDTO;
 import dto.UsersDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,6 +36,8 @@ public class SelectBoardByPostNumber implements Controller {
         
 		// 게시글 상세 조회 서비스 호출
         BoardsDTO board = BoardsService.getInstance().selectBoardByPostNumber(postNumber);
+        
+        List<CommentsDTO> commentList = BoardsService.getInstance().getCommentList(postNumber);
 		
 		//유저 번호가 null이 아닌 경우
         boolean writer = false;
@@ -44,6 +47,7 @@ public class SelectBoardByPostNumber implements Controller {
 		ModelAndView view = new ModelAndView();
 		view.addObject("board", board);
 		view.addObject("writer", writer);
+		view.addObject("commentList", commentList);
 		view.setPath("boardDetail.jsp");
 		view.setRedirect(false);
 		return view;

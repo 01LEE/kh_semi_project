@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import config.DBManager;
 import dto.BoardsDTO;
+import dto.CommentsDTO;
 import mapper.BoardsMapper;
 
 /**
@@ -102,6 +103,19 @@ public class BoardsService {
 	//조회수 
 	public int updateBoardsCount(int postNumber) {
 		return mapper.updateBoardsCount(postNumber);
+		
+	}
+
+	public int insertComment(CommentsDTO comment) {
+			return mapper.insertComment(comment);
+	}
+
+	public List<CommentsDTO> getCommentList(int postNumber) {
+		return mapper.getCommentList(postNumber);
+	}
+
+	public int deleteComment(int commentNumber) {
+		return mapper.deleteComment(commentNumber);
 		
 	}
 }

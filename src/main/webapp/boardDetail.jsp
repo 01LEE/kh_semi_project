@@ -76,6 +76,9 @@ a:hover {
 	gap: 10px; /* 버튼 간격 */
 	margin-left: auto;
 }
+p{
+height: 50px;
+}
 </style>
 <body>
 	<!-- 공통 헤더 -->
@@ -104,18 +107,14 @@ a:hover {
 				<td>${board.description}</td>
 			</tr>
 			<tr>
-				<th>
-					<c:choose>
+				<th><c:choose>
 						<c:when test="${board.updateTime != null}">수정일</c:when>
 						<c:otherwise>작성일</c:otherwise>
-					</c:choose>
-				</th>
-				<td>
-					<c:choose>
+					</c:choose></th>
+				<td><c:choose>
 						<c:when test="${board.updateTime != null}">${board.updateTime}</c:when>
 						<c:otherwise>${board.createTime}</c:otherwise>
-					</c:choose>
-				</td>
+					</c:choose></td>
 			</tr>
 			<tr>
 				<th>view count</th>
@@ -142,7 +141,26 @@ a:hover {
 			</c:if>
 		</div>
 	</div>
-
+	<!-- 댓글 입력 폼 -->
+	<div class="comment_form">
+		<form action="commentWrite.do" method="post">
+			<input type="hidden" name="postNumber" value="${board.postNumber}">
+			<textarea name="comment" placeholder="댓글을 입력하세요"></textarea>
+			<button>댓글작성</button>
+		</form>
+	</div>
+	<c:forEach var="comment" items="${commentList}">
+			<div class="comment">
+				<p>
+					<input type="hidden" name="commentNumber" value="${comment.commentNumber}"> 
+				</p>
+				<p>${comment.cDescription}</p>
+				<c:if test="${comment.userNumber == sessionScope.user.userNumber}">
+					<a href="./commentDelete.do?commentNumber=${comment.commentNumber}&postNumber=${comment.postNumber}">댓글 삭제</a>
+				</c:if>
+			</div>
+			<hr>
+	</c:forEach>
 </body>
 </html>
 
