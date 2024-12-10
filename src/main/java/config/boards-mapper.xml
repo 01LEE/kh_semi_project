@@ -95,4 +95,7 @@
 			<if test="order == 'asc'">ASC</if>
 		</if>
 	</select>
+	<update id="updateBoardsCount">
+		update boards set bcount = bcount + 1 where post_number = #{postNumber}
+	</update>
 </mapper>

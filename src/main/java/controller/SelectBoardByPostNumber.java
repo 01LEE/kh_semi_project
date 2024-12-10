@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 
 import dto.BoardsDTO;
@@ -18,10 +19,17 @@ public class SelectBoardByPostNumber implements Controller {
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//글 번호 가져오기
-		String postNumberStr = request.getParameter("postNumber");
-		int postNumber = Integer.parseInt(postNumberStr);
+		int postNumber = Integer.parseInt(request.getParameter("postNumber"));
 		//유저 번호 가져오기
 		HttpSession session = request.getSession();
+		HashSet<Integer> history = (HashSet<Integer>) session.getAttribute("history");
+		if(history == null) {
+			history = new HashSet<Integer>();
+			session.setAttribute("history", history);
+		}
+		if(history.add(postNumber))
+			BoardsService.getInstance().updateBoardsCount(postNumber);
+		
         UsersDTO user = (UsersDTO) session.getAttribute("user");
         
 		// 게시글 상세 조회 서비스 호출
