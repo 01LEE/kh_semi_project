@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import service.BoardsService;
 import view.ModelAndView;
 
-public class UpdateBoard implements Controller {
+public class BoardUpdateController implements Controller {
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response)

@@ -19,31 +19,31 @@ public class HandlerMapping {
 			controller = new SelectAllUsers();
 			break;
 		case "allBoard":
-			controller = new SelectAllBoards();
+			controller = new BoardMainView();
 			break;
 		case "boardDetail":
-			controller = new SelectBoardByPostNumber();
+			controller = new BoardViewController();
 			break;
 		case "deleteBoard":
-			controller = new DeleteBoardByPostNumber();
+			controller = new BoardDeleteController();
 			break;
 		case "boardWriteView":
-			controller = new BoardWriteViewController();
+			controller = new BoardInsertViewController();
 			break;
 		case "insertBoard":
-			controller = new InsertBoard();
+			controller = new BoardInsertController();
 			break;
 		case "updateBoard":
-			controller = new UpdateBoardPage();
+			controller = new BoardUpdateViewController();
 			break;
 		case "syncBoard":
-			controller = new UpdateBoard();
+			controller = new BoardUpdateController();
 			break;
 		case "region":
-			controller = new regionintro();
+			controller = new RegionIntro();
 			break;
 		case "regionDetail":
-			controller = new regionDetail();
+			controller = new RegionDetail();
 			break;
 		case "insertMember":
 			controller = new InsertMember(); // 회원 추가

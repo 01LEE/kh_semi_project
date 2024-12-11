@@ -10,21 +10,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import service.BoardsService;
 import view.ModelAndView;
 
-public class UpdateBoardPage implements Controller {
+public class BoardMainView implements Controller {
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String postNumberStr = request.getParameter("postNumber");
-		int postNumber = Integer.parseInt(postNumberStr);
-
-		// 게시글 상세 조회 서비스 호출
-		BoardsDTO board = BoardsService.getInstance().selectBoardByPostNumber(postNumber);
+		List<BoardsDTO> list = BoardsService.getInstance().selectAllBoards();
 
 		ModelAndView view = new ModelAndView();
-		view.addObject("board", board);
-		view.setPath("update_board.jsp");
+		view.addObject("list", list);
+		view.setPath("board_list.jsp");
 		view.setRedirect(false);
 		return view;
 	}
+
 }

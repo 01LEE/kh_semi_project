@@ -17,6 +17,7 @@
 		<result column="nick_name" property="nickName" />
 		<result column="blike" property="blike" />
 		<result column="bcount" property="bcount" />
+		<result column="ccount" property="ccount" />
 	</resultMap>
 	<resultMap type="dto.CommentsDTO" id="comments">
 		<id column="comment_number" property="commentNumber" />
@@ -30,7 +31,7 @@
 
 	<!-- 전체 게시판 목록 조회 쿼리 -->
 	<select id="selectAllBoards" resultMap="boards">
-		select * from BOARD_VIEW
+		SELECT * FROM board_view ORDER BY POST_NUMBER DESC
 	</select>
 
 	<!-- 게시글 하나만 조회 -->
@@ -110,16 +111,18 @@
 		update boards set bcount = bcount + 1 where
 		post_number = #{postNumber}
 	</update>
-
+	<!-- 댓글 작성 -->
 	<insert id="insertComment" parameterType="dto.CommentsDTO">
 		insert into
 		comments(comment_number, post_number, user_number, c_description)
 		values(SEQ_COMMENTS_COMMENT_NUMBER.nextval, #{postNumber},
 		#{userNumber}, #{cDescription})
 	</insert>
+	<!-- 댓글 조회 -->
 	<select id="getCommentList" resultMap="comments">
-		select * from comments_view
+		select * from comments_view where post_number = #{postNumber} ORDER BY COMMENT_NUMBER
 	</select>
+	<!-- 댓글 삭제 -->
 	<delete id="deleteComment">
 		DELETE FROM COMMENTS WHERE COMMENT_NUMBER = #{commentNumber}
 	</delete>

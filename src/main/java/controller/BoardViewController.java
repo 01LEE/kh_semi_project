@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import service.BoardsService;
 import view.ModelAndView;
 
-public class SelectBoardByPostNumber implements Controller {
+public class BoardViewController implements Controller {
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response)
@@ -48,7 +48,7 @@ public class SelectBoardByPostNumber implements Controller {
 		view.addObject("board", board);
 		view.addObject("writer", writer);
 		view.addObject("commentList", commentList);
-		view.setPath("boardDetail.jsp");
+		view.setPath("board_view.jsp");
 		view.setRedirect(false);
 		return view;
 	}

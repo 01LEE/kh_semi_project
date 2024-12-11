@@ -25,7 +25,8 @@ public class BoardsDTO {
 
 	// 게시글 수정 시간
 	private Timestamp updateTime;
-
+	
+	//카테고리
 	private String tag;
 
 	// UsersDTO 연동
@@ -36,6 +37,9 @@ public class BoardsDTO {
 	
 	//좋아요
 	private int blike;
+	
+	//댓글 수
+	private int ccount;
 	/**
 	 * 기본 생성자
 	 */
@@ -94,10 +98,8 @@ public class BoardsDTO {
 		this.tag = tag;
 	}
 	
-	
-
 	public BoardsDTO(int postNumber, int userNumber, String title, String description, Timestamp createTime,
-			Timestamp updateTime, String tag, String nickName, int bcount, int blike) {
+			Timestamp updateTime, String tag, String nickName, int bcount, int blike, int ccount) {
 		super();
 		this.postNumber = postNumber;
 		this.userNumber = userNumber;
@@ -109,6 +111,7 @@ public class BoardsDTO {
 		this.nickName = nickName;
 		this.bcount = bcount;
 		this.blike = blike;
+		this.ccount = ccount;
 	}
 
 	// Getter와 Setter 메서드
@@ -206,6 +209,14 @@ public class BoardsDTO {
 			return sdf.format(updateTime);
 		}
 		return null;
+	}
+	
+	public int getCcount() {
+		return ccount;
+	}
+
+	public void setCcount(int ccount) {
+		this.ccount = ccount;
 	}
 
 	/**

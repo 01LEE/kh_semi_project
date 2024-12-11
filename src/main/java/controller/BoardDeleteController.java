@@ -14,7 +14,7 @@ import view.ModelAndView;
  * DeleteBoardByPostNumber 클래스는 게시글 번호(postNumber)를 기반으로 게시글을 삭제하는 요청을 처리하는
  * 컨트롤러입니다.
  */
-public class DeleteBoardByPostNumber implements Controller {
+public class BoardDeleteController implements Controller {
 
 	/**
 	 * 클라이언트의 요청을 처리하여 게시글을 삭제하고, 처리 결과에 따라 적절한 경로로 리다이렉트하거나 포워딩합니다.
@@ -30,10 +30,7 @@ public class DeleteBoardByPostNumber implements Controller {
 			throws ServletException, IOException {
 
 		// 클라이언트로부터 전달받은 게시글 번호 (postNumber) 가져오기
-		String postNumberStr = request.getParameter("postNumber");
-
-		// postNumber를 정수로 변환
-		int postNumber = Integer.parseInt(postNumberStr);
+		int postNumber = Integer.parseInt(request.getParameter("postNumber"));
 
 		// 게시글 삭제 서비스 호출
 		int result = BoardsService.getInstance().deleteBoardByPostNumber(postNumber);

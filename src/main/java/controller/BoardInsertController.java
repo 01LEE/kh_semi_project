@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import service.BoardsService;
 import view.ModelAndView;
 
-public class InsertBoard implements Controller {
+public class BoardInsertController implements Controller {
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response)
