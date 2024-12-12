@@ -72,6 +72,9 @@ public class HandlerMapping {
 			controller = new BoardsCategoryController();
 			System.out.println("[HandlerMapping] Command: " + command);
 			break;
+		case "boardsList": // 새로 추가된 컨트롤러
+			controller = new BoardSelectController();
+			break;
 		}
 		return controller;
 	}
