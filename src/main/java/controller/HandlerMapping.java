@@ -68,6 +68,10 @@ public class HandlerMapping {
 		case "fileDown":
 			controller = new BoardFileDownController();
 			break;
+		case "boardsCategory": // 새로 추가된 컨트롤러
+			controller = new BoardsCategoryController();
+			System.out.println("[HandlerMapping] Command: " + command);
+			break;
 		}
 		return controller;
 	}

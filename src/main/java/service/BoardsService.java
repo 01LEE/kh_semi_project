@@ -76,8 +76,7 @@ public class BoardsService {
 	/**
 	 * 새로운 게시글을 데이터베이스에 삽입합니다.
 	 * 
-	 * @param dto      게시글 정보를 담은 DTO 객체
-	 * @param fileList
+	 * @param dto 게시글 정보를 담은 DTO 객체
 	 * @return 삽입된 행의 수
 	 */
 	public int insertBoard(BoardsDTO dto, List<BoardFileDTO> fList) {
@@ -109,12 +108,11 @@ public class BoardsService {
 		return mapper.updateBoard(board);
 	}
 
-	public List<BoardsDTO> searchBoardsByTitleSorted(Map<String, Object> params) {
-		return mapper.searchBoardsByTitleSorted(params);
-	}
-
-	public List<BoardsDTO> searchBoardsByWriterSorted(Map<String, Object> params) {
-		return mapper.searchBoardsByWriterSorted(params);
+	public List<BoardsDTO> getBoardsByTag(String tag) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			return mapper.getBoardsByTag(tag);
+		}
 	}
 
 	// 조회수
@@ -136,6 +134,48 @@ public class BoardsService {
 
 	}
 
+	public int getBoardCount(Map<String, Object> params) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			return mapper.getBoardCount(params);
+		}
+	}
+
+	public List<BoardsDTO> selectBoards(int offset, int pageSize) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			return mapper.selectBoards(offset, pageSize); // 페이징된 게시글 목록 조회
+		}
+	}
+
+	public List<BoardsDTO> searchBoards(Map<String, Object> params) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			return mapper.searchBoards(params);
+		}
+	}
+
+	public int getTotalRecords() {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			return mapper.getBoardCount(null); // 조건 없이 전체 게시글 수 조회
+		}
+	}
+
+	public int getBoardCountByTag(String tag) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			return mapper.getBoardCountByTag(tag);
+		}
+	}
+
+	public List<BoardsDTO> getBoardsByTagWithPaging(String tag, int offset, int pageSize) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			return mapper.getBoardsByTagWithPaging(tag, offset, pageSize);
+		}
+	}
+
 	public List<BoardFileDTO> selectFileList(int postNumber) {
 		return mapper.selectFileList(postNumber);
 	}
@@ -143,4 +183,5 @@ public class BoardsService {
 	public String selectFilePath(int fileNumber) {
 		return mapper.selectFilePath(fileNumber);
 	}
+
 }
