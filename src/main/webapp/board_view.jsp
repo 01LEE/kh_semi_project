@@ -109,13 +109,15 @@ textarea {
 	width: 1050px;
 	height: 50px;
 }
-.comment-table{
-font-size: 16px;
+
+.comment-table {
+	font-size: 16px;
 }
-.comment-table td{
-line-height: 2;
-text-decoration: none;
-color: black;
+
+.comment-table td {
+	line-height: 2;
+	text-decoration: none;
+	color: black;
 }
 </style>
 <body>
@@ -172,15 +174,21 @@ color: black;
 					<input type="hidden" name="commentNumber"
 						value="${comment.commentNumber}">
 					<tr>
-						<td>${comment.nickName} (${comment.cmtCreateTime}) 
-						<c:if test="${comment.userNumber == sessionScope.user.userNumber}">
-							<a href="./commentDelete.do?commentNumber=${comment.commentNumber}&postNumber=${comment.postNumber}">삭제</a>
-						</c:if>
-						<br>${comment.cDescription}
+						<td>${comment.nickName}(${comment.cmtCreateTime}) <c:if
+								test="${comment.userNumber == sessionScope.user.userNumber}">
+								<a
+									href="./commentDelete.do?commentNumber=${comment.commentNumber}&postNumber=${comment.postNumber}">삭제</a>
+							</c:if> <br>${comment.cDescription}
 						</td>
 					</tr>
 				</c:forEach>
 			</table>
+		</div>
+		<div></div>
+		<p>첨부파일 목록</p>
+			<c:forEach var="file" items="${fileList}">
+				<a href="./fileDown.do?fileNumber=${file.fileNumber}">${file.fileName}</a><br>
+			</c:forEach>
 		</div>
 	</div>
 </body>

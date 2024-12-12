@@ -3,6 +3,7 @@ package mapper;
 import java.util.List;
 import java.util.Map;
 
+import dto.BoardFileDTO;
 import dto.BoardsDTO;
 import dto.CommentsDTO;
 
@@ -34,5 +35,13 @@ public interface BoardsMapper {
 	List<CommentsDTO> getCommentList(int postNumber);
 
 	int deleteComment(int commentNumber);
+	//파일업로드 부분 글번호 조회
+	int selectPostNumber();
+	//파일업로드
+	int insertBoardFile(BoardFileDTO item);
+
+	List<BoardFileDTO> selectFileList(int postNumber);
+
+	String selectFilePath(int fileNumber);
 
 }

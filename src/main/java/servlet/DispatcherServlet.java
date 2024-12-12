@@ -1,6 +1,7 @@
 package servlet;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -19,6 +20,7 @@ import controller.HandlerMapping;
 import dto.UsersDTO;
 
 @WebServlet("*.do")
+@MultipartConfig(maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 50)
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

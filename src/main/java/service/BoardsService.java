@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import config.DBManager;
+import dto.BoardFileDTO;
 import dto.BoardsDTO;
 import dto.CommentsDTO;
 import mapper.BoardsMapper;
@@ -75,11 +76,27 @@ public class BoardsService {
 	/**
 	 * 새로운 게시글을 데이터베이스에 삽입합니다.
 	 * 
-	 * @param dto 게시글 정보를 담은 DTO 객체
+	 * @param dto      게시글 정보를 담은 DTO 객체
+	 * @param fileList
 	 * @return 삽입된 행의 수
 	 */
-	public int insertBoard(BoardsDTO dto) {
-		return mapper.insertBoard(dto);
+	public int insertBoard(BoardsDTO dto, List<BoardFileDTO> fList) {
+		System.out.println("sdfsad");
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			int postNumber = mapper.selectPostNumber();
+			System.out.println(postNumber);
+			dto.setPostNumber(postNumber);
+			int count = mapper.insertBoard(dto);
+			System.out.println(dto.getTitle());
+			System.out.println(dto.getDescription());
+			System.out.println(dto.getTag());
+			fList.forEach(item -> {
+				item.setPostNumber(postNumber);
+				mapper.insertBoardFile(item);
+			});
+			return count;
+		}
 	}
 
 	/**
@@ -99,15 +116,15 @@ public class BoardsService {
 	public List<BoardsDTO> searchBoardsByWriterSorted(Map<String, Object> params) {
 		return mapper.searchBoardsByWriterSorted(params);
 	}
-	
-	//조회수 
+
+	// 조회수
 	public int updateBoardsCount(int postNumber) {
 		return mapper.updateBoardsCount(postNumber);
-		
+
 	}
 
 	public int insertComment(CommentsDTO comment) {
-			return mapper.insertComment(comment);
+		return mapper.insertComment(comment);
 	}
 
 	public List<CommentsDTO> getCommentList(int postNumber) {
@@ -116,6 +133,14 @@ public class BoardsService {
 
 	public int deleteComment(int commentNumber) {
 		return mapper.deleteComment(commentNumber);
-		
+
+	}
+
+	public List<BoardFileDTO> selectFileList(int postNumber) {
+		return mapper.selectFileList(postNumber);
+	}
+
+	public String selectFilePath(int fileNumber) {
+		return mapper.selectFilePath(fileNumber);
 	}
 }

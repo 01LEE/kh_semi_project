@@ -65,6 +65,9 @@ public class HandlerMapping {
 		case "commentDelete":
 			controller = new CommentDeleteController();
 			break;
+		case "fileDown":
+			controller = new BoardFileDownController();
+			break;
 		}
 		return controller;
 	}

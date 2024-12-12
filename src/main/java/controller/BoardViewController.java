@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 
+import dto.BoardFileDTO;
 import dto.BoardsDTO;
 import dto.CommentsDTO;
 import dto.UsersDTO;
@@ -39,6 +40,8 @@ public class BoardViewController implements Controller {
         
         List<CommentsDTO> commentList = BoardsService.getInstance().getCommentList(postNumber);
 		
+        List<BoardFileDTO> fileList = BoardsService.getInstance().selectFileList(postNumber);
+        
 		//유저 번호가 null이 아닌 경우
         boolean writer = false;
         if (user != null && board != null) {
@@ -48,6 +51,7 @@ public class BoardViewController implements Controller {
 		view.addObject("board", board);
 		view.addObject("writer", writer);
 		view.addObject("commentList", commentList);
+		view.addObject("fileList", fileList);
 		view.setPath("board_view.jsp");
 		view.setRedirect(false);
 		return view;
