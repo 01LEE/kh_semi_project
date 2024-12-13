@@ -47,9 +47,11 @@ public class BoardViewController implements Controller {
         if (user != null && board != null) {
         	writer = (user.getUserNumber() == board.getUserNumber());
         }
+        System.out.println(user.getGrade());
 		ModelAndView view = new ModelAndView();
 		view.addObject("board", board);
 		view.addObject("writer", writer);
+		view.addObject("user", user);
 		view.addObject("commentList", commentList);
 		view.addObject("fileList", fileList);
 		view.setPath("board_view.jsp");

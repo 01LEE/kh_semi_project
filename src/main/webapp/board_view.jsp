@@ -153,7 +153,7 @@ textarea {
 
 			<!-- 오른쪽으로 배치할 버튼 -->
 			<div class="right">
-				<c:if test="${writer}">
+				<c:if test="${writer || sessionScope.user.grade == 'admin'}">
 					<a href="./updateBoard.do?postNumber=${board.postNumber}"><button>수정</button></a>
 					<a href="./deleteBoard.do?postNumber=${board.postNumber}"><button>삭제</button></a>
 				</c:if>
@@ -174,8 +174,8 @@ textarea {
 					<input type="hidden" name="commentNumber"
 						value="${comment.commentNumber}">
 					<tr>
-						<td>${comment.nickName}(${comment.cmtCreateTime}) <c:if
-								test="${comment.userNumber == sessionScope.user.userNumber}">
+						<td>${comment.nickName}(${comment.cmtCreateTime})<c:if
+								test="${comment.userNumber == sessionScope.user.userNumber || sessionScope.user.grade == 'admin'}">
 								<a
 									href="./commentDelete.do?commentNumber=${comment.commentNumber}&postNumber=${comment.postNumber}">삭제</a>
 							</c:if> <br>${comment.cDescription}
@@ -186,10 +186,11 @@ textarea {
 		</div>
 		<div></div>
 		<p>첨부파일 목록</p>
-			<c:forEach var="file" items="${fileList}">
-				<a href="./fileDown.do?fileNumber=${file.fileNumber}">${file.fileName}</a><br>
-			</c:forEach>
-		</div>
+		<c:forEach var="file" items="${fileList}">
+			<a href="./fileDown.do?fileNumber=${file.fileNumber}">${file.fileName}</a>
+			<br>
+		</c:forEach>
+	</div>
 	</div>
 </body>
 </html>
