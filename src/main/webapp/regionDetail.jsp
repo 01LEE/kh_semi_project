@@ -19,6 +19,12 @@
 		<img src="${regionDetail.imageUrl}" alt="${regionDetail.title}" />
 	</div>
 
-	<!-- 여기에 필요에 따라 추가적인 UI 요소를 넣을 수 있습니다. -->
+	<c:if test="${sessionScope.user != null}">
+		<c:set var="user" value="${sessionScope.user}" />
+		<c:if test="${user.grade == 'admin'}">
+			<a href="./updateRegion.do?regionNumber=${regionDetail.regionNumber}"><button>수정</button></a>
+			<a href="./deleteRegion.do?regionNumber=${regionDetail.regionNumber}"><button>삭제</button></a>
+		</c:if>
+	</c:if>
 </body>
 </html>

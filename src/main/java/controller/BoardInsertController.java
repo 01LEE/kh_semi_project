@@ -33,15 +33,10 @@ public class BoardInsertController implements Controller {
 		}
 
 		int userNumber = user.getUserNumber();
-		System.out.println(userNumber);
 		// 파라미터로 전달된 게시글 제목과 설명을 가져옴
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
 		String tag = request.getParameter("tag");
-		System.out.println(userNumber);
-		System.out.println(title);
-		System.out.println(description);
-		System.out.println(tag);
 
 		// 파일 업로드 처리
 		File root = new File("c:\\fileupload");

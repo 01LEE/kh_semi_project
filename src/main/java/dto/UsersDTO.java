@@ -12,6 +12,7 @@ public class UsersDTO {
 	private Timestamp pwUpdateTime;
 	private String userName;
 	private String userEmail;
+	private String grade;
 
 	public UsersDTO() {
 	}
@@ -28,6 +29,7 @@ public class UsersDTO {
 		this.pwUpdateTime = pwUpdateTime;
 		this.userName = userName;
 		this.userEmail = userEmail;
+		this.grade = grade;
 	}
 
 	public int getUserNumber() {
@@ -101,5 +103,14 @@ public class UsersDTO {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+	
 
 }

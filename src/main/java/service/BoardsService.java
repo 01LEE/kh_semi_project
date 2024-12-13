@@ -80,16 +80,11 @@ public class BoardsService {
 	 * @return 삽입된 행의 수
 	 */
 	public int insertBoard(BoardsDTO dto, List<BoardFileDTO> fList) {
-		System.out.println("sdfsad");
 		try (SqlSession session = DBManager.getInstance().getSession()) {
 			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
 			int postNumber = mapper.selectPostNumber();
-			System.out.println(postNumber);
 			dto.setPostNumber(postNumber);
 			int count = mapper.insertBoard(dto);
-			System.out.println(dto.getTitle());
-			System.out.println(dto.getDescription());
-			System.out.println(dto.getTag());
 			fList.forEach(item -> {
 				item.setPostNumber(postNumber);
 				mapper.insertBoardFile(item);
@@ -104,8 +99,17 @@ public class BoardsService {
 	 * @param board 수정할 게시글 정보를 담은 DTO 객체
 	 * @return 업데이트된 행의 수
 	 */
-	public int updateBoard(BoardsDTO board) {
-		return mapper.updateBoard(board);
+	public int updateBoard(BoardsDTO dto, List<BoardFileDTO> fList) {
+		// 게시글 내용 업데이트
+        int count = mapper.updateBoard(dto); // dto는 수정할 게시글 정보
+        // 기존 파일 삭제 (필요한 경우)
+        mapper.deleteBoardFile(dto.getPostNumber());
+        // 새로운 파일 추가
+        fList.forEach(item -> {
+            item.setPostNumber(dto.getPostNumber());
+            mapper.insertBoardFile(item); 
+        });
+        return count;
 	}
 
 	public List<BoardsDTO> getBoardsByTag(String tag) {

@@ -28,13 +28,13 @@
 		<result column="cmt_update_time" property="cmtUpdateTime" />
 		<result column="nick_name" property="nickName" />
 	</resultMap>
-	
+
 	<resultMap type="dto.BoardFileDTO" id="file">
 		<id column="file_number" property="fileNumber" />
 		<result column="post_number" property="postNumber" />
 		<result column="file_path" property="filePath" />
 	</resultMap>
-	
+
 	<!-- 전체 게시판 목록 조회 쿼리 -->
 	<select id="selectAllBoards" resultMap="boards">
 		SELECT * FROM board_view
@@ -215,22 +215,28 @@
 		board_file(file_number,post_number,file_path)
 		values(FILE_NUMBER_SEQ.nextval, #{postNumber}, #{filePath})
 	</insert>
-	
+
 	<!-- 첨부파일 목록 -->
 	<select id="selectFileList" parameterType="int" resultMap="file">
 		select * from board_file where post_number = #{postNumber}
 	</select>
-	
+
 	<!-- 파일 다운로드 -->
 	<select id="selectFilePath" parameterType="int"
 		resultType="string">
 		select file_path from board_file where file_number =
 		#{fileNumber}
 	</select>
-	
+
 	<!-- 파일업로드 글 번호 확인 -->
 	<select id="selectPostNumber" resultType="int">
 		select
 		POST_NUMBER_SEQ.nextval from dual
 	</select>
+
+	<!-- 기존 업로드 된 파일 삭제 -->
+	<delete id="deleteBoardFile">
+		delete from board_file where post_number = #{postNumber}
+	</delete>
+
 </mapper>

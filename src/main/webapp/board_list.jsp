@@ -160,8 +160,6 @@ select {
         </c:if>
     </div>
 
-    
-
     <!-- 버튼 -->
     <div class="btn_container">
         <a href="./boardWriteView.do"><button>글쓰기</button></a>

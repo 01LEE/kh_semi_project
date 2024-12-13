@@ -60,4 +60,6 @@ public interface BoardsMapper {
 	List<BoardFileDTO> selectFileList(int postNumber);
 
 	String selectFilePath(int fileNumber);
+
+	int deleteBoardFile(int postNumber);
 }

@@ -57,7 +57,7 @@
 		(region_number, title, description, create_time,
 		image_url)
 		VALUES
-		(region_seq.NEXTVAL, #{title}, #{description}, SYSDATE, #{imageUrl})
+		(region_seq.NEXTVAL, #{title}, #{description}, SYSDATE, #{imageUrl, jdbcType=VARCHAR})
 	</insert>
 
 

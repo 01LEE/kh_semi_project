@@ -45,6 +45,22 @@ public class HandlerMapping {
 		case "regionDetail":
 			controller = new RegionDetail();
 			break;
+		case "deleteRegion": // 새로 추가된 컨트롤러
+			System.out.println("deleteRegion controller");
+			controller = new RegionDeleteController();
+			break;
+		case "RegionWriteView":
+			controller = new RegionInsertViewController(); // 회원 추가
+			break;
+		case "insertRegion":
+			controller = new RegionInsertController(); // 회원 추가
+			break;
+		case "updateRegion":
+			controller = new RegionUpdateViewController();
+			break;
+		case "syncRegion":
+			controller = new RegionUpdateController();
+			break;
 		case "insertMember":
 			controller = new InsertMember(); // 회원 추가
 			break;

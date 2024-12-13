@@ -30,8 +30,14 @@ img {
 	<!-- 공통 헤더 -->
 	<jsp:include page="header.jsp" />
 	<h1>Region List</h1>
-
-	<!-- 이미지들을 flexbox로 배치 -->
+	<c:if test="${sessionScope.user != null}">
+		<c:set var="user" value="${sessionScope.user}" />
+		<c:if test="${user.grade == 'admin'}">
+			<!-- 관리자가 아니면 버튼 표시 안됨 -->
+			<a href="./RegionWriteView.do"><button>글 쓰기</button></a>
+		</c:if>
+	</c:if>
+	
 	<div class="image-container">
 		<c:forEach var="region" items="${regionList}">
 			<div class="image-item">

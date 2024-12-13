@@ -28,39 +28,58 @@ window.onload = () => {
 	}	
 
 	
-//파일 드래그 처리
-let file_area = document.querySelector('.file_drop_area');
-let file = document.querySelector('#file');
+	//파일 드래그 처리
+	let file_area = document.querySelector('.file_drop_area');
+	let file = document.querySelector('#file');
+	
+	file_area.ondrop = (e) => {
+	e.preventDefault();
+	const data = e.dataTransfer;
+	console.log(data);
+	console.log(data.files);
+	//파일 태그에 드래그한 파일 정보를 연결
+	file.files = data.files;
+	let file_list_view = document.querySelector('.file_list_view');
+	for(let i=0;i<data.files.length;i++){
+		 // 새로운 파일 항목 생성
+        const fileItem = document.createElement('div');
+        const fileName = document.createElement('span');
+        fileName.textContent = data.files[i].name;
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = '삭제';
+        deleteButton.type = 'button';
 
-file_area.ondrop = (e) => {
-e.preventDefault();
-const data = e.dataTransfer;
-console.log(data);
-console.log(data.files);
-//파일 태그에 드래그한 파일 정보를 연결
-file.files = data.files;
-let file_list_view = document.querySelector('.file_list_view');
-for(let i=0;i<data.files.length;i++){
-	file_list_view.innerHTML += `\${data.files[i].name}<br>`;
-}
+        // 삭제 버튼 클릭 시 동작
+        deleteButton.addEventListener('click', () => {
+            fileItem.remove();
+        });
 
-e.target.classList.remove('file_area_active');
+        // 파일 항목에 파일명과 삭제 버튼 추가
+        fileItem.appendChild(fileName);
+        fileItem.appendChild(deleteButton);
 
-}
-
-file_area.ondragover = (e) => {
-e.preventDefault();
-}
-
-file_area.ondragenter = (e) => {
-e.target.classList.add('file_area_active');
-e.preventDefault();
-}
-
-file_area.ondragleave = (e) => {
-e.target.classList.remove('file_area_active');
-e.preventDefault();
-}
+        // 파일 항목을 리스트에 추가
+        file_list_view.appendChild(fileItem);
+    }
+	
+	e.target.classList.remove('file_area_active');
+	
+	}
+	
+	file_area.ondragover = (e) => {
+	e.preventDefault();
+	}
+	
+	file_area.ondragenter = (e) => {
+	e.target.classList.add('file_area_active');
+	e.preventDefault();
+	}
+	
+	file_area.ondragleave = (e) => {
+	e.target.classList.remove('file_area_active');
+	e.preventDefault();
+	}
+	
 }
 </script>
 <style>
@@ -88,16 +107,16 @@ body {
 </head>
 <body>
 	<h1>글쓰기</h1>
-	<form action="./insertBoard.do" method="post" enctype="multipart/form-data">
-		<label for="tag">태그 선택:</label> 
-		<select id="tag" name="tag">
+	<form action="./insertBoard.do" method="post"
+		enctype="multipart/form-data">
+		<label for="tag">태그 선택:</label> <select id="tag" name="tag">
 			<option>자유</option>
 			<option>팁</option>
 			<option>후기</option>
 		</select>
 		<div class="form-group">
-			<label for="title">제목</label> 
-			<input type="text" id="title" name="title" required>
+			<label for="title">제목</label> <input type="text" id="title"
+				name="title" required>
 		</div>
 		<div class="form-group">
 			<label for="description">내용</label>
@@ -105,7 +124,7 @@ body {
 			<input type="hidden" name="description">
 		</div>
 		<div class="file_drop_area"></div>
-			<input type="file" name="file" id="file">
+		<input type="file" name="file" id="file">
 		<div class="file_list_view"></div>
 		<div class="form-group">
 			<button type="submit">작성</button>

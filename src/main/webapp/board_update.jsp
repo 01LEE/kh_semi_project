@@ -7,12 +7,35 @@
 	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <script
 	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<style>
+body {
+	height: 1000px;
+}
+
+.file_drop_area {
+	width: 200px;
+	height: 200px;
+	border: 2px dashed #e9e9e9;
+	background-image: url('img/file.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+#file {
+	display: none;
+}
+
+.file_area_active {
+	box-shadow: 0px 0px 3px 5px red;
+}
+</style>
 </head>
 <body>
 	<!-- 공통 헤더 -->
 	<jsp:include page="header.jsp" />
 	<h1>수정</h1>
-	<form action="./syncBoard.do" method="post">
+	<form action="./syncBoard.do" method="post"
+		enctype="multipart/form-data">
 		<c:if test="${not empty board}">
 			<!-- 하나의 게시글 객체에서 제목을 가져와서 입력 필드에 표시 -->
 			<label for="tag">태그 선택:</label>
@@ -30,11 +53,23 @@
 				<div id="description">${board.description}</div>
 				<input type="hidden" name="description">
 			</div>
+			<div class="file_drop_area"></div>
+			<input type="file" name="file" id="file">
+			<div class="file_list_view">
+				<c:forEach var="file" items="${fileList}">
+					<div>
+						<span>${file.fileName}
+							<button type="button" class="delete-button" data-file-number="${file.fileNumber}">삭제</button>
+						</span>
+					</div>
+				</c:forEach>
+			</div>
 			<div class="form-group">
 				<input type="hidden" name="postNumber" value="${board.postNumber}">
 				<!-- 게시글 번호 숨겨서 전달 -->
 				<button type="submit">수정</button>
 			</div>
+
 		</c:if>
 	</form>
 </body>
@@ -53,8 +88,69 @@
         		console.log(editor.getHTML());
         		console.log(editor.getMarkdown());
         		document.querySelector('input[name=description]').value = editor.getHTML();
-        	}	
-        }
+        	}
+        	//파일 드래그 처리
+        	let file_area = document.querySelector('.file_drop_area');
+        	let file = document.querySelector('#file');
+        	
+        	file_area.ondrop = (e) => {
+        	e.preventDefault();
+        	const data = e.dataTransfer;
+        	console.log(data);
+        	console.log(data.files);
+        	//파일 태그에 드래그한 파일 정보를 연결
+        	file.files = data.files;
+        	let file_list_view = document.querySelector('.file_list_view');
+        	for(let i=0;i<data.files.length;i++){
+        		 // 새로운 파일 항목 생성
+                const fileItem = document.createElement('div');
+                const fileName = document.createElement('span');
+                fileName.textContent = data.files[i].name;
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = '삭제';
+                deleteButton.type = 'button';
+
+                // 삭제 버튼 클릭 시 동작
+                deleteButton.addEventListener('click', () => {
+                    fileItem.remove();
+                });
+
+                // 파일 항목에 파일명과 삭제 버튼 추가
+                fileItem.appendChild(fileName);
+                fileItem.appendChild(deleteButton);
+
+                // 파일 항목을 리스트에 추가
+                file_list_view.appendChild(fileItem);
+            }
+        	
+        	e.target.classList.remove('file_area_active');
+        	
+        	}
+        	
+        	file_area.ondragover = (e) => {
+        	e.preventDefault();
+        	}
+        	
+        	file_area.ondragenter = (e) => {
+        	e.target.classList.add('file_area_active');
+        	e.preventDefault();
+        	}
+        	
+        	file_area.ondragleave = (e) => {
+        	e.target.classList.remove('file_area_active');
+        	e.preventDefault();
+        	}
+        	
+        	const deleteButtons = document.querySelectorAll('.delete-button');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const fileNumber = e.target.getAttribute('data-file-number');
+                    console.log('삭제할 파일 번호:', fileNumber);
+                    e.target.parentElement.remove();
+                });
+            });
+           }
 </script>
 </html>
 
