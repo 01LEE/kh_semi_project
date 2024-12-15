@@ -47,7 +47,6 @@ public class BoardViewController implements Controller {
         if (user != null && board != null) {
         	writer = (user.getUserNumber() == board.getUserNumber());
         }
-        System.out.println(user.getGrade());
 		ModelAndView view = new ModelAndView();
 		view.addObject("board", board);
 		view.addObject("writer", writer);

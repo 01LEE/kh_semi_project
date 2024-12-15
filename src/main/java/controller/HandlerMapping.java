@@ -91,6 +91,15 @@ public class HandlerMapping {
 		case "boardsList": // 새로 추가된 컨트롤러
 			controller = new BoardSelectController();
 			break;
+		case "boardLike": // 좋아요
+			controller = new BoardLikeController();
+			break;
+		case "boardCommentLike": //댓글 좋아요
+			controller = new BoardCommentLikeController();
+			break;
+		case "reportWrite": //신고
+			controller = new ReportWriteController();
+			break;
 		}
 		return controller;
 	}

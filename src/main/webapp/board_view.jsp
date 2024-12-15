@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 상세</title>
+
 </head>
 <style>
 /* 게시글 상세 페이지 CSS */ /* 게시글 상세 페이지 CSS */
@@ -144,13 +145,14 @@ textarea {
 				</tr>
 			</table>
 		</c:if>
-
 		<div class="button-container">
 			<!-- 왼쪽으로 배치할 버튼 -->
 			<div class="left">
 				<a href="./allBoard.do"><button>목록</button></a>
 			</div>
-
+			<div>
+				<button type="button" id="btn_like">좋아요 : <span id="like_count">${board.blike }</span></button>
+			</div>
 			<!-- 오른쪽으로 배치할 버튼 -->
 			<div class="right">
 				<c:if test="${writer || sessionScope.user.grade == 'admin'}">
@@ -168,17 +170,19 @@ textarea {
 				<button class="btn_comment">댓글작성</button>
 			</form>
 		</div>
+		<!-- 댓글 목록 -->
 		<div class="comment">
 			<table class="comment-table">
 				<c:forEach var="comment" items="${commentList}">
-					<input type="hidden" name="commentNumber"
-						value="${comment.commentNumber}">
 					<tr>
-						<td>${comment.nickName}(${comment.cmtCreateTime})<c:if
-								test="${comment.userNumber == sessionScope.user.userNumber || sessionScope.user.grade == 'admin'}">
-								<a
-									href="./commentDelete.do?commentNumber=${comment.commentNumber}&postNumber=${comment.postNumber}">삭제</a>
-							</c:if> <br>${comment.cDescription}
+						<input type="hidden" name="commentNumber" value="${comment.commentNumber}">
+						<td>${comment.nickName}(${comment.cmtCreateTime})
+						<c:if test="${comment.userNumber == sessionScope.user.userNumber || sessionScope.user.grade == 'admin'}">
+								<a href="./commentDelete.do?commentNumber=${comment.commentNumber}&postNumber=${comment.postNumber}">삭제</a>
+						</c:if> <br>${comment.cDescription}
+						</td>
+						<td>
+							<button type="button" id="btn_comment_like">좋아요 : <span class="clike_count">${comment.clike }</span></button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -193,6 +197,42 @@ textarea {
 	</div>
 	</div>
 </body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+            //좋아요 경고창 띄우기(글번호 같이 띄움)
+            document.querySelector('#btn_like').onclick = () => {
+            	const postNumber = '${board.postNumber}';
+            	const userNumber = '${board.userNumber}';
+            	let baseUrl = './boardLike.do';
+            	baseUrl += '?postNumber='+ postNumber+'&userNumber='+userNumber;
+            	console.log(baseUrl);
+            	fetch(baseUrl).then(response => response.json())
+            	.then(result => {
+            		alert(result.msg);
+            		console.log(result.blike);
+            		document.querySelector('#like_count').innerText = result.blike;
+        		});
+			}
+            //좋아요 경고창 띄우기(글번호 같이 띄움)
+           document.querySelectorAll('#btn_comment_like').forEach(item => {
+				item.onclick = (e) => {
+            	const commentNumber = e.target.parentNode.parentNode.querySelector('input').value;
+            	console.log("댓글번호 : " + commentNumber);
+            	let baseUrl = './boardCommentLike.do';
+            	baseUrl += '?commentNumber='+ commentNumber;
+            	console.log(baseUrl);
+            	fetch(baseUrl).then(response => response.json())
+            	.then(result => {
+            		alert(result.msg);
+            		 const likeCountElement = e.target.querySelector('.clike_count');
+                     if (likeCountElement) {
+                         likeCountElement.innerText = result.clike;
+                     }
+        		});
+				}
+			});
+    });
+    </script>
 </html>
 
 

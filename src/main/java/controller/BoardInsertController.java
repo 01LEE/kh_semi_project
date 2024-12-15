@@ -74,7 +74,7 @@ public class BoardInsertController implements Controller {
 		int count = BoardsService.getInstance().insertBoard(dto, fileList);
 
 		ModelAndView view = new ModelAndView();
-		view.setPath("./allBoard.do");
+		view.setPath("./boardDetail.do?postNumber="+dto.getPostNumber());
 		view.setRedirect(true);
 
 		return view;

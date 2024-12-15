@@ -8,13 +8,15 @@ public class CommentsDTO {
 	private String cmtCreateTime;
 	private String cmtUpdateTime;
 	private String nickName;
+	private int clike;
 
 	public CommentsDTO() {
 		super();
 	}
 
+	
 	public CommentsDTO(int commentNumber, int postNumber, int userNumber, String cDescription, String cmtCreateTime,
-			String cmtUpdateTime, String nickName) {
+			String cmtUpdateTime, String nickName, int clike) {
 		super();
 		this.commentNumber = commentNumber;
 		this.postNumber = postNumber;
@@ -23,14 +25,16 @@ public class CommentsDTO {
 		this.cmtCreateTime = cmtCreateTime;
 		this.cmtUpdateTime = cmtUpdateTime;
 		this.nickName = nickName;
+		this.clike = clike;
 	}
+
 
 	public CommentsDTO(int postNumber, int userNumber, String cDescription) {
 		this.postNumber = postNumber;
 		this.userNumber = userNumber;
 		this.cDescription = cDescription;
 	}
-
+	
 	public int getCommentNumber() {
 		return commentNumber;
 	}
@@ -87,4 +91,15 @@ public class CommentsDTO {
 		this.nickName = nickName;
 	}
 
+
+	public int getClike() {
+		return clike;
+	}
+
+
+	public void setClike(int clike) {
+		this.clike = clike;
+	}
+	
+	
 }

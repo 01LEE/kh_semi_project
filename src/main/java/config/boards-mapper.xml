@@ -238,5 +238,37 @@
 	<delete id="deleteBoardFile">
 		delete from board_file where post_number = #{postNumber}
 	</delete>
-
+	
+	<!-- 좋아요 입력 -->
+	<insert id="insertBoardLike" parameterType="map">
+ 		insert into board_likes(post_number, user_number)
+ 		values(#{postNumber},#{userNumber})
+ 	</insert>
+	<!-- 좋아요 삭제 -->
+	<delete id="deleteBoardLike" parameterType="map">
+ 		delete from board_likes 
+ 		where post_number = #{postNumber} and user_number = #{userNumber}
+ 	</delete>
+	<!-- 좋아요 수 -->
+	<select id="getBoardLike" parameterType="int" resultType="int">
+ 		select count(*) from board_likes where post_number = #{postNumber}
+ 	</select>
+	<!-- 댓글 좋아요 입력 -->
+	<insert id="insertCommentLike" parameterType="map">
+ 		insert into comment_likes(comment_number, user_number)
+ 		values(#{commentNumber},#{userNumber})
+ 	</insert>
+	<!-- 댓글 좋아요 삭제 -->
+	<delete id="deleteCommentLike" parameterType="map">
+ 		delete from comment_likes 
+ 		where comment_number = #{commentNumber} and user_number = #{userNumber}
+ 	</delete>
+	<!-- 댓글 좋아요 수 -->
+	<select id="getCommentLike" parameterType="int" resultType="int">
+ 		select count(*) from comment_likes where comment_number = #{commentNumber}
+ 	</select>
+ 	<!-- 댓글 작성자 번호 조회 -->
+ 	<select id="getCommentUserNumber" resultType="int">
+ 		SELECT user_Number FROM comments WHERE comment_Number = #{commentNumber}
+ 	</select>
 </mapper>

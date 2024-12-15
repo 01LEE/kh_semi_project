@@ -1,5 +1,7 @@
 package service;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -101,15 +103,15 @@ public class BoardsService {
 	 */
 	public int updateBoard(BoardsDTO dto, List<BoardFileDTO> fList) {
 		// 게시글 내용 업데이트
-        int count = mapper.updateBoard(dto); // dto는 수정할 게시글 정보
-        // 기존 파일 삭제 (필요한 경우)
-        mapper.deleteBoardFile(dto.getPostNumber());
-        // 새로운 파일 추가
-        fList.forEach(item -> {
-            item.setPostNumber(dto.getPostNumber());
-            mapper.insertBoardFile(item); 
-        });
-        return count;
+		int count = mapper.updateBoard(dto); // dto는 수정할 게시글 정보
+		// 기존 파일 삭제 (필요한 경우)
+		mapper.deleteBoardFile(dto.getPostNumber());
+		// 새로운 파일 추가
+		fList.forEach(item -> {
+			item.setPostNumber(dto.getPostNumber());
+			mapper.insertBoardFile(item);
+		});
+		return count;
 	}
 
 	public List<BoardsDTO> getBoardsByTag(String tag) {
@@ -188,4 +190,68 @@ public class BoardsService {
 		return mapper.selectFilePath(fileNumber);
 	}
 
+	public int insertBoardLike(int postNumber, int userNumber) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("postNumber", postNumber);
+			map.put("userNumber", userNumber);
+			return mapper.insertBoardLike(map);
+		}
+
+	}
+
+	public int deleteBoardLike(int postNumber, int userNumber) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("postNumber", postNumber);
+			map.put("userNumber", userNumber);
+			return mapper.deleteBoardLike(map);
+		}
+
+	}
+
+	public int getBoardLike(int postNumber) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			return mapper.getBoardLike(postNumber);
+		}
+	}
+
+	public int insertCommentLike(int commentNumber, int userNumber) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("commentNumber", commentNumber);
+			map.put("userNumber", userNumber);
+			return mapper.insertCommentLike(map);
+		}
+
+	}
+
+	public int deleteCommentLike(int commentNumber, int userNumber) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("commentNumber", commentNumber);
+			map.put("userNumber", userNumber);
+			return mapper.deleteCommentLike(map);
+		}
+
+	}
+
+	public int getCommentLike(int commentNumber) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			return mapper.getCommentLike(commentNumber);
+		}
+	}
+
+	public int getCommentUserNumber(int commentNumber) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			return mapper.getCommentUserNumber(commentNumber);
+		}
+	}
 }
