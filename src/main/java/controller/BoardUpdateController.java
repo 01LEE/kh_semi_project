@@ -25,7 +25,15 @@ public class BoardUpdateController implements Controller {
 		int postNumber = Integer.parseInt(request.getParameter("postNumber"));
 		String tag = request.getParameter("tag");
 		
-		
+		// 1. 해당 게시글의 파일 경로들을 가져옴
+		List<BoardFileDTO> list = BoardsService.getInstance().selectFileList(postNumber);
+		// 2. 경로에 해당하는 파일들을 물리적으로 삭제 - File 클래스 이용
+		list.forEach(item -> {
+			File file = new File(item.getFilePath());
+			file.delete();// 물리적으로 삭제
+		});
+		BoardsService.getInstance().deleteBoardFile(postNumber);
+
 		// 파일 업로드 처리
 		File root = new File("c:\\fileupload");
 		// 해당 경로가 있는지 체크, 없으면 해당 경로 생성
@@ -48,7 +56,6 @@ public class BoardUpdateController implements Controller {
 				BoardFileDTO fdto = new BoardFileDTO();
 				fdto.setFilePath(root.getAbsolutePath() + "\\" + part.getSubmittedFileName());
 				fileList.add(fdto);
-
 			}
 		}
 
@@ -60,14 +67,14 @@ public class BoardUpdateController implements Controller {
 		dto.setTag(tag);
 
 		// 게시글 업데이트
-		int count = BoardsService.getInstance().updateBoard(dto, fileList); // updateBoard 메서드가 영향을 받은 행 수를 반환한다고 가정
+		int count = BoardsService.getInstance().updateBoard(dto, fileList);
 		System.out.println("데이터 등록 결과 : " + count);
+
 		// ModelAndView 객체 생성
 		ModelAndView view = new ModelAndView();
 		view.setPath("./boardDetail.do?postNumber=" + postNumber);
-		view.setRedirect(true);
+		view.setRedirect(false);
 
 		return view;
 	}
-
 }

@@ -61,8 +61,6 @@ public interface BoardsMapper {
 
 	String selectFilePath(int fileNumber);
 
-	int deleteBoardFile(int postNumber);
-
 	int insertBoardLike(Map<String, Object> map);
 
 	int deleteBoardLike(Map<String, Object> map);
@@ -76,5 +74,11 @@ public interface BoardsMapper {
 	int getCommentLike(int commentNumber);
 
 	int getCommentUserNumber(int commentNumber);
+
+	BoardFileDTO getFileByNumber(int fileNumber);
+
+	int deleteFile(int fileNumber);
+
+	int deleteBoardFile(int postNumber);
 
 }

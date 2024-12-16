@@ -102,16 +102,16 @@ public class BoardsService {
 	 * @return 업데이트된 행의 수
 	 */
 	public int updateBoard(BoardsDTO dto, List<BoardFileDTO> fList) {
-		// 게시글 내용 업데이트
-		int count = mapper.updateBoard(dto); // dto는 수정할 게시글 정보
-		// 기존 파일 삭제 (필요한 경우)
-		mapper.deleteBoardFile(dto.getPostNumber());
-		// 새로운 파일 추가
-		fList.forEach(item -> {
-			item.setPostNumber(dto.getPostNumber());
-			mapper.insertBoardFile(item);
-		});
-		return count;
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			// 게시글 업데이트
+			int count = mapper.updateBoard(dto); // 게시글을 업데이트합니다.
+			fList.forEach(item -> {
+				item.setPostNumber(dto.getPostNumber()); // 파일의 게시글 번호 설정
+				mapper.insertBoardFile(item); // 새 파일 삽입
+			});
+			return count;
+		}
 	}
 
 	public List<BoardsDTO> getBoardsByTag(String tag) {
@@ -252,6 +252,27 @@ public class BoardsService {
 		try (SqlSession session = DBManager.getInstance().getSession()) {
 			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
 			return mapper.getCommentUserNumber(commentNumber);
+		}
+	}
+
+	public BoardFileDTO getFileByNumber(int fileNumber) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			return mapper.getFileByNumber(fileNumber);
+		}
+	}
+
+	public int deleteFile(int fileNumber) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			return mapper.deleteFile(fileNumber);
+		}
+	}
+
+	public int deleteBoardFile(int postNumber) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			BoardsMapper mapper = session.getMapper(BoardsMapper.class);
+			return mapper.deleteBoardFile(postNumber);
 		}
 	}
 }

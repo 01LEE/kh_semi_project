@@ -53,6 +53,7 @@ public class BoardViewController implements Controller {
 		view.addObject("user", user);
 		view.addObject("commentList", commentList);
 		view.addObject("fileList", fileList);
+		System.out.println(fileList.toString());
 		view.setPath("board_view.jsp");
 		view.setRedirect(false);
 		return view;

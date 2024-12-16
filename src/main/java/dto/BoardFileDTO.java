@@ -39,4 +39,9 @@ public class BoardFileDTO {
 		this.filePath = filePath;
 	}
 
+	@Override
+	public String toString() {
+		return "BoardFileDTO [fileNumber=" + fileNumber + ", postNumber=" + postNumber + ", filePath=" + filePath + "]";
+	}
+	
 }
