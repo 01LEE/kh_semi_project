@@ -74,8 +74,8 @@
 </head>
 <body>
     <!-- 공통 헤더 -->
-    <jsp:include page="header.jsp" />
-
+    <jsp:include page="./views/header.jsp"></jsp:include>
+    <jsp:include page="./views/footer.jsp"></jsp:include>
     <div class="container">
         <h2>전체 회원 정보</h2>
 

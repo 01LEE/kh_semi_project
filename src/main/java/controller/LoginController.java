@@ -1,62 +1,62 @@
 package controller;
 
 import java.io.IOException;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+
+import dto.UsersDTO;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import service.UsersService;
-import dto.UsersDTO;
 import view.ModelAndView;
 
 public class LoginController implements Controller {
 
-	@Override
-	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String loginId = request.getParameter("loginId");
-		String password = request.getParameter("password");
-		String rememberMe = request.getParameter("rememberMe");
+    @Override
+    public ModelAndView execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("[LoginController] execute() 호출 -> 로그인 처리 시작");
 
-		System.out.println("[LoginController] execute() 호출 -> 로그인 시도 중, loginId: " + loginId);
+        // 1. 클라이언트로부터 전달된 id와 password 값을 가져오기
+        String loginId = request.getParameter("loginId");
+        String password = request.getParameter("password");
 
-		UsersDTO user = UsersService.getInstance().login(loginId, password);
-		ModelAndView view = new ModelAndView();
+        // 디버깅: 로그인 ID와 비밀번호 출력
+        System.out.println("[LoginController] 입력된 값 -> loginId: " + loginId + ", password: " + password);
 
-		if (user != null) {
-			System.out.println("[LoginController] 로그인 성공 - 사용자: " + user.getNickName() + " -> 세션 설정 시작");
-			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
+        // 2. UsersService를 통해 로그인 검증
+        System.out.println("[LoginController] UsersService.login() 호출 시작");
+        UsersDTO user = UsersService.getInstance().login(loginId, password);
+        System.out.println("[LoginController] UsersService.login() 호출 완료");
 
-			session.setAttribute("sessionExpireTime", Instant.now().plus(10, ChronoUnit.SECONDS));
-			System.out.println("[LoginController] 세션 만료 시간 설정: 1분 후");
+        // ModelAndView 객체 생성
+        ModelAndView view = new ModelAndView();
 
-			if ("on".equals(rememberMe)) {
-				Cookie cookie = new Cookie("loginId", loginId);
-				cookie.setMaxAge(60 * 60 * 24 * 7); // 7일 동안 유지
-				cookie.setPath("/");
-				response.addCookie(cookie);
+        // 3. 로그인 성공 처리
+        if (user != null) {
+            // 사용자 정보 출력 (디버깅용)
+            System.out.println("[LoginController] 로그인 성공 -> 사용자 정보 확인");
+            System.out.println("userNumber: " + user.getUserNumber());
+            System.out.println("loginId: " + user.getLoginId());
+            System.out.println("nickName: " + user.getNickName());
+            System.out.println("userEmail: " + user.getUserEmail());
 
-				// 세션에 "로그인 상태 유지" 정보 저장
-				session.setAttribute("rememberMe", true);
-				System.out.println("[LoginController] 로그인 상태 유지 설정 완료 - 쿠키와 세션 저장");
-			} else {
-				session.setAttribute("rememberMe", false);
-				System.out.println("[LoginController] 로그인 상태 유지 비활성화");
-			}
+            // 세션에 사용자 정보를 저장
+            System.out.println("[LoginController] 세션 저장 시작");
+            request.getSession().setAttribute("user", user);
+            System.out.println("[LoginController] 세션에 사용자 정보 저장 완료 -> 닉네임: " + user.getNickName());
 
-			System.out.println("[LoginController] 로그인 성공 후 index.jsp로 리다이렉트");
-			view.setPath("index.do"); // index.jsp -> index.do로 
-			view.setRedirect(true);
-		} else {
-			System.out.println("[LoginController] 로그인 실패 - 아이디 또는 비밀번호 불일치, signin.jsp로 리다이렉트");
-			view.setPath("signin.jsp?error=invalid");
-			view.setRedirect(true);
-		}
+            // 성공 시 메인 페이지로 리다이렉트 설정
+            view.setPath("./index.jsp");
+            view.setRedirect(true);
+            System.out.println("[LoginController] 로그인 성공 -> 메인 페이지로 리다이렉트 설정 완료");
+        } else {
+            // 로그인 실패 처리
+            System.out.println("[LoginController] 로그인 실패 -> 사용자 정보 없음");
+            view.setPath("./loginView.jsp?error=invalid");
+            view.setRedirect(false);
+        }
 
-		return view;
-	}
+        System.out.println("[LoginController] execute() 종료 -> 반환할 ModelAndView: Path=" + view.getPath() + ", Redirect=" + view.isRedirect());
+        return view;
+    }
 }

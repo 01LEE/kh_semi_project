@@ -28,7 +28,6 @@
 		<result column="cmt_update_time" property="cmtUpdateTime" />
 		<result column="nick_name" property="nickName" />
 	</resultMap>
-
 	<resultMap type="dto.BoardFileDTO" id="file">
 		<id column="file_number" property="fileNumber" />
 		<result column="post_number" property="postNumber" />

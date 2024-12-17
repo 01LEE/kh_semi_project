@@ -68,8 +68,8 @@
 </head>
 <body>
     <!-- 헤더 포함 -->
-    <jsp:include page="header.jsp" />
-
+   <jsp:include page="./views/header.jsp"></jsp:include>
+    <jsp:include page="./views/footer.jsp"></jsp:include>
     <div class="container">
         <h2>사용자 상세 정보</h2>
 

@@ -167,7 +167,7 @@ textarea {
 </style>
 <body>
 	<!-- 공통 헤더 -->
-	<jsp:include page="header.jsp" />
+	<jsp:include page="./views/header.jsp"></jsp:include>
 	<div class="main-container">
 		<c:if test="${not empty board}">
 			<table>

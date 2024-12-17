@@ -37,7 +37,10 @@ public class BoardInsertController implements Controller {
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
 		String tag = request.getParameter("tag");
-
+		
+		System.out.println(title);
+		System.out.println(description);
+		System.out.println(tag);
 		// 파일 업로드 처리
 		File root = new File("c:\\fileupload");
 		// 해당 경로가 있는지 체크, 없으면 해당 경로 생성

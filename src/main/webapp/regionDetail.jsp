@@ -125,8 +125,8 @@ body {
 </head>
 <body>
 	<!-- 공통 헤더 -->
-	<jsp:include page="header.jsp" />
-
+	<jsp:include page="./views/header.jsp"></jsp:include>
+    <jsp:include page="./views/footer.jsp"></jsp:include>
 	<!-- 메인 컨테이너: 모든 내용을 감싼다 -->
 	<div class="container">
 		<!-- Header -->

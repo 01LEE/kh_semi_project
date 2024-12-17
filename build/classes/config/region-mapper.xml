@@ -23,7 +23,6 @@
 		ROWS ONLY
 	</select>
 
-
 	<!-- Region 번호로 단일 Region 조회 -->
 	<select id="selectRegionByRegionNumber" resultMap="region">
 		SELECT
