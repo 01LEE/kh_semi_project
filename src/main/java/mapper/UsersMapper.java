@@ -64,7 +64,6 @@ public interface UsersMapper {
 	 * @param userNumber 사용자 번호
 	 * @return 삭제된 행의 수
 	 */
-	int deleteUserByUserNumber(int userNumber);
 
 	// 아이디 중복 체크
 	int selectLoginIdCount(String loginId);
@@ -77,4 +76,12 @@ public interface UsersMapper {
 	 */
 	// 로그인 아이디와 비밀번호를 사용하여 사용자 조회하는 메서드
 	UsersDTO selectUserByLoginIdAndPassword(@Param("loginId") String loginId, @Param("password") String password);
+
+	List<UsersDTO> selectAllUsersExcludeAdmin();
+
+	UsersDTO selectUserByNumber(int userNumber);
+	
+	int deleteCommentsByUserNumber(int userNumber); // 댓글 삭제 /admin
+    int deleteBoardsByUserNumber(int userNumber);   // 게시물 삭제 /admin
+    int deleteUserByUserNumber(int userNumber);     // 사용자 삭제 /admin
 }

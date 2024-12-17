@@ -73,7 +73,7 @@ public class BoardUpdateController implements Controller {
 		// ModelAndView 객체 생성
 		ModelAndView view = new ModelAndView();
 		view.setPath("./boardDetail.do?postNumber=" + postNumber);
-		view.setRedirect(false);
+		view.setRedirect(true);
 
 		return view;
 	}

@@ -115,13 +115,22 @@
         WHERE 
             user_number = #{userNumber}
     </update>
+    <!-- 사용자 댓글 삭제 admin-->
+    <delete id="deleteCommentsByUserNumber" parameterType="int">
+    DELETE FROM comments
+    WHERE user_number = #{userNumber}
+	</delete>
 
-    <!-- 사용자 삭제 -->
-    <delete id="deleteUserByUserNumber" parameterType="int">
-        DELETE FROM users
-        WHERE 
-            user_number = #{userNumber}
-    </delete>
+    <!-- 사용자 게시물 삭제 admin -->
+   <delete id="deleteBoardsByUserNumber" parameterType="int">
+    DELETE FROM boards
+    WHERE user_number = #{userNumber}
+	</delete>
+	<!-- 사용자 삭제 admin -->
+	<delete id="deleteUserByUserNumber" parameterType="int">
+    DELETE FROM users
+    WHERE user_number = #{userNumber}
+	</delete>
     
     <select id="selectLoginIdCount" parameterType="String" resultType="int">
    		SELECT COUNT(*)
@@ -134,5 +143,40 @@
         SELECT * FROM users 
         WHERE login_id = #{loginId} AND password = STANDARD_HASH(#{password}, 'SHA512')
     </select>
+    
+    <!-- admin을 제외한 유저 정보 조회 -->
+	<select id="selectAllUsersExcludeAdmin" resultType="dto.UsersDTO">
+    SELECT 
+        user_number AS userNumber,
+        login_id AS loginId,
+        nick_name AS nickName,
+        user_name AS userName,
+        user_email AS userEmail,
+        create_time AS createTime
+    FROM 
+        users
+    WHERE 
+        grade != 'admin' OR grade IS NULL OR grade = ''
+    ORDER BY 
+        user_number ASC  <!-- 오름차순 정렬 -->
+	</select>
+	<!--유저 정보 상세조회 admin-->
+	<select id="selectUserByNumber" parameterType="int" resultType="dto.UsersDTO">
+    SELECT 
+        user_number AS userNumber,
+        login_id AS loginId,
+        nick_name AS nickName,
+        password,
+        create_time AS createTime,
+        update_time AS updateTime,
+        pw_update_time AS pwUpdateTime,
+        user_name AS userName,
+        user_email AS userEmail
+    FROM 
+        users
+    WHERE 
+        user_number = #{userNumber}
+</select>
+    
 
 </mapper>

@@ -49,7 +49,7 @@ public class LoginController implements Controller {
 			}
 
 			System.out.println("[LoginController] 로그인 성공 후 index.jsp로 리다이렉트");
-			view.setPath("index.jsp");
+			view.setPath("index.do"); // index.jsp -> index.do로 
 			view.setRedirect(true);
 		} else {
 			System.out.println("[LoginController] 로그인 실패 - 아이디 또는 비밀번호 불일치, signin.jsp로 리다이렉트");

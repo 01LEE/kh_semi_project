@@ -94,11 +94,24 @@ public class HandlerMapping {
 		case "boardLike": // 좋아요
 			controller = new BoardLikeController();
 			break;
-		case "boardCommentLike": //댓글 좋아요
+		case "boardCommentLike": // 댓글 좋아요
 			controller = new BoardCommentLikeController();
 			break;
-		case "reportWrite": //신고
+		case "reportWrite": // 신고
 			controller = new ReportWriteController();
+			break;
+		case "adminUser":
+			controller = new AdminUserController();
+			break;
+		case "reportUser": // 신고하기 기능
+			controller = new ReportUserController();
+			break;
+		case "adminReports": // 관리자 신고 조회
+			controller = new AdminReportListController();
+			break;
+		case "index":
+			controller = new IndexController();
+			System.out.println("[HandlerMapping] IndexController 생성됨");
 			break;
 		}
 		return controller;

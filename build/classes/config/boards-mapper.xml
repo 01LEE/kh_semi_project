@@ -279,8 +279,4 @@
 		FROM board_file
 		WHERE file_number = #{fileNumber}
 	</select>
-	
-	<delete id="deleteFile">
-		delete from board_file where file_number = #{fileNumber}
-	</delete>
 </mapper>

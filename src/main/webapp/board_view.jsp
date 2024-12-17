@@ -120,6 +120,50 @@ textarea {
 	text-decoration: none;
 	color: black;
 }
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+	background-color: #fff;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+}
+
+.reson {
+	width: 100%;
+	height: 100px;
+	margin-top: 10px;
+	border: 1px solid #ddd;
+	padding: 10px;
+	resize: none;
+}
 </style>
 <body>
 	<!-- 공통 헤더 -->
@@ -151,7 +195,9 @@ textarea {
 				<a href="./allBoard.do"><button>목록</button></a>
 			</div>
 			<div>
-				<button type="button" id="btn_like">좋아요 : <span id="like_count">${board.blike }</span></button>
+				<button type="button" id="btn_like">
+					좋아요 : <span id="like_count">${board.blike }</span>
+				</button>
 			</div>
 			<!-- 오른쪽으로 배치할 버튼 -->
 			<div class="right">
@@ -175,14 +221,23 @@ textarea {
 			<table class="comment-table">
 				<c:forEach var="comment" items="${commentList}">
 					<tr>
-						<input type="hidden" name="commentNumber" value="${comment.commentNumber}">
-						<td>${comment.nickName}(${comment.cmtCreateTime})
-						<c:if test="${comment.userNumber == sessionScope.user.userNumber || sessionScope.user.grade == 'admin'}">
-								<a href="./commentDelete.do?commentNumber=${comment.commentNumber}&postNumber=${comment.postNumber}">삭제</a>
-						</c:if> <br>${comment.cDescription}
+						<input type="hidden" name="commentNumber"
+							value="${comment.commentNumber}">
+						<td>${comment.nickName}(${comment.cmtCreateTime})<c:if
+								test="${not empty sessionScope.user}">
+								<button
+									onclick="openReportModal('${comment.commentNumber}', '${comment.cDescription}')">
+									신고</button>
+							</c:if> <c:if
+								test="${comment.userNumber == sessionScope.user.userNumber || sessionScope.user.grade == 'admin'}">
+								<a
+									href="./commentDelete.do?commentNumber=${comment.commentNumber}&postNumber=${comment.postNumber}">삭제</a>
+							</c:if> <br>${comment.cDescription}
 						</td>
 						<td>
-							<button type="button" id="btn_comment_like">좋아요 : <span class="clike_count">${comment.clike }</span></button>
+							<button type="button" id="btn_comment_like">
+								좋아요 : <span class="clike_count">${comment.clike }</span>
+							</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -195,6 +250,27 @@ textarea {
 			<br>
 		</c:forEach>
 	</div>
+	</div>
+	<!-- 신고 모달 -->
+	<div id="reportModal" class="modal">
+		<div class="modal-content">
+			<span class="close" onclick="closeModal()">&times;</span>
+			<h2>댓글 신고</h2>
+			<form action="reportUser.do" method="post">
+				<input type="hidden" id="commentNumber" name="commentNumber">
+				<input type="hidden" id="postNumber" name="postNumber"
+					value="${board.postNumber}">
+				<div>
+					<label>신고 대상 댓글:</label>
+					<p id="commentContent"></p>
+				</div>
+				<div>
+					<label>신고 사유:</label>
+					<textarea class="reason" name="reason" required placeholder="신고 사유를 입력하세요"></textarea>
+				</div>
+				<button type="submit">신고 제출</button>
+			</form>
+		</div>
 	</div>
 </body>
 <script>
@@ -232,6 +308,25 @@ document.addEventListener("DOMContentLoaded", function () {
 				}
 			});
     });
+//신고 모달 열기
+function openReportModal(commentNumber, commentContent) {
+    document.getElementById("reportModal").style.display = "block";
+    document.getElementById("commentNumber").value = commentNumber;
+    document.getElementById("commentContent").innerText = commentContent;
+}
+
+// 신고 모달 닫기
+function closeModal() {
+    document.getElementById("reportModal").style.display = "none";
+}
+
+// 모달 외부 클릭 시 닫기
+window.onclick = function(event) {
+    const modal = document.getElementById("reportModal");
+    if (event.target == modal) {
+        closeModal();
+    }
+}
     </script>
 </html>
 

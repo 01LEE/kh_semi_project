@@ -18,18 +18,21 @@ public class UsersDTO {
 	}
 
 	public UsersDTO(int userNumber, String loginId, String nickName, String password, Timestamp createTime,
-			Timestamp updateTime, Timestamp pwUpdateTime, String userName, String userEmail) {
-		super();
-		this.userNumber = userNumber;
-		this.loginId = loginId;
-		this.nickName = nickName;
-		this.password = password;
-		this.createTime = createTime;
-		this.updateTime = updateTime;
-		this.pwUpdateTime = pwUpdateTime;
-		this.userName = userName;
-		this.userEmail = userEmail;
-		this.grade = grade;
+	        Timestamp updateTime, Timestamp pwUpdateTime, String userName, String userEmail, String grade) {
+	    super();
+	    this.userNumber = userNumber;
+	    this.loginId = loginId;
+	    this.nickName = nickName;
+	    this.password = password;
+	    this.createTime = createTime;
+	    this.updateTime = updateTime;
+	    this.pwUpdateTime = pwUpdateTime;
+	    this.userName = userName;
+	    this.userEmail = userEmail;
+	    this.grade = grade; // 이제 grade가 올바르게 초기화됨
+	}
+	public boolean isAdmin() {
+	    return "ADMIN".equalsIgnoreCase(this.grade);
 	}
 
 	public int getUserNumber() {
