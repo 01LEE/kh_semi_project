@@ -83,9 +83,6 @@ public class HandlerMapping {
 		case "boardCommentLike": // 댓글 좋아요
 			controller = new BoardCommentLikeController();
 			break;
-		case "reportWrite": // 신고
-			controller = new ReportWriteController();
-			break;
 		case "adminUser":
 			controller = new AdminUserController();
 			break;
@@ -164,7 +161,9 @@ public class HandlerMapping {
 		case "updatePassword":
 			controller = new PasswordUpdateController();
 			break;
-		// -------------------------------------------------------------------------
+		case "commentReport":
+			controller = new CommentReportInsertController();
+			break;
 		default:
 			System.out.println("[HandlerMapping] 알 수 없는 명령어 -> " + command);
 			break;

@@ -9,11 +9,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import service.reportService;
+import service.ReportService;
 import view.ModelAndView;
 
 public class AdminReportListController implements Controller {
-    private reportService reportService = new reportService();
+    private ReportService reportService = new ReportService();
 
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response)

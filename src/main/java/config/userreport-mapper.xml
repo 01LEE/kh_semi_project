@@ -37,4 +37,10 @@
             HANDLED_BY_ADMIN_ID = #{adminId}
         WHERE REPORT_NUMBER = #{reportNumber}
     </update>
+    <!-- 댓글 신고 -->
+    <insert id="insertCommentReport" parameterType="dto.CommentReportDTO">
+    	insert into comment_reports(report_number, comment_number, user_number, comment_report_reason)
+    	values (comment_reports_report_number_seq.nextval, #{commentNumber}, #{userNumber}, #{commentReportReason})
+    </insert>
+    
 </mapper>

@@ -225,13 +225,11 @@ textarea {
 							value="${comment.commentNumber}">
 						<td>${comment.nickName}(${comment.cmtCreateTime})<c:if
 								test="${not empty sessionScope.user}">
-								<button
-									onclick="openReportModal('${comment.commentNumber}', '${comment.cDescription}')">
-									신고</button>
-							</c:if> <c:if
+								<button onclick="openReportModal('${comment.commentNumber}', '${comment.cDescription}')">신고</button>
+							</c:if> 
+							<c:if
 								test="${comment.userNumber == sessionScope.user.userNumber || sessionScope.user.grade == 'admin'}">
-								<a
-									href="./commentDelete.do?commentNumber=${comment.commentNumber}&postNumber=${comment.postNumber}">삭제</a>
+								<a href="./commentDelete.do?commentNumber=${comment.commentNumber}&postNumber=${comment.postNumber}">삭제</a>
 							</c:if> <br>${comment.cDescription}
 						</td>
 						<td>
@@ -256,7 +254,7 @@ textarea {
 		<div class="modal-content">
 			<span class="close" onclick="closeModal()">&times;</span>
 			<h2>댓글 신고</h2>
-			<form action="reportUser.do" method="post">
+			<form action="commentReport.do" method="post">
 				<input type="hidden" id="commentNumber" name="commentNumber">
 				<input type="hidden" id="postNumber" name="postNumber"
 					value="${board.postNumber}">
