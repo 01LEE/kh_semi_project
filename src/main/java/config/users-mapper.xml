@@ -130,6 +130,32 @@
         WHERE user_number = #{userNumber}
     </update>
 <!-- ........................................................................................................... -->
-    
+    <!-- 새작업 12월 15일 -->
+<!-- 사용자 이름과 이메일을 기반으로 로그인 ID 찾기 -->
+	<select id="findLoginIdByUserNameAndEmail" parameterType="map" resultType="string">
+	    SELECT login_id
+	    FROM users
+	    WHERE user_name = #{userName} AND user_email = #{userEmail}
+	</select>
+	<!-- ..................................................................................................................................... -->
+	<!-- 새작업 12월 16일 -->
+	<!-- pw찾기 -->
+	<select id="findUserForPasswordReset" parameterType="map" resultType="dto.UsersDTO">
+	    SELECT user_number AS userNumber,
+	           login_id,
+	           user_name,
+	           user_email
+	    FROM users
+	    WHERE user_name = #{userName}
+	      AND login_id = #{loginId}
+	      AND user_email = #{userEmail}
+	</select>
+	
+	<update id="updatePassword" parameterType="map">
+	    UPDATE users
+	    SET password = #{password}, pw_update_time = CURRENT_TIMESTAMP
+	    WHERE user_number = #{userNumber}
+	</update>
+<!-- ........................................................................................................... -->
 
 </mapper>
