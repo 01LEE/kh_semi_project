@@ -22,6 +22,6 @@
 		<mapper resource="config/users-mapper.xml" />
 		<mapper resource="config/boards-mapper.xml" />
 		<mapper resource="config/region-mapper.xml" />
-		<mapper resource="config/userreport-mapper.xml" />
+		<mapper resource="config/report-mapper.xml" />
 	</mappers>
 </configuration>

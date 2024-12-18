@@ -164,6 +164,9 @@ public class HandlerMapping {
 		case "commentReport":
 			controller = new CommentReportInsertController();
 			break;
+		case "commentReportList":
+			controller = new CommentReportListController();
+			break;
 		default:
 			System.out.println("[HandlerMapping] 알 수 없는 명령어 -> " + command);
 			break;

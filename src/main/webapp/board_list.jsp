@@ -360,5 +360,8 @@ select {
 			</form>
 		</div>
 	</div>
+	<footer>
+	    <jsp:include page="./views/footer.jsp"></jsp:include>
+	</footer>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -144,8 +146,26 @@ public class ReportService {
 
 	public int insertCommentReport(CommentReportDTO dto) {
 		try (SqlSession session = DBManager.getInstance().getSession()) {
-            UserReportMapper mapper = session.getMapper(UserReportMapper.class);
-            return mapper.insertCommentReport(dto);  // 게시글 첨부 파일 삭제
-        }
-    }
+			UserReportMapper mapper = session.getMapper(UserReportMapper.class);
+			return mapper.insertCommentReport(dto); // 게시글 첨부 파일 삭제
+		}
+	}
+
+	public List<CommentReportDTO> selectCommentReports() {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			UserReportMapper mapper = session.getMapper(UserReportMapper.class);
+			return mapper.selectCommentReports(); // 게시글 첨부 파일 삭제
+		}
+	}
+
+	public boolean updateCommentReportStatus(int reportNumber, String status, int adminId) {
+		try (SqlSession session = DBManager.getInstance().getSession()) {
+			UserReportMapper mapper = session.getMapper(UserReportMapper.class);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("reportNumber", reportNumber);
+			map.put("status", status);
+			map.put("adminId", adminId);
+			return mapper.updateCommentReportStatus(map); // 게시글 첨부 파일 삭제
+		}
+	}
 }
