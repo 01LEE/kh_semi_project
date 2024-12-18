@@ -13,12 +13,14 @@ public class UsersDTO {
     private String userName;
     private String userEmail;
     private String grade;
+    private String profileImageUrl;
 
     public UsersDTO() {
     }
 
 	public UsersDTO(int userNumber, String loginId, String nickName, String password, Timestamp createTime,
-			Timestamp updateTime, Timestamp pwUpdateTime, String userName, String userEmail, String grade) {
+			Timestamp updateTime, Timestamp pwUpdateTime, String userName, String userEmail, String grade,
+			String profileImageUrl) {
 		super();
 		this.userNumber = userNumber;
 		this.loginId = loginId;
@@ -30,6 +32,7 @@ public class UsersDTO {
 		this.userName = userName;
 		this.userEmail = userEmail;
 		this.grade = grade;
+		this.profileImageUrl = profileImageUrl;
 	}
 
 	public int getUserNumber() {
@@ -112,12 +115,23 @@ public class UsersDTO {
 		this.grade = grade;
 	}
 
+	public String getProfileImageUrl() {
+		return profileImageUrl;
+	}
+
+	public void setProfileImageUrl(String profileImageUrl) {
+		this.profileImageUrl = profileImageUrl;
+	}
+
 	@Override
 	public String toString() {
 		return "UsersDTO [userNumber=" + userNumber + ", loginId=" + loginId + ", nickName=" + nickName + ", password="
 				+ password + ", createTime=" + createTime + ", updateTime=" + updateTime + ", pwUpdateTime="
-				+ pwUpdateTime + ", userName=" + userName + ", userEmail=" + userEmail + ", grade=" + grade + "]";
+				+ pwUpdateTime + ", userName=" + userName + ", userEmail=" + userEmail + ", grade=" + grade
+				+ ", profileImageUrl=" + profileImageUrl + "]";
 	}
+
+    
     
 	
 }

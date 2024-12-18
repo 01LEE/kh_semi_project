@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!-- 
+c	JSTL Core	제어문 (반복, 조건, 변수 설정)	조건문, 반복문, 데이터 출력
+fn	JSTL Functions	문자열 처리 및 함수 제공	문자열 조작 및 검색
+ -->
+ 
 <!-- JSP 페이지 설정 -->
 <!-- 1. JSP에서 Java 코드를 사용하기 위해 language="java"를 지정 -->
-<!-- 2. UTF-8 인코딩을 설정해 한글을 정상적으로 표시 -->
-<!-- 3. JSTL 코어 태그와 함수 태그를 사용하기 위해 URI를 선언 -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,15 +89,15 @@
 					    <option value="${fn:substringAfter(user.userEmail, '@')}" selected>
 					        ${fn:substringAfter(user.userEmail, '@')}
 					    </option>
-					    <!-- 이메일 기본 제공 도메인 -->
-					    <c:forEach var="domain" items="${['gmail.com', 'naver.com', 'daum.net', 'nate.com', 'yahoo.com', 'icloud.com']}">
+					    <c:set var="emailDomains" value="gmail.com,naver.com,daum.net,nate.com,yahoo.com,icloud.com" />
+					    <c:forEach var="domain" items="${fn:split(emailDomains, ',')}">
 					        <c:if test="${domain != fn:substringAfter(user.userEmail, '@')}">
 					            <option value="${domain}">${domain}</option>
 					        </c:if>
 					    </c:forEach>
 					    <option value="custom">직접 입력</option>
-					    <!-- 직접 입력 옵션 -->
 					</select>
+
 					<!-- 이메일 중복 확인 버튼 -->
 					<button type="button" id="checkEmailBtn" class="blue-button">중복 확인</button>
 				</div>

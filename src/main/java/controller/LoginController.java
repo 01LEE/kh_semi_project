@@ -43,16 +43,18 @@ public class LoginController implements Controller {
             // 세션에 사용자 정보를 저장
             System.out.println("[LoginController] 세션 저장 시작");
             request.getSession().setAttribute("user", user);
+            request.getSession().setAttribute("userNumber", user.getUserNumber()); // userNumber 추가 저장
             System.out.println("[LoginController] 세션에 사용자 정보 저장 완료 -> 닉네임: " + user.getNickName());
 
             // 성공 시 메인 페이지로 리다이렉트 설정
-            view.setPath("./index.jsp");
+            view.setPath("index.do");
             view.setRedirect(true);
-            System.out.println("[LoginController] 로그인 성공 -> 메인 페이지로 리다이렉트 설정 완료");
+            System.out.println("[LoginController] 로그인 성공 -> 마이페이지로 리다이렉트 설정 완료");
         } else {
             // 로그인 실패 처리
             System.out.println("[LoginController] 로그인 실패 -> 사용자 정보 없음");
-            view.setPath("./loginView.jsp?error=invalid");
+            request.setAttribute("errorMessage", "아이디 또는 비밀번호가 일치하지 않습니다.");
+            view.setPath("./loginView.jsp");
             view.setRedirect(false);
         }
 

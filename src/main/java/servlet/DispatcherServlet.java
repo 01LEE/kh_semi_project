@@ -2,6 +2,7 @@ package servlet;
 
 // 필요한 클래스와 인터페이스를 가져오기
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +19,13 @@ import controller.HandlerMapping;
  * 결과(ModelAndView)를 처리합니다. 또한 사용자 세션 관리 및 로그인 상태 유지 기능을 포함합니다.
  */
 @WebServlet("*.do") // 모든 ".do" 확장자로 끝나는 요청을 처리
+@MultipartConfig(maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 50)
+/*
+MultipartConfig 적용 문제
+
+@MultipartConfig는 파일 업로드를 처리하는 서블릿에만 적용됩니다.
+DispatcherServlet에 파일 업로드를 추가하면 모든 .do 요청이 파일 업로드 대상이 될 수 있어 비효율적입니다. 
+*/
 public class DispatcherServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

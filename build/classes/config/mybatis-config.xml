@@ -3,6 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+	</settings>
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
@@ -17,5 +20,8 @@
 	</environments>
 	<mappers>
 		<mapper resource="config/users-mapper.xml" />
+		<mapper resource="config/boards-mapper.xml" />
+		<mapper resource="config/region-mapper.xml" />
+		<mapper resource="config/userreport-mapper.xml" />
 	</mappers>
 </configuration>

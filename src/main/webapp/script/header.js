@@ -2,68 +2,65 @@
  * 메뉴 활성화 및 사용자 관련 기능 추가
  */
 window.onload = () => {
-	// 메뉴 활성화 로직
-	const menuItems = document.querySelectorAll('.menu_bar li');
-	const currentUrl = window.location.href; // 현재 URL
+    // 메뉴 항목 선택
+    const menuItems = document.querySelectorAll('.menu_bar li'); // 모든 메뉴 항목 (li 요소) 선택
+    const currentUrl = window.location.href; // 현재 페이지 URL 가져오기
 
-	// 페이지 로드 시 URL과 일치하는 메뉴에 active 클래스를 추가
-	menuItems.forEach(item => {
-		const link = item.querySelector('a');
-		// 메뉴 링크의 href 값이 현재 URL과 일치하면 active 클래스를 추가
-		if (currentUrl.includes(link.href)) {
-			item.classList.add('active'); // 현재 페이지의 메뉴 항목에 active 클래스 추가
-		}
+    /**
+     * 메뉴 활성화 로직
+     * - 현재 페이지 URL과 메뉴의 링크(href)를 비교하여 현재 페이지 메뉴에 'active' 클래스를 추가
+     */
+    menuItems.forEach(item => {
+        const link = item.querySelector('a'); // 메뉴 항목 안의 <a> 태그를 가져옴
+        if (currentUrl.includes(link.href)) { 
+            // 현재 URL이 링크와 일치하면 'active' 클래스 추가
+            item.classList.add('active'); 
+        }
 
-		// 마우스를 올리면 글씨 크기와 굵기 증가
-		item.addEventListener('mouseenter', () => {
-			if (!item.classList.contains('active')) { // active 클래스가 없으면만 적용
-				item.style.fontSize = '22px'; // 글씨 크기 변경
-				item.style.fontWeight = 'bolder'; // 글씨 굵기 증가
-			}
-		});
+        /**
+         * 마우스 이벤트 추가
+         * - 메뉴 항목에 마우스를 올리면 글씨 크기와 굵기를 일시적으로 변경
+         * - active 클래스가 없는 항목에만 적용
+         */
+        item.addEventListener('mouseenter', () => {
+            if (!item.classList.contains('active')) { 
+                // 'active' 클래스가 없는 경우에만 스타일 변경
+                item.style.fontSize = '22px'; // 글씨 크기를 22px로 증가
+                item.style.fontWeight = 'bolder'; // 글씨 굵기를 'bolder'로 변경
+            }
+        });
 
-		// 마우스를 떼면 원래 크기와 굵기로 돌아가게 설정
-		item.addEventListener('mouseleave', () => {
-			if (!item.classList.contains('active')) { // active 클래스가 없으면만 적용
-				item.style.fontSize = '20px'; // 원래 크기로 복원
-				item.style.fontWeight = 'bold'; // 원래 굵기로 복원
-			}
-		});
+        item.addEventListener('mouseleave', () => {
+            if (!item.classList.contains('active')) { 
+                // 'active' 클래스가 없는 경우에만 원래 상태로 복원
+                item.style.fontSize = '20px'; // 글씨 크기를 20px로 복원
+                item.style.fontWeight = 'bold'; // 글씨 굵기를 'bold'로 복원
+            }
+        });
 
-		// 메뉴 클릭 시 active 클래스를 추가하여 클릭한 메뉴 스타일 적용
-		item.addEventListener('click', () => {
-			// 클릭된 메뉴에만 active 클래스를 추가하고 나머지 메뉴에서 제거
-			menuItems.forEach(menu => menu.classList.remove('active'));
-			item.classList.add('active');
-		});
-	});
+        /**
+         * 메뉴 클릭 시 active 클래스 적용
+         * - 클릭한 메뉴 항목에만 'active' 클래스를 추가하고 다른 메뉴 항목에서는 제거
+         */
+        item.addEventListener('click', () => {
+            // 모든 메뉴 항목에서 'active' 클래스를 제거
+            menuItems.forEach(menu => menu.classList.remove('active'));
+            // 클릭한 메뉴 항목에만 'active' 클래스 추가
+            item.classList.add('active');
+        });
+    });
 
-	/*  
-	// 사용자 닉네임 및 로그아웃 관련 로직
-		const userNicknameElement = document.querySelector('.user-nickname');
-		const logoutLink = document.querySelector('.user-icon a[href="./logout.do"]');
-	
-		// 닉네임 표시가 필요한 경우
-		if (userNicknameElement) {
-			console.log("로그인된 사용자 닉네임:", userNicknameElement.textContent); // 디버깅 용도
-		}
-	
-		// 로그아웃 버튼 클릭 시 동작
-		if (logoutLink) {
-			logoutLink.addEventListener('click', (e) => {
-				const confirmLogout = confirm('로그아웃 하시겠습니까?');
-				if (!confirmLogout) {
-					e.preventDefault(); // 로그아웃 취소
-				}
-			});
-		}
-	*/
-	const logoutLink = document.querySelector('.logout-btn');
-	if (logoutLink) {
-		logoutLink.addEventListener('click', e => {
-			if (!confirm('로그아웃 하시겠습니까?')) {
-				e.preventDefault();
-			}
-		});
-	}
+    /**
+     * 로그아웃 버튼 클릭 시 확인 메시지 표시
+     * - 사용자가 로그아웃 버튼을 클릭하면 확인 창을 띄우고, 취소 시 동작을 중단
+     */
+    const logoutLink = document.querySelector('.logout-btn'); // 로그아웃 버튼 선택
+    if (logoutLink) { // 로그아웃 버튼이 존재하는 경우만 실행
+        logoutLink.addEventListener('click', e => {
+            // 확인 창을 표시하고 사용자가 '취소'를 선택하면 이벤트를 취소
+            if (!confirm('로그아웃 하시겠습니까?')) { 
+                e.preventDefault(); // 기본 동작(링크 이동) 중단
+            }
+        });
+    }
 };

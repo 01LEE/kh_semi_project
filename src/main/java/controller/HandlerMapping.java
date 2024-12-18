@@ -4,24 +4,102 @@ public class HandlerMapping {
 	private static HandlerMapping instance = new HandlerMapping();
 
 	public HandlerMapping() {
-		System.out.println("[HandlerMapping] 생성자 호출 -> HandlerMapping 객체 생성");
 	}
 
 	public static HandlerMapping getInstance() {
-		if (instance == null) {
-			System.out.println("[HandlerMapping] 인스턴스가 null -> 새로운 HandlerMapping 생성");
+		if (instance == null)
 			instance = new HandlerMapping();
-		} else {
-			System.out.println("[HandlerMapping] 기존 HandlerMapping 인스턴스 반환");
-		}
 		return instance;
 	}
 
 	public Controller createController(String command) {
-		System.out.println("[HandlerMapping] createController() 호출 -> 명령어: " + command);
 		Controller controller = null;
-
 		switch (command) {
+		case "allUser":
+			controller = new SelectAllUsers();
+			break;
+		case "allBoard":
+			controller = new BoardMainView();
+			break;
+		case "boardDetail":
+			controller = new BoardViewController();
+			break;
+		case "deleteBoard":
+			controller = new BoardDeleteController();
+			break;
+		case "boardWriteView":
+			controller = new BoardInsertViewController();
+			break;
+		case "insertBoard":
+			controller = new BoardInsertController();
+			break;
+		case "updateBoard":
+			controller = new BoardUpdateViewController();
+			break;
+		case "syncBoard":
+			controller = new BoardUpdateController();
+			break;
+		case "region":
+			controller = new RegionIntro();
+			break;
+		case "regionDetail":
+			controller = new RegionDetail();
+			break;
+		case "deleteRegion":
+			System.out.println("deleteRegion controller");
+			controller = new RegionDeleteController();
+			break;
+		case "RegionWriteView":
+			controller = new RegionInsertViewController(); // 회원 추가
+			break;
+		case "insertRegion":
+			controller = new RegionInsertController(); // 회원 추가
+			break;
+		case "updateRegion":
+			controller = new RegionUpdateViewController();
+			break;
+		case "syncRegion":
+			controller = new RegionUpdateController();
+			break;
+		case "commentWrite":
+			controller = new CommentWriteController();
+			break;
+		case "commentDelete":
+			controller = new CommentDeleteController();
+			break;
+		case "fileDown":
+			controller = new BoardFileDownController();
+			break;
+		case "boardsCategory":
+			controller = new BoardsCategoryController();
+			System.out.println("[HandlerMapping] Command: " + command);
+			break;
+		case "boardsList":
+			controller = new BoardSelectController();
+			break;
+		case "boardLike": // 좋아요
+			controller = new BoardLikeController();
+			break;
+		case "boardCommentLike": // 댓글 좋아요
+			controller = new BoardCommentLikeController();
+			break;
+		case "reportWrite": // 신고
+			controller = new ReportWriteController();
+			break;
+		case "adminUser":
+			controller = new AdminUserController();
+			break;
+		case "reportUser": // 신고하기 기능
+			controller = new ReportUserController();
+			break;
+		case "adminReports": // 관리자 신고 조회
+			controller = new AdminReportListController();
+			break;
+		case "index":
+			controller = new IndexController();
+			System.out.println("[HandlerMapping] IndexController 생성됨");
+			break;
+			
 		// 회원가입 --------------------------------------------------------
 		case "checkLoginId":
 			System.out.println("[HandlerMapping] CheckLoginIdController 생성 시작");
@@ -77,17 +155,25 @@ public class HandlerMapping {
 			controller = new UpdateUserController(); // 사용자 정보 수정
 			System.out.println("[HandlerMapping] UpdateUserController 생성 완료");
 			break;
+			
 		// 아이디/비밀번호 찾기--------------------------------------------
-			case "findLoginId":
-			    controller = new FindLoginIdController();
-			    break;
-			case "recoverPassword":
-			    controller = new PasswordRecoveryController();
-			    break;
-			case "updatePassword":
-				controller = new PasswordUpdateController();
-				break;	
-//-------------------------------------------------------------------------
+		case "findLoginId":
+			controller = new FindLoginIdController();
+			break;
+		case "recoverPassword":
+			controller = new PasswordRecoveryController();
+			break;
+		case "updatePassword":
+			controller = new PasswordUpdateController();
+			break;
+			
+		// 이미지 업로드/삭제 Controller-------------------------------------------------------------------------
+	    case "uploadImage":
+	        System.out.println("[HandlerMapping] ProfileImageController 생성 시작");
+	        controller = new ProfileImageController();
+	        System.out.println("[HandlerMapping] ProfileImageController 생성 완료");
+	        break;
+        // ------------------------------------------------------------------------------------------------------
 		default:
 			System.out.println("[HandlerMapping] 알 수 없는 명령어 -> " + command);
 			break;
@@ -98,7 +184,7 @@ public class HandlerMapping {
 		} else {
 			System.out.println("[HandlerMapping] Controller 생성 실패 -> 명령어를 확인하세요: " + command);
 		}
-
 		return controller;
 	}
+
 }
