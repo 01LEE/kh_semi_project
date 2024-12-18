@@ -28,7 +28,7 @@ public class BoardInsertController implements Controller {
 
 		if (user == null) {
 			// 세션에 사용자 정보가 없을 경우 로그인 페이지로 리다이렉트
-			response.sendRedirect("signin.jsp");
+			response.sendRedirect("login.do");
 			return null;
 		}
 
