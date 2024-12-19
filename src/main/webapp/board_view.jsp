@@ -67,10 +67,8 @@
 					<tr class="fileList">
 						<td colspan="4">
 							<p>첨부파일 목록</p> <c:forEach var="file" items="${fileList}">
-								<span> | </span>
-								<a href="./fileDown.do?fileNumber=${file.fileNumber}">${file.fileName}
+								<a href="./fileDown.do?fileNumber=${file.fileNumber}">${file.fileName} <br>
 								</a>
-								<span> | </span>
 							</c:forEach>
 						</td>
 					</tr>
@@ -107,9 +105,10 @@
 						<tr class="comment-title">
 							<input type="hidden" name="commentNumber"
 								value="${comment.commentNumber}">
-							<td>${comment.nickName}(${comment.cmtCreateTime})<a
-								href="./commentDelete.do?commentNumber=${comment.commentNumber}&postNumber=${comment.postNumber}"
-								class="comment-delete-btn"><button>x</button></a>
+							<td>${comment.nickName}(${comment.cmtCreateTime})
+							<c:if test="${comment.userNumber == sessionScope.user.userNumber || sessionScope.user.grade == 'admin' }">
+							<a href="./commentDelete.do?commentNumber=${comment.commentNumber}&postNumber=${comment.postNumber}" class="comment-delete-btn"><button>x</button></a>
+							</c:if>
 							</td>
 							<td class="comment-button">
 								<button type="button" class="btn_comment_like">
