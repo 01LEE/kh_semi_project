@@ -305,6 +305,7 @@ body {
 
             <!-- 페이징 -->
             <div class="pagination">
+            <a href="./boardWriteView.do"><button>글쓰기</button></a>
                 <c:forEach var="i" begin="1" end="${totalPages}">
                     <a href="boardsList.do?page=${i}">
                         <button class="${i == currentPage ? 'active' : ''}">${i}</button>

@@ -11,6 +11,7 @@ body {
 	justify-content: flex-start;
 	margin: 20px auto;
 	width: 1200px;
+	background-color: rgb(249, 249, 249);
 }
 /* 콘텐츠 영역 */
 .body-container {
@@ -31,16 +32,18 @@ table {
 
 /* 테이블 헤더(th) 스타일 */
 th {
-	border-top: 1px solid gray; /* 위쪽 경계선 회색 */
-	border-bottom: 1px solid gray; /* 아래쪽 경계선 회색 */
-	background-color: #f2f2f2; /* 배경색 회색 */
-	color: gray; /* 글자색 회색 */
+	border-top: 1px solid rgb(221, 221, 221); /* 위쪽 경계선 회색 */
+	border-bottom: 1px solid rgb(221, 221, 221); /* 아래쪽 경계선 회색 */
+	background-color: rgb(242, 242, 242); /* 배경색 회색 */
+	color: black; /* 글자색 회색 */
+	padding: 9px;
 }
 
 /* 제목 스타일 */
 .title {
 	font-size: 20px; /* 글자 크기 20px */
 	text-align: center; /* 텍스트 중앙 정렬 */
+	padding: 9px;
 }
 
 /* .content 클래스 스타일 */
@@ -176,6 +179,7 @@ textarea {
 /* 파일 목록 스타일 */
 .fileList {
 	font-size: 12px; /* 글자 크기 12px */
+	padding: 2px;
 }
 
 /* 좋아요 컨테이너 스타일 */
