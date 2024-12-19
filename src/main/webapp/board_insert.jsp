@@ -18,17 +18,14 @@
 window.onload = () => {
 	// Toast UI Editor 초기화
 	const editor = new toastui.Editor({
-		  el: document.querySelector('#description'), // 에디터가 렌더링될 요소
-		  height: '500px', // 에디터의 높이 설정
-		  initialEditType: 'wysiwyg', // 초기 편집 모드: WYSIWYG (시각적 편집)
-		  previewStyle: 'vertical' // 미리보기 스타일 설정
+		  el: document.querySelector('#description'), 
+		  height: '500px', 
+		  initialEditType: 'wysiwyg', 
+		  previewStyle: 'vertical' 
 		});
 
 	// 폼 제출 시 에디터의 HTML과 Markdown 데이터를 숨겨진 input에 설정
 	document.querySelector('form').onsubmit = (e) => {
-		//e.preventDefault(); // 폼 제출 기본 동작 방지 (주석 처리됨)
-		console.log(editor.getHTML()); // 에디터에서 HTML 형태로 내용 가져오기
-		console.log(editor.getMarkdown()); // 에디터에서 Markdown 형태로 내용 가져오기
 		document.querySelector('input[name=description]').value = editor.getHTML(); // HTML 데이터를 숨겨진 input에 설정
 	}	
 
@@ -38,15 +35,13 @@ window.onload = () => {
 
 	// 파일 드래그 영역에 파일을 드롭했을 때 처리
 	file_area.ondrop = (e) => {
-		e.preventDefault(); // 기본 동작 방지
-		const data = e.dataTransfer; // 드래그된 데이터 가져오기
-		console.log(data);
-		console.log(data.files); // 드래그된 파일 목록 출력
+		e.preventDefault(); 
+		const data = e.dataTransfer; 
 		// 드래그한 파일을 파일 input에 연결
 		file.files = data.files;
-		let file_list_view = document.querySelector('.file_list_view'); // 파일 목록을 표시할 영역
+		let file_list_view = document.querySelector('.file_list_view'); 
 		for(let i=0;i<data.files.length;i++){
-			file_list_view.innerHTML += `${data.files[i].name}<br>`; // 파일 이름을 화면에 표시
+			file_list_view.innerHTML += `${data.files[i].name}<br>`; 
 		}
 	
 		// 드래그 영역의 활성화 스타일 제거
@@ -55,28 +50,39 @@ window.onload = () => {
 	
 	// 드래그 중에 파일이 드래그 영역 위로 오면 활성화 상태로 처리
 	file_area.ondragover = (e) => {
-		e.preventDefault(); // 기본 동작 방지
+		e.preventDefault(); 
 	}
 	
 	// 드래그가 시작되었을 때 활성화 상태로 처리
 	file_area.ondragenter = (e) => {
-		e.target.classList.add('file_area_active'); // 활성화 상태 클래스 추가
-		e.preventDefault(); // 기본 동작 방지
+		e.target.classList.add('file_area_active'); 
+		e.preventDefault(); 
 	}
 	
 	// 드래그가 끝나면 비활성화 상태로 처리
 	file_area.ondragleave = (e) => {
-		e.target.classList.remove('file_area_active'); // 활성화 상태 클래스 제거
-		e.preventDefault(); // 기본 동작 방지
+		e.target.classList.remove('file_area_active'); 
+		e.preventDefault(); 
 	}
 }
 </script>
 <style>
 /* 페이지 전체 높이를 1000px로 설정 */
 body {
-	height: 1000px;
+	height: 1200px;
 }
-
+/* .main-container 클래스 스타일 */
+.main-container {
+    width: 1200px; /* 너비 1200px */
+    display: flex; /* Flexbox 레이아웃 사용 */
+    flex-flow: column nowrap; /* 세로 방향으로 flex 아이템 배치 */
+    margin: 0 auto; /* 수평 중앙 정렬 */
+    padding: 20px; /* 내부 여백 20px */
+    background-color: #fff; /* 배경색 흰색 */
+    border-radius: 8px; /* 모서리 둥글게 처리 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    
+}
 /* 파일 드래그 영역 스타일 */
 .file_drop_area {
 	width: 200px; /* 너비 200px */
@@ -94,46 +100,63 @@ body {
 
 /* 파일 드래그 영역이 활성화 상태일 때 스타일 */
 .file_area_active {
-	box-shadow: 0px 0px 3px 5px red; /* 빨간색 그림자 효과 */
+	box-shadow: 0px 0px 3px 3px gray; /* 빨간색 그림자 효과 */
+}
+
+.title-container{
+	display:flex;
+	flex-flow: row nowrap; 
+	gap : 10px;
+	justify-content: center;
+}
+#title{
+	width: 1000px;
+	height: 25px;
+	border-radius: 10px;
+	margin: 10px;
+	
+}
+#tag{
+	height:25px;
+	vertical-align: middle; 
 }
 </style>
 </head>
 <body>
-	<h1>글쓰기</h1>
+<div class="main-container">
 	<!-- 게시글 작성 폼 -->
 	<form action="./insertBoard.do" method="post" enctype="multipart/form-data">
+		<div class="title-container">
 		<!-- 태그 선택 -->
-		<label for="tag">태그 선택:</label> 
 		<select id="tag" name="tag">
 			<option>자유</option>
 			<option>팁</option>
 			<option>후기</option>
 		</select>
-		
 		<!-- 제목 입력 -->
 		<div class="form-group">
-			<label for="title">제목</label> 
+			<label for="title">제목 :</label> 
 			<input type="text" id="title" name="title" required> <!-- 제목 입력 필수 -->
 		</div>
-		
+		</div>
 		<!-- 내용 입력 -->
 		<div class="form-group">
-			<label for="description">내용</label>
 			<div id="description"></div> <!-- Toast UI Editor가 렌더링될 요소 -->
 			<input type="hidden" name="description"> <!-- 에디터 내용이 HTML로 저장될 숨겨진 input 태그 -->
 		</div>
-		
+		<div class="file-container">
 		<!-- 파일 드래그 앤 드롭 영역 -->
 		<div class="file_drop_area"></div>
 		<!-- 파일 선택 input (숨겨짐) -->
 		<input type="file" name="file" id="file">
 		<!-- 파일 목록 보기 영역 -->
 		<div class="file_list_view"></div>
-		
+		</div>
 		<!-- 제출 버튼 -->
 		<div class="form-group">
 			<button type="submit">작성</button>
 		</div>
 	</form>
+</div>
 </body>
 </html>
