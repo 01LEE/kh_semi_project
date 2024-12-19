@@ -23,26 +23,49 @@
     /* 메인 컨테이너 */
     .main-container {
         display: flex; /* 플렉스 박스로 구성 */
-        justify-content: center; /* 가로 방향 중앙 정렬 */
-        align-items: center; /* 세로 방향 중앙 정렬 */
-        gap: 100px; /* 컨테이너 간 간격 */
+        flex-direction: row; /* 텍스트와 이미지를 가로로 배치 */
+        justify-content: center; /* 수평 중앙 정렬 */
+        align-items: flex-start; /* 텍스트와 이미지 세로 정렬 */
+        gap: 50px; /* 텍스트와 이미지 간 간격 */
         margin-top: 50px; /* 상단 여백 */
     }
 
-    /* 슬라이드 컨테이너 스타일 */
-    .slider-container {
-        width: 200px; /* 슬라이드 컨테이너 너비 */
-        height: 500px; /* 슬라이드 컨테이너 높이 */
-        overflow: hidden; /* 넘치는 내용 숨김 */
-        position: relative; /* 내부 요소를 절대 위치로 배치 가능 */
+    /* 텍스트 슬라이드 컨테이너 */
+    .text-container {
+        flex: 1; /* 텍스트 영역 크기 비율 */
+        max-width: 300px; /* 텍스트 슬라이드 최대 너비 */
+        height: auto; /* 텍스트 영역 높이는 자동 설정 */
+        background-color: #f9f9f9; /* 텍스트 영역 배경색 */
+        border-radius: 8px; /* 모서리를 둥글게 */
+        padding: 20px; /* 내부 여백 */
+        position: relative;
     }
 
+    /* 텍스트 슬라이드 */
+    .text-slide {
+        font-size: 2rem; /* 텍스트 크기 */
+        font-weight: bold; /* 굵은 텍스트 */
+        color: #333; /* 텍스트 색상 */
+        display: flex; /* 플렉스 박스 정렬 */
+        flex-direction: column; /* 세로 방향 정렬 */
+        gap: 10px; /* 텍스트 간 간격 */
+        text-align: center; /* 텍스트 중앙 정렬 */
+    }
+
+    /* 이미지 슬라이드 컨테이너 */
     .image-container {
-        width: 1000px; /* 이미지 슬라이드 전체 너비 */
+        flex: 2; /* 이미지 영역 크기 비율 */
+        max-width: 600px; /* 이미지 슬라이드 최대 너비 */
+        height: 400px; /* 이미지 영역 고정 높이 */
+        overflow: hidden; /* 넘치는 내용 숨김 */
+        position: relative; /* 위치 조정을 위한 상대 위치 */
+        background-color: #ddd; /* 이미지 영역 배경색 */
+        border-radius: 8px; /* 모서리를 둥글게 */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     }
 
-    /* 슬라이드 스타일 */
-    .slide {
+    /* 이미지 슬라이드 */
+    .image-slide {
         position: absolute; /* 슬라이드 절대 위치 지정 */
         width: 100%; /* 슬라이드 너비 */
         height: 100%; /* 슬라이드 높이 */
@@ -51,36 +74,25 @@
         display: flex; /* 내부 요소 플렉스 정렬 */
         align-items: center; /* 수직 중앙 정렬 */
         justify-content: center; /* 가로 중앙 정렬 */
-        text-align: center; /* 텍스트 중앙 정렬 */
         transition: left 1s ease-in-out; /* 부드러운 이동 효과 */
     }
 
-    /* Transition 비활성화 클래스 */
-    .no-transition {
-        transition: none !important; /* 애니메이션 제거 */
-    }
-
-    /* 이미지 스타일 */
     .image-slide img {
         width: 100%; /* 이미지 너비 채움 */
         height: 100%; /* 이미지 높이 채움 */
         object-fit: cover; /* 이미지 비율 유지하며 채움 */
     }
 
-    /* 텍스트 스타일 */
-    .text-slide {
-        font-size: 2rem; /* 텍스트 크기 */
-        font-weight: bold; /* 굵은 텍스트 */
-        color: #333; /* 텍스트 색상 */
-        display: flex; /* 플렉스 박스 정렬 */
-        flex-direction: column; /* 세로 방향 정렬 */
-        gap: 10px; /* 텍스트 간 간격 */
-    }
-
     /* 강조 텍스트 */
-    .highlight-red { color: #b84e4e; } /* 빨간색 강조 */
-    .highlight-pink { color: #d569a8; } /* 분홍색 강조 */
-    .highlight-orange { color: #d88c26; } /* 주황색 강조 */
+    .highlight-red {
+        color: #b84e4e; /* 빨간색 강조 */
+    }
+    .highlight-pink {
+        color: #d569a8; /* 분홍색 강조 */
+    }
+    .highlight-orange {
+        color: #d88c26; /* 주황색 강조 */
+    }
 </style>
     
 </head>
@@ -90,7 +102,6 @@
 <div class="main-container">
     <!-- 텍스트 슬라이드 컨테이너 -->
     <div class="slider-container text-container">
-        <!-- 텍스트 슬라이드 각각 정의 -->
         <div class="slide text-slide" id="text1">
             <span class="highlight-red">기차타고</span>
             <span class="highlight-pink">떠나기 좋은</span>
@@ -115,7 +126,6 @@
 
     <!-- 이미지 슬라이드 컨테이너 -->
     <div class="slider-container image-container">
-        <!-- 이미지 슬라이드 각각 정의 -->
         <div class="slide image-slide" id="img1"><img src="img/nature/1.jpg" alt="자연 사진 1"></div>
         <div class="slide image-slide" id="img2"><img src="img/nature/2.jpg" alt="자연 사진 2"></div>
         <div class="slide image-slide" id="img3"><img src="img/nature/3.jpg" alt="자연 사진 3"></div>
@@ -125,59 +135,38 @@
 <jsp:include page="./views/footer.jsp"></jsp:include>
     <!-- footer.jsp 포함 -->
     <script>
-    // 텍스트와 이미지 슬라이드 선택
     const slidesText = document.querySelectorAll('.text-container .slide');
     const slidesImage = document.querySelectorAll('.image-container .slide');
-    let currentSlide = 0; // 현재 슬라이드 인덱스
+    let currentTextSlide = 0;
+    let currentImageSlide = 0;
 
     // 슬라이드 초기화
     function initializeSlides() {
-        // 모든 슬라이드에 Transition 비활성화
-        slidesText.forEach(slide => slide.classList.add('no-transition'));
-        slidesImage.forEach(slide => slide.classList.add('no-transition'));
-
-        // 모든 슬라이드 초기 위치 설정
         slidesText.forEach(slide => slide.style.left = '100%');
         slidesImage.forEach(slide => slide.style.left = '100%');
 
-        // 첫 번째 슬라이드 위치 설정
         slidesText[0].style.left = '0%';
         slidesImage[0].style.left = '0%';
-
-        // Transition 활성화
-        setTimeout(() => {
-            slidesText.forEach(slide => slide.classList.remove('no-transition'));
-            slidesImage.forEach(slide => slide.classList.remove('no-transition'));
-        }, 50); // Transition 비활성화를 제거
     }
 
-    // 슬라이드 변경 함수
-    function changeSlide() {
-        // 현재 슬라이드를 왼쪽으로 이동
-        slidesText[currentSlide].style.left = '-100%';
-        slidesImage[currentSlide].style.left = '-100%';
-
-        // 다음 슬라이드 인덱스 계산
-        currentSlide = (currentSlide + 1) % slidesText.length;
-
-        // 다음 슬라이드 초기 위치 설정
-        slidesText[currentSlide].classList.add('no-transition');
-        slidesImage[currentSlide].classList.add('no-transition');
-        slidesText[currentSlide].style.left = '100%';
-        slidesImage[currentSlide].style.left = '100%';
-
-        // 다음 슬라이드 부드럽게 표시
-        setTimeout(() => {
-            slidesText[currentSlide].classList.remove('no-transition');
-            slidesImage[currentSlide].classList.remove('no-transition');
-            slidesText[currentSlide].style.left = '0%';
-            slidesImage[currentSlide].style.left = '0%';
-        }, 50);
+    // 텍스트 슬라이드 변경
+    function changeTextSlide() {
+        slidesText[currentTextSlide].style.left = '-100%';
+        currentTextSlide = (currentTextSlide + 1) % slidesText.length;
+        slidesText[currentTextSlide].style.left = '0%';
     }
 
-    // 슬라이드 초기화 및 자동 슬라이드 설정
+    // 이미지 슬라이드 변경
+    function changeImageSlide() {
+        slidesImage[currentImageSlide].style.left = '-100%';
+        currentImageSlide = (currentImageSlide + 1) % slidesImage.length;
+        slidesImage[currentImageSlide].style.left = '0%';
+    }
+
+    // 초기화 및 슬라이드 자동 변경
     initializeSlides();
-    setInterval(changeSlide, 5000); // 5초마다 슬라이드 변경
+    setInterval(changeTextSlide, 5000); // 텍스트 슬라이드는 5초마다 변경
+    setInterval(changeImageSlide, 5000); // 이미지 슬라이드는 5초마다 변경
 </script>
 </body>
 </html>
