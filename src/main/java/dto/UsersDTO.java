@@ -131,6 +131,10 @@ public class UsersDTO {
 				+ ", profileImageUrl=" + profileImageUrl + "]";
 	}
 
+	public boolean isAdmin() {
+	    return "ADMIN".equalsIgnoreCase(this.grade);
+	}
+
     
     
 	

@@ -12,7 +12,7 @@ window.onload = () => {
         if (file) {
             // 1. 확장자 검증 (파일 타입 확인)
             // 허용된 이미지 확장자 목록
-            const allowedExtensions = ["jpg", "jpeg", "png", "bmp"];
+            const allowedExtensions = ["jpg", "jpeg", "png", "bmp","webp"];
 
             // 파일 이름에서 확장자 추출
             const fileExtension = file.name.split('.').pop().toLowerCase();
