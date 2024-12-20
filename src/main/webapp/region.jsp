@@ -21,6 +21,7 @@ body {
 	max-width: 1200px;
 	margin: 0 auto;
 	padding: 20px;
+	z-index: 1;
 }
 
 /* 이미지 카드 레이아웃 */
@@ -29,6 +30,7 @@ body {
 	flex-wrap: wrap;
 	gap: 30px;
 	justify-content: center;
+	z
 }
 
 .image-item {
@@ -94,14 +96,19 @@ body {
 }
 
 .footer-container {
-	position: fixed;
+	position: relative; /* fixed 대신 relative로 변경 */
 	bottom: 0;
 	left: 0;
 	width: 100%;
 	background-color: #f9f9f9;
 	padding: 10px 0;
 	text-align: center;
-	z-index: 10; /* 다른 요소 위에 배치 */
+	z-index: 10;
+}
+
+/* 컨테이너 하단 여백 추가 */
+.container {
+	padding-bottom: 80px; /* footer 높이만큼 여백 추가 */
 }
 </style>
 </head>

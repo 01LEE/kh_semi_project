@@ -181,7 +181,8 @@
 
 	<!-- ........................................................................................................... -->
 	<!-- 로그인 -->
-	<select id="findUserByLoginId" parameterType="string" resultMap="users">
+	<select id="findUserByLoginId" parameterType="string"
+		resultMap="users">
 		SELECT
 		user_number,
 		login_id,

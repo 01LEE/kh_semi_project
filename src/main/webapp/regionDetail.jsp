@@ -149,9 +149,10 @@ body {
 			<p>${regionDetail.description}</p>
 		</div>
 
-		<!-- 지도 API -->
-		<!-- <div class="section" id="map"> -->
 		<h2 class="section-title">지도</h2>
+		<p>
+			<span>* 상세 정보 지도 클릭</span>
+		</p>
 		<div class="map-container" id="staticMap"></div>
 
 		<!-- 여행톡 -->
