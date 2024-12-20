@@ -52,9 +52,9 @@ public class HandlerMapping {
 		case "RegionWriteView":
 			controller = new RegionInsertViewController(); // 회원 추가
 			break;
-//		case "insertRegion":
-//			controller = new RegionInsertController(); // 회원 추가
-//			break;
+		case "insertRegion":
+			controller = new RegionInsertController(); // 회원 추가
+			break;
 		case "updateRegion":
 			controller = new RegionUpdateViewController();
 			break;
