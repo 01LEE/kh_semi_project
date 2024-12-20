@@ -116,7 +116,7 @@
 									좋아요 <span class="clike_count">${comment.clike }</span>
 								</button> <c:if test="${not empty sessionScope.user}">
 									<button class="report-btn"
-										onclick="openCommentReportModal('${comment.commentNumber}', '${comment.cDescription}')">신고</button>
+										onclick="openCommentReportModal('${comment.commentNumber}', '${comment.cDescription}', '${comment.userNumber }')">신고</button>
 								</c:if>
 							</td>
 						</tr>
@@ -189,8 +189,15 @@
 		</div>
 	</div>
 	<script>
-	// 모달 열기 및 닫기 기능
+	// 게시글 신고
 	function openModal(board) {
+		let userNumber = '${sessionScope.user.getUserNumber()}';
+		let writerNumber = '${board.userNumber}'
+		if(userNumber == writerNumber){
+			alert('자기 자신이 쓴 게시글은 신고할 수 없습니다.');
+            return;
+		}
+		
 		var modal = document.getElementById('reportModal');
 		document.getElementById('modalPostTitle').innerText = board.title;
 		document.getElementById('modalPostNumber').value = board.postNumber;
@@ -262,12 +269,18 @@
     });
 
     // 신고 모달 열기
-    window.openCommentReportModal = function(commentNumber, commentContent) {
+    window.openCommentReportModal = function(commentNumber, commentContent, commentUserNumber) {
         if (!user) {
             alert('로그인 후 댓글 신고를 할 수 있습니다.');
             window.location.href = './login.do'; // 로그인 페이지로 리디렉션
             return;
         }
+        let userNumber = '${sessionScope.user.getUserNumber()}';
+		let writerNumber = commentUserNumber;
+		if(userNumber == writerNumber){
+			alert('자기 자신이 쓴 댓글은 신고할 수 없습니다.');
+            return;
+		}
         document.getElementById('commentReportModal').style.display = 'block';
         document.getElementById('commentNumber').value = commentNumber;
         document.getElementById('commentContent').innerText = commentContent;
