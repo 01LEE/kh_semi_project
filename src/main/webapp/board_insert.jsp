@@ -18,6 +18,7 @@
 	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 
 <style>
+/* 페이지 기본 스타일 */
 body {
 	font-family: Arial, sans-serif;
 	margin: 0;
@@ -25,14 +26,13 @@ body {
 	background-color: #f9f9f9;
 }
 
-/* .main-container 클래스 스타일 */
 .main_container {
 	display: flex;
-	flex-flow: row nowrap; justify-content : flex-start;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
 	margin: 20px auto;
 	width: 1200px;
 	background-color: rgb(249, 249, 249);
-	justify-content: flex-start;
 }
 
 .bady_container {
@@ -46,26 +46,27 @@ body {
 	justify-content: center;
 	gap: 10px;
 }
-/* 파일 드래그 영역 스타일 */
+
+/* 파일 드래그 영역 */
 .file_drop_area {
-	height: 100px; /* 높이 200px */
-	border: 2px dashed #e9e9e9; /* 점선 테두리 */
-	background-image: url('img/file.png'); /* 파일 아이콘 이미지 설정 */
-	background-repeat: no-repeat; /* 배경 이미지 반복하지 않음 */
-	background-position: center; /* 배경 이미지 중앙 정렬 */
+	height: 100px;
+	border: 2px dashed #e9e9e9;
+	background-image: url('img/file.png');
+	background-repeat: no-repeat;
+	background-position: center;
 	margin: 20px;
 }
 
-/* 숨겨진 파일 input 태그 */
 #file {
-	display: none; /* 화면에 보이지 않도록 설정 */
+	display: none;
 }
 
-/* 파일 드래그 영역이 활성화 상태일 때 스타일 */
+/* 숨겨진 파일 input 태그 */
 .file_area_active {
 	box-shadow: 0px 0px 3px 3px gray;
 }
 
+/* 제목 및 태그 영역 */
 .title_container {
 	display: flex;
 	flex-flow: row nowrap;
@@ -83,7 +84,6 @@ body {
 
 #tag {
 	width: 100px;
-	vertical-align: middle;
 	font-size: 14px;
 	padding: 5px 8px;
 	border-radius: 20px;
@@ -121,53 +121,25 @@ body {
 	background-color: #e0f1ff;
 }
 
-.category-item img {
+/* 아이콘 스타일 */
+.category-icon {
 	width: 20px;
 	height: 20px;
-}
-/*아이콘 스타일 */
-.category-icon {
-	width: 20px; /* 아이콘 크기 */
-	height: 20px;
-	background-image: url('img/advertising/icon.jpg'); /* 전체 아이콘 이미지 */
+	background-image: url('img/advertising/icon.jpg');
 	background-size: 120px 120px;
 	display: inline-block;
-	mix-blend-mode: multiply; /* 흰색 배경을 투명하게 보이게 */
-	filter: brightness(1) contrast(1.2); /* 대비 조정 */
+	mix-blend-mode: multiply;
+	filter: brightness(1) contrast(1.2);
 }
 
-/* 각 아이콘의 위치 설정 */
-.icon-all {
-	background-position: -62px -62.5px;
-}
-
-.icon-free {
-	background-position: -33px -65px;
-}
-
-.icon-review {
-	background-position: -81.25px -45px;
-}
-
-.icon-tip {
-	background-position: -11px -70px;
-}
-
-.icon-accommodation {
-	background-position: -43px -44px;
-}
-
-.icon-schedule {
-	background-position: -76px -84px;
-}
-
-.icon-traffic {
-	background-position: -44px -20px;
-}
-
-.icon-qa {
-	background-position: -81.25px -20px;
-}
+.icon-all { background-position: -62px -62.5px; }
+.icon-free { background-position: -33px -65px; }
+.icon-review { background-position: -81.25px -45px; }
+.icon-tip { background-position: -11px -70px; }
+.icon-accommodation { background-position: -43px -44px; }
+.icon-schedule { background-position: -76px -84px; }
+.icon-traffic { background-position: -44px -20px; }
+.icon-qa { background-position: -81.25px -20px; }
 
 .file_list_view {
 	color: black;
@@ -177,17 +149,27 @@ body {
 input {
 	border: 1px solid rgb(221, 221, 221);
 }
-.btn_submit{
-	width: 100px; /* 너비 100px */
-	background-color: white; /* 배경색 흰색 */
-	border: 1px solid #d3d3d3; /* 테두리 연한 회색 */
-	height: 30px; /* 높이 30px */
-	border-radius: 10px; /* 모서리 둥글게 처리 */
+
+/* 버튼 스타일 */
+.form-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
-.form-button{
-	display: flex;  /* Flexbox를 사용하여 아이템을 정렬 */
-    justify-content: center;  /* 수평 가운데 정렬 */
-    align-items: center;  /* 수직 가운데 정렬 */
+
+.btn_submit {
+	background-color: #82C9E6;  /* 기존 버튼 색상 */
+	border: none;
+	color: white;  /* 글자색은 흰색 */
+	padding: 5px 12px;  /* 길이를 적당하게 설정 */
+	font-size: 14px;  /* 폰트 크기 */
+	border-radius: 5px;  /* 페이징 버튼과 비슷한 정도로 둥글게 */
+	cursor: pointer;
+	transition: background-color 0.3s;  /* 배경색 전환 효과 */
+}
+
+.btn_submit:hover {
+	background-color: #66B2C1;  /* 버튼 호버 시 배경색 변경 */
 }
 </style>
 <script>
@@ -219,7 +201,7 @@ window.onload = () => {
 		file.files = data.files;
 		let file_list_view = document.querySelector('.file_list_view');
 		for(let i=0;i<data.files.length;i++){
-			file_list_view.innerHTML += `\${data.files[i].name} `;
+			file_list_view.innerHTML += `\${data.files[i].name} <br>`;
 		}
 	
 		e.target.classList.remove('file_area_active');

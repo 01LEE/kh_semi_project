@@ -67,10 +67,8 @@
 					<tr class="fileList">
 						<td colspan="4">
 							<p>첨부파일 목록</p> <c:forEach var="file" items="${fileList}">
-								<span> | </span>
-								<a href="./fileDown.do?fileNumber=${file.fileNumber}">${file.fileName}
+								<a href="./fileDown.do?fileNumber=${file.fileNumber}">${file.fileName} <br>
 								</a>
-								<span> | </span>
 							</c:forEach>
 						</td>
 					</tr>

@@ -16,7 +16,7 @@ public class RegionIntro implements Controller {
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int page = 1;
-		int pageSize = 10;
+		int pageSize = 12;
 		int totalCount = RegionService.getInstance().totalRegionCount();
 		int totalPage = (int) Math.ceil((double) totalCount / pageSize);
 		System.out.println("totalCount : " + totalCount + " totalPage : " + totalPage);

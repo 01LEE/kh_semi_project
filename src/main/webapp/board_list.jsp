@@ -186,7 +186,6 @@ body {
 .pagination {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
     gap: 10px;
 }
 .pagination a button {
@@ -202,6 +201,47 @@ body {
     background-color: #5FA5C1;
     font-weight: bold;
 }
+/* 글쓰기 버튼 스타일 */
+.btn_write, .btn_list {
+    background-color: #82C9E6;  /* 기존 버튼 색상과 동일 */
+    border: none;
+    color: white;  /* 글자색은 흰색 */
+    padding: 5px 12px;  /* 길이를 적당하게 설정 */
+    font-size: 14px;  /* 폰트 크기 */
+    border-radius: 5px;  /* 페이징 버튼과 비슷한 정도로 둥글게 */
+    cursor: pointer;
+    transition: background-color 0.3s;  /* 배경색 전환 효과 */
+}
+
+/* 마우스를 올렸을 때의 배경 색상 변화 */
+.btn_write:hover, .btn_list:hover {
+    background-color: #5FA5C1;  /* 마우스를 올리면 색상 변화 */
+}
+
+/* 글쓰기 버튼과 목록 버튼의 크기를 적당히 설정 */
+.btn_write, .btn_list {
+    width: auto;
+    height: auto;
+    text-align: center;
+}
+/* 버튼들이 위치할 영역을 flexbox로 설정 */
+.btn_bottom {
+    display: flex;
+    justify-content: space-between; /* 왼쪽과 오른쪽, 가운데 배치 */
+    align-items: center; /* 수직 중앙 정렬 */
+    margin-top: 20px;
+}
+
+/* 글쓰기 버튼은 왼쪽에, 목록 버튼은 오른쪽에 배치 */
+.btn_bottom .btn_write {
+    margin-right: auto; /* 왼쪽에 배치 */
+}
+
+/* 목록 버튼은 오른쪽에 배치 */
+.btn_bottom .btn_list {
+    margin-left: auto; /* 오른쪽에 배치 */
+}
+
 </style>
 </head>
 <body>
@@ -302,15 +342,17 @@ body {
                     </c:forEach>
                 </tbody>
             </table>
-
+            <div class="btn_bottom">
+            <a href="./boardWriteView.do"><button class="btn_write">글쓰기</button></a>
             <!-- 페이징 -->
             <div class="pagination">
-            <a href="./boardWriteView.do"><button>글쓰기</button></a>
                 <c:forEach var="i" begin="1" end="${totalPages}">
                     <a href="boardsList.do?page=${i}">
                         <button class="${i == currentPage ? 'active' : ''}">${i}</button>
                     </a>
                 </c:forEach>
+            </div>
+            <a href="./allBoard.do"><button class="btn_list">목록</button></a>
             </div>
         </div>
     </div>

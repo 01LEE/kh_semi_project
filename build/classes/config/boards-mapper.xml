@@ -82,39 +82,26 @@
 	<!-- 게시판 검색 -->
 	<select id="searchBoards" resultMap="boards">
 		SELECT
-		B.POST_NUMBER,
-		B.USER_NUMBER,
-		B.TITLE,
-		B.DESCRIPTION,
-		B.CREATE_TIME,
-		B.UPDATE_TIME,
-		B.BCOUNT,
-		B.BLIKE,
-		B.TAG,
-		U.NICK_NAME
+		*
 		FROM
-		BOARDS B
-		LEFT JOIN
-		USERS U
-		ON
-		B.USER_NUMBER = U.USER_NUMBER
+		BOARD_VIEW
 		WHERE 1=1
 		<if test="tag != null and tag.trim() != ''">
-			AND B.TAG = #{tag} <!-- 카테고리 필터링 -->
+			AND TAG = #{tag} <!-- 카테고리 필터링 -->
 		</if>
 		<if
 			test="type == 'title' and keyword != null and keyword.trim() != ''">
-			AND B.TITLE LIKE '%' || #{keyword} || '%' <!-- 제목 검색 -->
+			AND TITLE LIKE '%' || #{keyword} || '%' <!-- 제목 검색 -->
 		</if>
 		<if
 			test="type == 'writer' and keyword != null and keyword.trim() != ''">
-			AND U.NICK_NAME LIKE '%' || #{keyword} || '%' <!-- 작성자 검색 -->
+			AND NICK_NAME LIKE '%' || #{keyword} || '%' <!-- 작성자 검색 -->
 		</if>
 		ORDER BY
 		<choose>
-			<when test="sort == 'bcount'">B.BCOUNT</when> <!-- 조회수 -->
-			<when test="sort == 'blike'">B.BLIKE</when>   <!-- 좋아요 -->
-			<when test="sort == 'createTime'">B.CREATE_TIME</when> <!-- 작성 시간 -->
+			<when test="sort == 'bcount'">BCOUNT</when> <!-- 조회수 -->
+			<when test="sort == 'blike'">BLIKE</when>   <!-- 좋아요 -->
+			<when test="sort == 'createTime'">CREATE_TIME</when> <!-- 작성 시간 -->
 			<otherwise>B.POST_NUMBER</otherwise>          <!-- 기본 정렬 -->
 		</choose>
 		<if test="order == 'asc'">ASC</if>
@@ -149,7 +136,7 @@
 	<!-- 게시글 카테고리 -->
 	<select id="getBoardCountByTag" resultType="int">
 		SELECT COUNT(*)
-		FROM BOARDS B
+		FROM BOARD_VIEW b
 		WHERE 1=1
 		<if test="tag != null and tag.trim() != ''">
 			AND B.TAG = #{tag}
@@ -182,29 +169,17 @@
 		DELETE FROM COMMENTS WHERE COMMENT_NUMBER =
 		#{commentNumber}
 	</delete>
-
+	
+	<!-- 카테고리 댓글 카운팅  -->
 	<select id="getBoardsByTagWithPaging" resultMap="boards">
 		SELECT
-		B.POST_NUMBER,
-		B.USER_NUMBER,
-		B.TITLE,
-		B.DESCRIPTION,
-		B.CREATE_TIME,
-		B.UPDATE_TIME,
-		B.BCOUNT,
-		B.BLIKE,
-		B.TAG,
-		U.NICK_NAME
+		*
 		FROM
-		BOARDS B
-		LEFT JOIN
-		USERS U
-		ON
-		B.USER_NUMBER = U.USER_NUMBER
+		BOARD_VIEW 
 		WHERE
-		B.TAG = #{tag}
+		TAG = #{tag}
 		ORDER BY
-		B.CREATE_TIME DESC
+		CREATE_TIME DESC
 		OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
 	</select>
 
