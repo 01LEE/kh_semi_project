@@ -310,7 +310,7 @@ button:hover {
 .category-icon {
 	width: 20px; /* 아이콘 크기 */
 	height: 20px;
-	background-image: url('img/advertising/icon.jpg'); /* 전체 아이콘 이미지 */
+	background-image: url('../img/advertising/icon.jpg'); /* 전체 아이콘 이미지 */
 	background-size: 120px 120px;
 	display: inline-block;
 	mix-blend-mode: multiply; /* 흰색 배경을 투명하게 보이게 */

@@ -32,6 +32,7 @@
 		<id column="file_number" property="fileNumber" />
 		<result column="post_number" property="postNumber" />
 		<result column="file_path" property="filePath" />
+		<result column="file_name" property="fileName" />
 	</resultMap>
 
 	<!-- 전체 게시판 목록 조회 쿼리 -->
@@ -186,8 +187,8 @@
 	<!-- 파일 업로드 -->
 	<insert id="insertBoardFile" parameterType="dto.BoardFileDTO">
 		insert into
-		board_file(file_number,post_number,file_path)
-		values(FILE_NUMBER_SEQ.nextval, #{postNumber}, #{filePath})
+		board_file(file_number,post_number,file_path,file_name)
+		values(FILE_NUMBER_SEQ.nextval, #{postNumber}, #{filePath}, #{fileName})
 	</insert>
 
 	<!-- 첨부파일 목록 -->
@@ -196,9 +197,8 @@
 	</select>
 
 	<!-- 파일 다운로드 -->
-	<select id="selectFilePath" parameterType="int"
-		resultType="string">
-		select file_path from board_file where file_number =
+	<select id="selectFilePath" parameterType="int" resultMap="file">
+		select file_path, file_name from board_file where file_number =
 		#{fileNumber}
 	</select>
 

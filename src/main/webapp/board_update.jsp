@@ -267,7 +267,7 @@ input {
         // Editor 초기화
         const editor = new toastui.Editor({
             el: document.querySelector("#description"),  // 에디터가 삽입될 DOM 요소
-            height: '500px',
+            height: '700px',
             initialEditType: 'wysiwyg',  // WYSIWYG 에디터로 시작
             previewStyle: 'vertical',  // 미리보기 스타일
         });
