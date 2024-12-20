@@ -154,7 +154,7 @@ window.onload = () => {
             passwordMatchMessage.className = 'message error';
             return;
         }
-
+		
         // 비밀번호 확인 (일치 여부)
         if (newPasswordInput.value === confirmPasswordInput.value) {
             passwordMatchMessage.textContent = '비밀번호가 일치합니다.';
