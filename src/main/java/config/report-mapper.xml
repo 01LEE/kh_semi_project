@@ -69,6 +69,7 @@
 	<select id="selectCommentReports" resultMap="comment">
 		select * from
 		CommentReportView
+		ORDER BY report_number DESC
 	</select>
 	<update id="updateCommentReportStatus" parameterType="map">
 		UPDATE COMMENT_REPORTS

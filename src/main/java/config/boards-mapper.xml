@@ -44,7 +44,7 @@
 	<!-- 전체 게시판 페이징 -->
 	<select id="selectBoards" resultMap="boards">
 		SELECT *
-		FROM board_view
+		FROM BOARD_VIEW_WITH_REPORT
 		ORDER BY POST_NUMBER DESC
 		OFFSET #{offset} ROWS FETCH NEXT #{limit}
 		ROWS ONLY
@@ -85,7 +85,7 @@
 		SELECT
 		*
 		FROM
-		BOARD_VIEW
+		BOARD_VIEW_WITH_REPORT
 		WHERE 1=1
 		<if test="tag != null and tag.trim() != ''">
 			AND TAG = #{tag} <!-- 카테고리 필터링 -->
