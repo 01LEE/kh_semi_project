@@ -37,14 +37,6 @@ public class ProfileImageController implements Controller {
         // 페이지 이동 및 리다이렉트 여부를 설정하는 객체
         ModelAndView view = new ModelAndView();
         
-        
-		File UPLOAD_DIR = new File("c:\\ProfileUserIMG");
-		//해당 경로가 있는지 체크, 없으면 해당 경로 생성
-		if(!UPLOAD_DIR.exists()) {
-			System.out.println("파일 업로드할 폴더 및 경로 생성");
-			UPLOAD_DIR.mkdirs();
-		}		
-        
         // 요청 파라미터에서 action (업로드 or 삭제) 및 사용자 번호를 가져옴
         String action = request.getParameter("action");
         int userNumber = Integer.parseInt(request.getParameter("userNumber"));
