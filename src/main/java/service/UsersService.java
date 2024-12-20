@@ -224,12 +224,6 @@ public class UsersService {
 	            return false;
 	        }
 
-	        // 새 비밀번호 형식 검증
-	        if (!newPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")) {
-	            System.out.println("[UsersService] 새 비밀번호 형식 불일치");
-	            throw new IllegalArgumentException("비밀번호는 8~20자의 대소문자, 숫자, 특수문자를 포함해야 합니다.");
-	        }
-
 	        // 비밀번호 업데이트
 	        user.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
 	        user.setPwUpdateTime(new Timestamp(System.currentTimeMillis()));
@@ -240,6 +234,7 @@ public class UsersService {
 	        return false;
 	    }
 	}
+
 
 
 	// -----------------------------------------------------------------------------------------------------

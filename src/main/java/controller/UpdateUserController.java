@@ -50,11 +50,11 @@ public class UpdateUserController implements Controller {
         // 3. 비밀번호 변경 처리
         if (isValid(currentPassword) && isValid(newPassword) && isValid(confirmNewPassword)) {
             // 새 비밀번호 형식 검증
-            if (!newPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")) {
-                System.out.println("[UpdateUserController] 새 비밀번호 형식 불일치");
-                request.setAttribute("error", "비밀번호는 8~20자의 대소문자, 숫자, 특수문자를 포함해야 합니다.");
-                return forwardTo("./updateUserView.do", null);
-            }
+        	if (!newPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")) {
+        	    System.out.println("[UpdateUserController] 새 비밀번호 형식 불일치");
+        	    request.setAttribute("error", "비밀번호는 8~20자의 대소문자, 숫자, 특수문자를 포함해야 합니다.");
+        	    return forwardTo("./updateUserView.do", null);
+        	}
 
             // 새 비밀번호와 확인 비밀번호 일치 여부 확인
             if (!newPassword.equals(confirmNewPassword)) {
