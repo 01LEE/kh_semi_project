@@ -56,7 +56,7 @@ KH 2조
   - Java   
 >### 개발 툴
 - Eclipse
-- Oracle Database
+- Oracle Database 11 XE
 - DBeaver
 - Tomcat 10
 >### 프레임워크 및 라이브러리
