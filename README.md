@@ -65,10 +65,11 @@ KH 2조
 - Jakarta JSP & JSTL
 - Toast UI Editor
 - JavaMail API (메일 전송 관련)
+- BCrypt (비밀번호 암호화)
 - JSON
 >### 사용 API
 - 카카오맵 API (지도 및 위치 정보 제공)
-- AJAX (비동기 데이터 요청)
+
 
 >## 3. 개발 일정
 
