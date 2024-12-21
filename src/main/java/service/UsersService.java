@@ -102,17 +102,17 @@ public class UsersService {
 	// --------------------------------------------------------------------------------------------------
 	// 중복 확인 (아이디, 이메일, 닉네임)
 	public boolean isLoginIdExists(String loginId) {
-		System.out.println("[UsersService] isLoginIdExists() 호출 -> 아이디 중복 확인");
+		System.out.println("[UsersService] isLoginIdExists() 호출 -> 아이디 중복 확인"+ loginId);
 		return mapper.selectLoginIdCount(loginId) > 0;
 	}
 
 	public boolean isEmailExists(String email) {
-		System.out.println("[UsersService] isEmailExists() 호출 -> 이메일 중복 확인");
+		System.out.println("[UsersService] isEmailExists() 호출 -> 이메일 중복 확인"+ email);
 		return mapper.selectEmailCount(email) > 0;
 	}
 
 	public boolean isNickNameExists(String nickName) {
-		System.out.println("[UsersService] isNickNameExists() 호출 -> 닉네임 중복 확인");
+		System.out.println("[UsersService] isNickNameExists() 호출 -> 닉네임 중복 확인"+ nickName);
 		return mapper.selectNickNameCount(nickName) > 0;
 	}
 
@@ -160,34 +160,33 @@ public class UsersService {
 	}
 
 	// -------------------------------------------------------------------------------------------------
-	// 닉네임 변경
-	public boolean updateNickName(int userNumber, String newNickName) {
-		System.out.println("[UsersService] updateNickName() 호출");
+	// 닉네임 변경?
+    public boolean updateNickName(int userNumber, String newNickName) {
+        try {
+            if (!isValidNickName(newNickName)) {
+                System.out.println("[UsersService] 닉네임 형식 불일치");
+                return false;
+            }
 
-		try {
-			if (isNickNameExists(newNickName)) {
-				System.out.println("[UsersService] 닉네임 중복 -> 업데이트 불가");
-				return false;
-			}
+            if (isNickNameExists(newNickName)) {
+                System.out.println("[UsersService] 닉네임 중복 -> 업데이트 불가");
+                return false;
+            }
 
-			UsersDTO user = mapper.findUserByUserNumber(userNumber);
-			Timestamp lastUpdate = user.getUpdateTime();
+            UsersDTO user = mapper.findUserByUserNumber(userNumber);
+            user.setNickName(newNickName);
+            user.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+            return mapper.updateUser(user) > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    // 닉네임 유효성 검사
+    public boolean isValidNickName(String nickName) {
+        return nickName != null && nickName.matches("^[a-zA-Z가-힣0-9]{2,10}$");
+    }
 
-			// 1주일 제한 체크
-			if (lastUpdate != null && System.currentTimeMillis() - lastUpdate.getTime() < 7 * 24 * 60 * 60 * 1000) {
-				System.out.println("[UsersService] 닉네임 변경 제한 -> 1주일 미경과");
-				return false;
-			}
-
-			user.setNickName(newNickName);
-			user.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-			return mapper.updateUser(user) > 0;
-		} catch (Exception e) {
-			System.out.println("[UsersService] 닉네임 변경 중 예외 발생: " + e.getMessage());
-			e.printStackTrace();
-			return false;
-		}
-	}
 
 	// -------------------------------------------------------------------------------------------------
 	// 이메일 변경
@@ -213,25 +212,40 @@ public class UsersService {
 	// -------------------------------------------------------------------------------------------------
 	// 비밀번호 변경
 	public boolean updatePassword(int userNumber, String currentPassword, String newPassword) {
-		System.out.println("[UsersService] updatePassword() 호출");
+	    System.out.println("[UsersService] updatePassword() 호출");
 
-		try {
-			UsersDTO user = mapper.findUserByUserNumber(userNumber);
+	    try {
+	        UsersDTO user = mapper.findUserByUserNumber(userNumber);
 
-			if (!BCrypt.checkpw(currentPassword, user.getPassword())) {
-				System.out.println("[UsersService] 현재 비밀번호 불일치");
-				return false;
-			}
+	        // 현재 비밀번호 검증
+	        if (!BCrypt.checkpw(currentPassword, user.getPassword())) {
+	            System.out.println("[UsersService] 현재 비밀번호 불일치");
+	            return false; // 비밀번호가 틀렸으므로 false 반환
+	        }
+	        
+	        // 새 비밀번호와 현재 비밀번호가 동일한지 확인
+	        if (BCrypt.checkpw(newPassword, user.getPassword())) {
+	            System.out.println("[UsersService] 새 비밀번호가 현재 비밀번호와 동일합니다.");
+	            throw new IllegalArgumentException("새 비밀번호는 현재 비밀번호와 동일할 수 없습니다.");
+	        }
 
-			user.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
-			user.setPwUpdateTime(new Timestamp(System.currentTimeMillis()));
-			return mapper.updateUser(user) > 0;
-		} catch (Exception e) {
-			System.out.println("[UsersService] 비밀번호 변경 중 예외 발생: " + e.getMessage());
-			e.printStackTrace();
-			return false;
-		}
+	        // 새 비밀번호 형식 검증
+	        if (!newPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")) {
+	            System.out.println("[UsersService] 새 비밀번호 형식 불일치");
+	            throw new IllegalArgumentException("비밀번호는 8~20자의 대소문자, 숫자, 특수문자를 포함해야 합니다.");
+	        }
+
+	        // 비밀번호 업데이트
+	        user.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
+	        user.setPwUpdateTime(new Timestamp(System.currentTimeMillis()));
+	        return mapper.updateUser(user) > 0; // 업데이트 성공 여부 반환
+	    } catch (Exception e) {
+	        System.out.println("[UsersService] 비밀번호 변경 중 예외 발생: " + e.getMessage());
+	        e.printStackTrace();
+	        return false; // 예외가 발생한 경우 false 반환
+	    }
 	}
+
 
 	// -----------------------------------------------------------------------------------------------------
 	public boolean checkCurrentPassword(int userNumber, String currentPassword) {
@@ -317,7 +331,7 @@ public class UsersService {
 	}
 	// -----------------------------------------------------------------------------------------------------
 
-	/**
+	/*
 	 * 모든 사용자 정보를 조회합니다.
 	 * 
 	 * @return 사용자 목록 (List 형태로 반환)
@@ -337,7 +351,7 @@ public class UsersService {
 	}
 	// -----------------------------------------------------------------------------------------------------
 	
-	/**
+	/*
 	 * 사용자와 연관된 데이터 삭제 후 사용자 삭제
 	 * 
 	 * @param userNumber 사용자 번호
@@ -381,7 +395,7 @@ public class UsersService {
 	}
 	// -----------------------------------------------------------------------------------------------------
 	
-	/**
+	/*
 	 * 사용자 삭제
 	 * 
 	 * @param userNumber 사용자 번호
@@ -403,7 +417,7 @@ public class UsersService {
 	}
 	// -----------------------------------------------------------------------------------------------------
 	
-	/**
+	/*
 	 * 사용자 번호로 특정 사용자 정보 조회
 	 * 
 	 * @param userNumber 사용자 번호
@@ -429,7 +443,7 @@ public class UsersService {
 
 	// 프로필 작업부분---------------------------------------------------------------------------
 
-    /**
+    /*
      * 사용자 번호를 기준으로 프로필 이미지 경로를 조회합니다.
      * 
      * @param userNumber 사용자 번호
@@ -448,7 +462,7 @@ public class UsersService {
 	}
 
 
-    /**
+    /*
      * 사용자 프로필 이미지를 업데이트합니다.
      * 
      * @param userNumber 사용자 번호
@@ -465,7 +479,7 @@ public class UsersService {
         }
     }
 
-    /**
+    /*
      * 사용자 프로필 이미지를 기본 이미지로 변경합니다.
      * 
      * @param userNumber 사용자 번호
@@ -480,6 +494,5 @@ public class UsersService {
             e.printStackTrace();
         }
     }
-	// -----------------------------------------------------------------------------------------------------
     
 }

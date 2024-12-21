@@ -1,7 +1,6 @@
 /**
  * 메뉴 활성화 및 사용자 관련 기능 추가
  */
-window.onload = () => {
     // 메뉴 항목 선택
     const menuItems = document.querySelectorAll('.menu_bar li'); // 모든 메뉴 항목 (li 요소) 선택
     const currentUrl = window.location.href; // 현재 페이지 URL 가져오기
@@ -63,4 +62,3 @@ window.onload = () => {
             }
         });
     }
-};

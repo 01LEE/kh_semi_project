@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.sql.Timestamp;
 
+import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 
 import dto.UsersDTO;
@@ -22,6 +23,10 @@ public class InsertMember implements Controller {
             throws ServletException, IOException {
         System.out.println("[InsertMember] execute() 시작");
 
+        // 응답 UTF-8 설정 추가
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+
         // 클라이언트로부터 전달받은 회원 정보 파라미터
         String userName = request.getParameter("userName");
         String loginId = request.getParameter("loginId");
@@ -32,47 +37,53 @@ public class InsertMember implements Controller {
 
         System.out.println("[InsertMember] 회원 정보 파라미터 수신: userName=" + userName + ", loginId=" + loginId + ", nickName=" + nickName);
 
-        // 반환할 ModelAndView 객체 생성
-        ModelAndView view = new ModelAndView();
+        // JSON 응답 객체
+        JSONObject jsonResponse = new JSONObject();
 
         // 비밀번호 확인 로직 추가
         if (!password.equals(confirmPassword)) {
             System.out.println("[InsertMember] 비밀번호가 일치하지 않음");
-            response.getWriter().println("회원가입 실패: 비밀번호가 일치하지 않습니다.");
-            view.setPath("./IdInsertErrorPage.jsp"); // 실패 페이지 경로 설정
-            return view;
+            jsonResponse.put("status", "fail");
+            jsonResponse.put("message", "비밀번호가 일치하지 않습니다.");
+            response.getWriter().write(jsonResponse.toString());
+            return null;
         }
 
         // 입력값 검증
         if (!isValidLoginId(loginId)) {
             System.out.println("[InsertMember] 아이디 형식이 올바르지 않음");
-            response.getWriter().println("회원가입 실패: 아이디 형식이 올바르지 않습니다.");
-            view.setPath("./IdInsertErrorPage.jsp");
-            return view;
+            jsonResponse.put("status", "fail");
+            jsonResponse.put("message", "아이디는 3~20자의 영문 대소문자와 숫자로만 구성되어야 합니다.");
+            response.getWriter().write(jsonResponse.toString());
+            return null;
         }
         if (!isValidPassword(password)) {
             System.out.println("[InsertMember] 비밀번호 형식이 올바르지 않음");
-            response.getWriter().println("회원가입 실패: 비밀번호 형식이 올바르지 않습니다.");
-            view.setPath("./IdInsertErrorPage.jsp");
-            return view;
+            jsonResponse.put("status", "fail");
+            jsonResponse.put("message", "비밀번호는 8~20자이며, 대소문자, 숫자, 특수문자(@$!%*?&)를 포함해야 합니다.");
+            response.getWriter().write(jsonResponse.toString());
+            return null;
         }
         if (!isValidNickName(nickName)) {
             System.out.println("[InsertMember] 닉네임 형식이 올바르지 않음");
-            response.getWriter().println("회원가입 실패: 닉네임 형식이 올바르지 않습니다.");
-            view.setPath("./IdInsertErrorPage.jsp");
-            return view;
+            jsonResponse.put("status", "fail");
+            jsonResponse.put("message", "닉네임은 2~10자여야 합니다.");
+            response.getWriter().write(jsonResponse.toString());
+            return null;
         }
         if (!isValidUserName(userName)) {
             System.out.println("[InsertMember] 이름 형식이 올바르지 않음");
-            response.getWriter().println("회원가입 실패: 이름 형식이 올바르지 않습니다.");
-            view.setPath("./IdInsertErrorPage.jsp");
-            return view;
+            jsonResponse.put("status", "fail");
+            jsonResponse.put("message", "이름은 한글 또는 영문으로 2~20자여야 합니다.");
+            response.getWriter().write(jsonResponse.toString());
+            return null;
         }
         if (!isValidEmail(userEmail)) {
             System.out.println("[InsertMember] 이메일 형식이 올바르지 않음");
-            response.getWriter().println("회원가입 실패: 이메일 형식이 올바르지 않습니다.");
-            view.setPath("./IdInsertErrorPage.jsp");
-            return view;
+            jsonResponse.put("status", "fail");
+            jsonResponse.put("message", "유효한 이메일 형식이 아닙니다.");
+            response.getWriter().write(jsonResponse.toString());
+            return null;
         }
 
         // 비밀번호 해싱
@@ -100,21 +111,21 @@ public class InsertMember implements Controller {
 
         if (result > 0) { // 회원가입 성공
             System.out.println("[InsertMember] 회원가입 성공");
-            view.setPath("./IdInsertSuccessPage.jsp"); // 성공 페이지 경로 설정
-            view.setRedirect(true); // 리다이렉트 설정
+            response.sendRedirect("./IdInsertSuccessPage.jsp"); // 성공 페이지로 리다이렉트
         } else { // 회원가입 실패
             System.out.println("[InsertMember] 회원가입 실패");
-            response.getWriter().println("회원가입에 실패했습니다. 다시 시도해주세요.");
-            view.setPath("./IdInsertErrorPage.jsp"); // 실패 페이지 경로 설정
+            jsonResponse.put("status", "fail");
+            jsonResponse.put("message", "회원가입에 실패했습니다. 다시 시도해주세요.");
+            response.getWriter().write(jsonResponse.toString());
         }
 
         System.out.println("[InsertMember] execute() 종료");
-        return view;
+        return null; // JSON 응답만 반환
     }
 
-    // 로그인 ID 검증: 5~20자의 영문, 숫자 조합
+    // 로그인 ID 검증
     private boolean isValidLoginId(String loginId) {
-        return loginId != null && loginId.matches("^[a-zA-Z0-9]{5,20}$");
+        return loginId != null && loginId.matches("^[a-zA-Z0-9]{3,20}$");
     }
 
     // 비밀번호 검증: 8~20자, 대소문자, 숫자, 특수문자 포함

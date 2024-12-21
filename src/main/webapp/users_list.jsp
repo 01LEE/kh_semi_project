@@ -78,6 +78,31 @@
     <jsp:include page="./views/footer.jsp"></jsp:include>
     <div class="container">
         <h2>전체 회원 정보</h2>
+        <div style="margin-bottom: 20px;">
+            <form method="get" action="${pageContext.request.contextPath}/adminReports.do">
+                <input type="text" name="memberId" placeholder="회원 번호로 검색" value="${param.memberId}" />
+                <button type="submit" style="padding: 8px 12px; border-radius: 4px; background-color: #007bff; color: white; border: none; cursor: pointer;">검색</button>
+            </form>
+        </div>
+<c:if test="${not empty reports}">
+    <table>
+        <thead>
+            <tr>
+                <th>신고 번호</th>
+                <th>신고자 회원번호</th>
+                <th>게시글 번호</th>
+                <th>작성자 닉네임</th>
+                <th>신고 사유</th>
+                <th>신고 상태</th>
+                <th>신고 일시</th>
+                <th>처리 관리자 ID</th>
+                <th>조치</th>
+            </tr>
+        </thead>
+        <!-- Add table rows for reports here -->
+    </table>
+</c:if>
+        
 
         <!-- 사용자 목록 테이블 -->
         <table>
