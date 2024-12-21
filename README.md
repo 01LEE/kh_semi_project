@@ -121,24 +121,6 @@ KH 2조
 >### 지역소개 수정
 >### 관리자 페이지
 >### 관리자 회원 조회 화면
->private ModelAndView handleView() {
-        System.out.println("[AdminUserController] 사용자 목록 조회 시작");
-        try {
-            List<UsersDTO> list = UsersService.getInstance().selectAllUsers();
-            System.out.println("[AdminUserController] 조회된 사용자 수: " + list.size());
-
-            ModelAndView view = new ModelAndView();
-            view.addObject("list", list);
-            view.setPath("users_list.jsp");
-            view.setRedirect(false);
-            return view;
-        } catch (Exception e) {
-            System.out.println("[AdminUserController] 사용자 목록 조회 중 예외 발생: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 >### 게시글 신고 조회 화면
 >### 댓글 신고 조회 화면
 >### 게시판 메인 화면
