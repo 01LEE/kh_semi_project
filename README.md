@@ -159,22 +159,7 @@ KH 2조
 
 [게시판 글 작성 페이지 - board_insert.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/board_insert.jsp) <br>
 [게시판 글 작성 컨트롤러 - BoardInsertController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardInsertController.java)
-```
-java
- public int insertBoard(BoardsDTO dto, List<BoardFileDTO> fList) {
-        try (SqlSession session = DBManager.getInstance().getSession()) {
-            BoardsMapper mapper = session.getMapper(BoardsMapper.class);
-            int postNumber = mapper.selectPostNumber();  // 새로운 게시글 번호 조회
-            dto.setPostNumber(postNumber);  // 게시글 DTO에 번호 설정
-            int count = mapper.insertBoard(dto);  // 게시글 삽입
-            fList.forEach(item -> {
-                item.setPostNumber(postNumber);  // 각 파일의 게시글 번호 설정
-                mapper.insertBoardFile(item);  // 파일 삽입
-            });
-            return count;  // 삽입된 게시글 수 반환
-        }
-    }
-sql
+```sql
 <!-- 게시판 글쓰기 쿼리 -->
 	<insert id="insertBoard" parameterType="dto.BoardsDTO">
 		INSERT INTO
