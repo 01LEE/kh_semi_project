@@ -9,7 +9,6 @@
 <body>
     <!-- 헤더 포함 -->
    <jsp:include page="./views/header.jsp"></jsp:include>
-    <jsp:include page="./views/footer.jsp"></jsp:include>
     <div class="container">
         <h2>사용자 상세 정보</h2>
 
@@ -45,5 +44,7 @@
             <a href="adminUser.do?action=view"><button>목록으로 돌아가기</button></a>
         </div>
     </div>
+    	<jsp:include page="./views/footer.jsp"></jsp:include>
+    
 </body>
 </html>

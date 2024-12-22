@@ -10,7 +10,6 @@
 <body>
 	<!-- 공통 헤더 포함 -->
 	<jsp:include page="./views/header.jsp"></jsp:include>
-	<jsp:include page="./views/footer.jsp"></jsp:include>
 	<div class="body-container">
 		<h1>신고 목록</h1>
 
@@ -142,5 +141,7 @@
 		<!-- 목록으로 돌아가기 버튼 -->
 		<a href="admin.jsp" class="back-button">목록으로</a>
 	</div>
+		<jsp:include page="./views/footer.jsp"></jsp:include>
+	
 </body>
 </html>
