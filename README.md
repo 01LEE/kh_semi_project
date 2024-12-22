@@ -141,7 +141,8 @@ KH 2조
 
 >### 회원가입 화면
 ![image](https://github.com/user-attachments/assets/ccc6af6c-cb41-4dbf-936e-c3d41760a35c)
-- FRONT <br> - [회원가입 - insertMember.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/insertMember.jsp)<br>
+- FRONT <br>
+    - [회원가입 - insertMember.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/insertMember.jsp)<br>
 	- [회원가입성공 - IdInsertSuccessPage.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/IdInsertSuccessPage.jsp)<br>
 	- [회원가입실패 - IdInsertErrorPage.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/IdInsertErrorPage.jsp)<br>
 
