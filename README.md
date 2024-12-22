@@ -141,6 +141,8 @@ KH 2조
     }
 >### 게시글 신고 조회 화면
 >### 댓글 신고 조회 화면
+![image](https://github.com/user-attachments/assets/4c16b55d-79b3-4a35-965c-4ac60694dd94)
+
 >### 게시판 메인 화면
 ![image](https://github.com/user-attachments/assets/2832ce1e-4034-487e-a560-83826e80ede6)
 
@@ -148,7 +150,11 @@ KH 2조
 ![image](https://github.com/user-attachments/assets/c92c687a-cace-45ab-9e22-de339285436a)
 
 >### 게시글 신고
+![image](https://github.com/user-attachments/assets/e04b8ef6-a2a8-40f0-8a7e-f3419b10bb43)
+
 >### 댓글 신고
+![image](https://github.com/user-attachments/assets/ab01b85a-728b-46d8-ac2c-397ac2243f09)
+
 >### 게시판 글 작성
 ![image](https://github.com/user-attachments/assets/55106eff-f9a0-431f-ac86-bd1ce4a5199b)
 
