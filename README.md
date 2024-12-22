@@ -146,7 +146,8 @@ KH 2조
 	- [회원가입성공 - IdInsertSuccessPage.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/IdInsertSuccessPage.jsp)<br>
 	- [회원가입실패 - IdInsertErrorPage.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/IdInsertErrorPage.jsp)<br>
 
-- BACK  <br> - [회원가입 - InsertMember.java] (https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/InsertMember.java)<br>
+- BACK  <br> 
+    - [회원가입 - InsertMember.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/InsertMember.java)<br>
 	- [아이디 중복 처리 - CheckLoginIdController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CheckLoginIdController.java)<br>
 	- [닉네임 중복 처리 - CheckNickNameController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CheckNickNameController.java)<br>
 	- [이메일 중복 처리 - CheckEmailController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CheckEmailController.java)
