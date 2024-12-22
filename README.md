@@ -108,7 +108,7 @@ KH 2조
 
 >## 5. 화면 및 코드 리뷰
 >### 메인화면
-![image](https://github.com/user-attachments/assets/4c16b55d-79b3-4a35-965c-4ac60694dd94)
+![image](https://github.com/user-attachments/assets/f157fdf8-ea28-4f9e-9e39-c69a0c22c994)
 
 >### 로그인 화면
 ![image](https://github.com/user-attachments/assets/77cd7b6e-b013-4f79-9d60-74e992624ba0)
