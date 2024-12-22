@@ -114,6 +114,30 @@ KH 2조
 
 >### 로그인 화면
 ![image](https://github.com/user-attachments/assets/77cd7b6e-b013-4f79-9d60-74e992624ba0)
+-Front_End<br>
+	-[로그인 화면 - loginView.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/loginView.jsp)
+ 
+-Back_End<br>
+	-[로그인 화면 이동 - LoginViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginViewController.java)
+ 	-[로그인 - LoginController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginController.java)
+ 	-[로그아웃 - LogoutController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginController.java)
+  	
+-SQL
+```
+	<select id="findUserByLoginId" parameterType="string" resultMap="users">
+		SELECT
+		user_number,
+		login_id,
+		nick_name,
+		password,
+		user_name,
+		user_email,
+		grade,
+		profile_image_url
+		FROM users
+		WHERE login_id = #{loginId}
+	</select>
+```
 
 >### 회원가입 화면
 ![image](https://github.com/user-attachments/assets/ccc6af6c-cb41-4dbf-936e-c3d41760a35c)
@@ -124,11 +148,61 @@ KH 2조
 >### 비밀번호 찾기
 ![image](https://github.com/user-attachments/assets/0436a406-ebb0-49b3-8455-241e4d697f99)
 
->### 마이페이지
+>### 마이페이지 내정보
 ![image](https://github.com/user-attachments/assets/f857b35c-9fd2-48e1-b7cf-b969dc05915f)
+-Front_End<br>
+	-[마이페이지 - mypageView.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/mypageView.jsp)
+ 	-[마이페이지 - mypageView.js](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/script/mypageView.js)
+
+-Back_End<br>
+	-[마이페이지 - MyPageViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/MyPageViewController.java)
+
+ -SQL
+ ```
+	<select id="findUserByUserNumber" parameterType="int"
+		resultMap="users">
+		SELECT
+		user_number,
+		login_id,
+		nick_name,
+		password,
+		create_time,
+		update_time,
+		pw_update_time,
+		user_name,
+		user_email,
+		grade,
+		profile_image_url
+		FROM users
+		WHERE
+		user_number = #{userNumber}
+	</select>
+ ```
+>### 마이페이지 프로필
+-Back_End<br>
+	-[프로필 - ProfileImageController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/ProfileImageController.java)
+-SQL
+```
+    <!-- 사용자 번호를 기준으로 프로필 이미지 조회 -->
+    <select id="getProfileImage" parameterType="int" resultType="string">
+        SELECT profile_image_url
+        FROM users
+        WHERE user_number = #{userNumber}
+    </select>
+
+    <!-- 사용자 프로필 이미지 업데이트 -->
+    <update id="updateProfileImage" parameterType="map">
+        UPDATE users
+        SET profile_image_url = #{fileName}
+        WHERE user_number = #{userNumber}
+    </update>
+```
 
 >### 정보수정
 ![image](https://github.com/user-attachments/assets/c5a98eb8-8158-417b-a845-4aa9a0eb20cd)
+-Front_End<br>
+	-[
+-Back_End<br>
 
 >### 지역소개
 ![image](https://github.com/user-attachments/assets/e052593a-5813-4ffa-8a20-ad4e13ea9b9b)
