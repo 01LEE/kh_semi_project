@@ -145,11 +145,13 @@ KH 2조
 >![image](https://github.com/user-attachments/assets/5860c392-fbbc-4974-815b-9f73e1e8d455)
 
 >### 게시판 상세 조회 화면
->![image](https://github.com/user-attachments/assets/1c26750e-d61a-441c-b65d-ef5a14e5d06f)
+
 
 >### 게시글 신고
 >### 댓글 신고
 >### 게시판 글 작성
+![image](https://github.com/user-attachments/assets/55106eff-f9a0-431f-ac86-bd1ce4a5199b)
+
 >### 게시판 글 수정
 
 >## 6. 프로젝트 소감 및 향후 계획
