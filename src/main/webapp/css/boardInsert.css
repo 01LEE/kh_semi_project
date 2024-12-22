@@ -106,7 +106,7 @@ body {
 .category-icon {
 	width: 20px;
 	height: 20px;
-	background-image: url('img/advertising/icon.jpg');
+	background-image: url('../img/advertising/icon.jpg');
 	background-size: 120px 120px;
 	display: inline-block;
 	mix-blend-mode: multiply;
