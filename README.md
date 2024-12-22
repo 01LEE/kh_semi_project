@@ -117,12 +117,120 @@ KH 2조
 
 >### 회원가입 화면
 ![image](https://github.com/user-attachments/assets/ccc6af6c-cb41-4dbf-936e-c3d41760a35c)
+- FRONT <br> - [회원가입 - insertMember.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/insertMember.jsp)<br>
+	- [회원가입성공 - IdInsertSuccessPage.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/IdInsertSuccessPage.jsp)<br>
+	- [회원가입실패 - IdInsertErrorPage.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/IdInsertErrorPage.jsp)<br>
+
+- BACK  <br> - [회원가입 - InsertMember.java] (https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/InsertMember.java)<br>
+	- [아이디 중복 처리 - CheckLoginIdController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CheckLoginIdController.java)<br>
+	- [닉네임 중복 처리 - CheckNickNameController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CheckNickNameController.java)<br>
+	- [이메일 중복 처리 - CheckEmailController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CheckEmailController.java)
+
+- SQL
+```
+<!-- 아이디 중복 확인 -->
+<select id="selectLoginIdCount" parameterType="string"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM users
+		WHERE login_id = #{loginId}
+	</select>
+
+	<!-- 이메일 중복 확인 -->
+	<select id="selectEmailCount" parameterType="string"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM users
+		WHERE user_email = #{email}
+	</select>
+
+	<!-- 닉네임 중복 확인 -->
+	<select id="selectNickNameCount" parameterType="string"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM users
+		WHERE nick_name = #{nickName}
+	</select>
+
+<!-- 회원 가입 -->
+	<insert id="insertMember" parameterType="dto.UsersDTO">
+		INSERT INTO users (
+		user_number,
+		login_id,
+		nick_name,
+		password,
+		create_time,
+		update_time,
+		pw_update_time,
+		user_name,
+		user_email,
+		grade
+		)
+		VALUES (
+		SEQ_USER_NUMBER.NEXTVAL,
+		#{loginId, jdbcType=VARCHAR},
+		#{nickName, jdbcType=VARCHAR},
+		#{password, jdbcType=VARCHAR},
+		#{createTime, jdbcType=TIMESTAMP},
+		NULL, <!-- update_time -->
+		NULL, <!-- pw_update_time -->
+		#{userName, jdbcType=VARCHAR},
+		#{userEmail, jdbcType=VARCHAR},
+		DEFAULT
+		)
+	</insert>
+```
+
 
 >### 아이디 찾기
 ![image](https://github.com/user-attachments/assets/4622ea14-8da0-494f-8271-6e2c61072d51)
+- FRONT <br> - [아이디 찾기 - findLoginId.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/findLoginId.jsp)
+
+- BACK  <br> - [아이디 찾기 처리 - FindLoginIdController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/FindLoginIdController.java)
+- SQL
+```
+<!-- 사용자 이름과 이메일을 기반으로 로그인 ID 찾기 -->
+	<select id="findLoginIdByUserNameAndEmail" parameterType="map"
+		resultType="string">
+		SELECT login_id
+		FROM users
+		WHERE user_name = #{userName} AND
+		user_email = #{userEmail}
+	</select>
+```
+
 
 >### 비밀번호 찾기
 ![image](https://github.com/user-attachments/assets/0436a406-ebb0-49b3-8455-241e4d697f99)
+- FRONT <br> - [비밀번호 찾기 처리 - PasswordRecovery.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/PasswordRecovery.jsp)
+
+- BACK <br> - [비밀번호 찾기 처리 - PasswordRecoveryController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/PasswordRecoveryController.java)<br>  [비밀번호 찾기 후 처리 - PasswordUpdateController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/PasswordUpdateController.java)
+
+- SQL
+```
+<!-- pw찾기 및  pw수정 -->
+	<select id="findUserForPasswordReset" parameterType="map"
+		resultType="dto.UsersDTO">
+		SELECT user_number AS userNumber,
+		login_id,
+		user_name,
+		user_email
+		FROM users
+		WHERE user_name = #{userName}
+		AND login_id =
+		#{loginId}
+		AND user_email = #{userEmail}
+	</select>
+
+	<update id="updatePassword" parameterType="map">
+		UPDATE users
+		SET
+		password = #{password}, pw_update_time = CURRENT_TIMESTAMP
+		WHERE
+		user_number = #{userNumber}
+	</update>
+```
+
 
 >### 마이페이지
 ![image](https://github.com/user-attachments/assets/f857b35c-9fd2-48e1-b7cf-b969dc05915f)
