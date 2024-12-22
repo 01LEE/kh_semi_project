@@ -141,7 +141,7 @@ KH 2조
 >### 게시글 신고 조회 화면
 >### 댓글 신고 조회 화면
 ![image](https://github.com/user-attachments/assets/4c16b55d-79b3-4a35-965c-4ac60694dd94)
-[댓글 신고 조회 화면 - adminCommentReportList.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/adminCommentReportList.jsp)
+[댓글 신고 조회 화면 - adminCommentReportList.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/adminCommentReportList.jsp)<br>
 [댓글 신고 조회 및 신고 승인, 거부 처리 컨트롤러- CommentReportListController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CommentReportListController.java)
 >### 게시판 메인 화면
 ![image](https://github.com/user-attachments/assets/2832ce1e-4034-487e-a560-83826e80ede6)
