@@ -63,7 +63,6 @@ KH 2조
 - Jakarta El
 - Jakarta JSP & JSTL
 - Toast UI Editor
-- JavaMail API (메일 전송 관련)
 - BCrypt (비밀번호 암호화)
 - JSON
 >### 사용 API
