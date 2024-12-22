@@ -134,10 +134,13 @@ KH 2조
 ![image](https://github.com/user-attachments/assets/e052593a-5813-4ffa-8a20-ad4e13ea9b9b)
 
 >### 지역소개 상세 화면
+![image](https://github.com/user-attachments/assets/90ebac6b-a0bf-422c-9c3a-f67356cccc76)
 
 >### 지역소개 작성
+![image](https://github.com/user-attachments/assets/b9cf7a2c-8c25-46cf-9067-5ded60d65112)
 
 >### 지역소개 수정
+![image](https://github.com/user-attachments/assets/d1c1640d-8975-4203-95a5-2fb6b0cddc42)
 
 >### 관리자 페이지
 ![image](https://github.com/user-attachments/assets/fe700490-f698-42d4-9294-000d84a1d78d)
