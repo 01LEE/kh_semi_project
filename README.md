@@ -144,9 +144,8 @@ KH 2조
 >### 게시판 메인 화면
 ![image](https://github.com/user-attachments/assets/2832ce1e-4034-487e-a560-83826e80ede6)
 
-
 >### 게시판 상세 조회 화면
-
+![image](https://github.com/user-attachments/assets/c92c687a-cace-45ab-9e22-de339285436a)
 
 >### 게시글 신고
 >### 댓글 신고
@@ -154,6 +153,8 @@ KH 2조
 ![image](https://github.com/user-attachments/assets/55106eff-f9a0-431f-ac86-bd1ce4a5199b)
 
 >### 게시판 글 수정
+![image](https://github.com/user-attachments/assets/ef418bab-4d5b-4558-b0e1-f9aa514cf1c4)
+
 
 >## 6. 프로젝트 소감 및 향후 계획
 - 이현성 :
