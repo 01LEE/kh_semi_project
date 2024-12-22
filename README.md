@@ -144,9 +144,9 @@ KH 2조
 >### 댓글 신고 조회 화면
 ![image](https://github.com/user-attachments/assets/4c16b55d-79b3-4a35-965c-4ac60694dd94)
 - Front<br>
-[댓글 신고 조회 화면 - adminCommentReportList.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/adminCommentReportList.jsp)<br>
+	- [댓글 신고 조회 화면 - adminCommentReportList.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/adminCommentReportList.jsp)<br>
 - Back<br>
-[댓글 신고 조회 및 신고 승인, 거부 처리 - CommentReportListController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CommentReportListController.java)
+	- [댓글 신고 조회 및 신고 승인, 거부 처리 - CommentReportListController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CommentReportListController.java)
 - SQL
 ```
 <!-- 댓글 신고 목록 조회 -->
@@ -166,10 +166,10 @@ KH 2조
 >### 게시판 메인 화면
 ![image](https://github.com/user-attachments/assets/2832ce1e-4034-487e-a560-83826e80ede6)
 - Front<br>
-[게시판 메인 화면 - board_list.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/board_list.jsp)<br>
+	- [게시판 메인 화면 - board_list.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/board_list.jsp)<br>
 - Back<br>
-[게시판 전체 조회 - BoardMainView.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardMainView.java)<br>
-[게시판 글쓰기 화면으로 이동 - BoardInsertViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardInsertViewController.java)<br>
+	- [게시판 전체 조회 - BoardMainView.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardMainView.java)<br>
+	- [게시판 글쓰기 화면으로 이동 - BoardInsertViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardInsertViewController.java)<br>
 - SQL
 ```
 
@@ -178,12 +178,12 @@ KH 2조
 ![image](https://github.com/user-attachments/assets/c92c687a-cace-45ab-9e22-de339285436a)
 >#### 게시글
 - Front<br>
-[게시글 상세 조회 화면 - board_view.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/board_view.jsp)<br>
+	- [게시글 상세 조회 화면 - board_view.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/board_view.jsp)<br>
 - Back<br>
-[게시글 상세 조회 - BoardViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardViewController.java)<br>
-[게시글 삭제 - BoardDeleteController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardDeleteController.java)<br>
-[게시글 수정 화면으로 이동 - BoardUpdateViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardUpdateViewController.java)<br>
-[게시글 좋아요 - BoardLikeController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardLikeController.java)<br>
+	- [게시글 상세 조회 - BoardViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardViewController.java)<br>
+	- [게시글 삭제 - BoardDeleteController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardDeleteController.java)<br>
+	- [게시글 수정 화면으로 이동 - BoardUpdateViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardUpdateViewController.java)<br>
+	- [게시글 좋아요 - BoardLikeController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardLikeController.java)<br>
 - SQL
 ```
 <!-- 게시글 하나만 조회 -->
@@ -210,9 +210,9 @@ KH 2조
 ```
 >#### 댓글
 - Back<br>
-[댓글 작성 - CommentWriteController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CommentWriteController.java)<br>
-[댓글 삭제 - CommentDeleteController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CommentDeleteController.java)<br>
-[댓글 좋아요 - BoardCommentLikeController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardCommentLikeController.java)<br>
+	- [댓글 작성 - CommentWriteController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CommentWriteController.java)<br>
+	- [댓글 삭제 - CommentDeleteController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CommentDeleteController.java)<br>
+	- [댓글 좋아요 - BoardCommentLikeController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardCommentLikeController.java)<br>
 - SQL 
 ```
 <!-- 댓글 조회 -->
@@ -290,7 +290,7 @@ KH 2조
 	}
 ```
 - Back<br>
-[게시글 신고 - ReportWriteController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/ReportWriteController.java)
+	- [게시글 신고 - ReportWriteController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/ReportWriteController.java)
 >### 댓글 신고
 ![image](https://github.com/user-attachments/assets/ab01b85a-728b-46d8-ac2c-397ac2243f09)
 - Front
@@ -324,7 +324,7 @@ KH 2조
 });
 ```
 - Back<br>
-[댓글 신고 - CommentReportInsertController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CommentReportInsertController.java)
+	- [댓글 신고 - CommentReportInsertController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CommentReportInsertController.java)
 - SQL
 ```
 <!-- 댓글 신고 -->
@@ -341,9 +341,9 @@ KH 2조
 >### 게시판 글 작성
 ![image](https://github.com/user-attachments/assets/55106eff-f9a0-431f-ac86-bd1ce4a5199b)
 - Front<br>
-[게시판 글 작성 페이지 - board_insert.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/board_insert.jsp) <br>
+	- [게시판 글 작성 페이지 - board_insert.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/board_insert.jsp) <br>
 - Back<br>
-[게시판 글 작성 및 파일 업로드 - BoardInsertController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardInsertController.java)<br>
+	- [게시판 글 작성 및 파일 업로드 - BoardInsertController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardInsertController.java)<br>
 - SQL
 ```
 <!-- 게시판 글쓰기 쿼리 -->
@@ -368,9 +368,9 @@ KH 2조
 >### 게시판 글 수정
 ![image](https://github.com/user-attachments/assets/ef418bab-4d5b-4558-b0e1-f9aa514cf1c4)
 - Front<br>
-[게시판 글 수정 화면 - board_update.jsp](https://github.com/01LEE/kh_semi_project/blob/choi/src/main/webapp/board_update.jsp)<br>
+	- [게시판 글 수정 화면 - board_update.jsp](https://github.com/01LEE/kh_semi_project/blob/choi/src/main/webapp/board_update.jsp)<br>
 - Back<br>
-[게시판 글 수정 - BoardUpdateController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardUpdateController.java)<br>
+	- [게시판 글 수정 - BoardUpdateController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardUpdateController.java)<br>
 - SQL
 ```
 <!-- 기존 업로드 된 파일 삭제 -->
