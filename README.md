@@ -1,5 +1,3 @@
-![image](https://github.com/user-attachments/assets/74c4da07-1550-46cd-9c66-e6dc70182b75)># KH2 Semi-Project
-
 >## 팀 소개
 
 ### 1. 팀 이름
