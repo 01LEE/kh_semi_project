@@ -14,7 +14,7 @@ KH 2조
   - 장호진
 
 ><h2>목차</h2>
-<h3><a href=https://github.com/01LEE/kh_semi_project/blob/choi/README.md#2-%ED%8C%80%EC%9B%90>1. 프로젝트 소개</a></h3>
+<h3><a href=[https://github.com/01LEE/kh_semi_project/blob/choi/README.md#2-%ED%8C%80%EC%9B%90]>1. 프로젝트 소개</a></h3>
 <ul>
   <li>기획 의도</li>
   <li>목표</li>
