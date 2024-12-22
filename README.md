@@ -447,8 +447,10 @@ KH 2조
 	</update>
 ```
 
-### 관리자 페이지
+>### 관리자 페이지
 ![image](https://github.com/user-attachments/assets/fe700490-f698-42d4-9294-000d84a1d78d)
+- Front<br>
+	-[관리자 페이지 버튼 - admin.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/admin.jsp)<br>
 
 >### 관리자 회원 조회 화면
 ![image](https://github.com/user-attachments/assets/cdc09a4a-d516-43be-afda-0f048c075c9c)
