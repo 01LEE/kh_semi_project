@@ -246,8 +246,7 @@ KH 2조
 ```
 >#### 파일 다운로드
 - Back
-
-[파일 다운로드 - BoardFileDownController.java](https://github.com/01LEE/kh_semi_project/blob/choi/src/main/java/controller/BoardFileDownController.java)<br>
+	- [파일 다운로드 - BoardFileDownController.java](https://github.com/01LEE/kh_semi_project/blob/choi/src/main/java/controller/BoardFileDownController.java)<br>
 - SQL
 ```
 <!-- 첨부파일 목록 -->
