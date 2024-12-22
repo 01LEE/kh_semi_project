@@ -1,4 +1,4 @@
-># KH2 Semi-Project
+![image](https://github.com/user-attachments/assets/74c4da07-1550-46cd-9c66-e6dc70182b75)># KH2 Semi-Project
 
 >## 팀 소개
 
@@ -110,18 +110,41 @@ KH 2조
 
 >## 5. 화면 및 코드 리뷰
 >### 메인화면
+![image](https://github.com/user-attachments/assets/4c16b55d-79b3-4a35-965c-4ac60694dd94)
+
 >### 로그인 화면
+![image](https://github.com/user-attachments/assets/77cd7b6e-b013-4f79-9d60-74e992624ba0)
+
 >### 회원가입 화면
+![image](https://github.com/user-attachments/assets/ccc6af6c-cb41-4dbf-936e-c3d41760a35c)
+
 >### 아이디 찾기
+![image](https://github.com/user-attachments/assets/4622ea14-8da0-494f-8271-6e2c61072d51)
+
 >### 비밀번호 찾기
+![image](https://github.com/user-attachments/assets/0436a406-ebb0-49b3-8455-241e4d697f99)
+
 >### 마이페이지
+![image](https://github.com/user-attachments/assets/f857b35c-9fd2-48e1-b7cf-b969dc05915f)
+
 >### 정보수정
+![image](https://github.com/user-attachments/assets/c5a98eb8-8158-417b-a845-4aa9a0eb20cd)
+
 >### 지역소개
+![image](https://github.com/user-attachments/assets/e052593a-5813-4ffa-8a20-ad4e13ea9b9b)
+
 >### 지역소개 상세 화면
->### 지역소개 작성 
+
+>### 지역소개 작성
+
 >### 지역소개 수정
+
 >### 관리자 페이지
+![image](https://github.com/user-attachments/assets/fe700490-f698-42d4-9294-000d84a1d78d)
+
 >### 관리자 회원 조회 화면
+![image](https://github.com/user-attachments/assets/cdc09a4a-d516-43be-afda-0f048c075c9c)
+
 >private ModelAndView handleView() {
         System.out.println("[AdminUserController] 사용자 목록 조회 시작");
         try {
@@ -141,6 +164,8 @@ KH 2조
         return null;
     }
 >### 게시글 신고 조회 화면
+![image](https://github.com/user-attachments/assets/6626567d-d838-451f-98d7-f25b20c8045d)
+
 >### 댓글 신고 조회 화면
 ![image](https://github.com/user-attachments/assets/4c16b55d-79b3-4a35-965c-4ac60694dd94)
 - Front<br>
