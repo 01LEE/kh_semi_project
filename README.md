@@ -447,30 +447,124 @@ KH 2조
 	</update>
 ```
 
->### 관리자 페이지
+### 관리자 페이지
 ![image](https://github.com/user-attachments/assets/fe700490-f698-42d4-9294-000d84a1d78d)
 
 >### 관리자 회원 조회 화면
 ![image](https://github.com/user-attachments/assets/cdc09a4a-d516-43be-afda-0f048c075c9c)
+- Front<br>
+	- [관리자 회원 조회 화면 - users_list.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/users_list.jsp)
+- Back<br>
+	- [admin을 제외한 유저 정보 조회- AdminUserController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/AdminUserController.java)
 
->private ModelAndView handleView() {
-        System.out.println("[AdminUserController] 사용자 목록 조회 시작");
-        try {
-            List<UsersDTO> list = UsersService.getInstance().selectAllUsers();
-            System.out.println("[AdminUserController] 조회된 사용자 수: " + list.size());
+- SQL
+```
+ <!-- admin을 제외한 유저 정보 조회 -->
+	<select id="selectAllUsersExcludeAdmin"
+		resultType="dto.UsersDTO">
+		SELECT
+		user_number AS userNumber,
+		login_id AS loginId,
+		nick_name AS
+		nickName,
+		user_name AS userName,
+		user_email AS userEmail,
+		create_time AS
+		createTime
+		FROM
+		users
+		WHERE
+		grade != 'admin' OR grade IS NULL OR grade =
+		''
+		ORDER BY
+		user_number ASC  <!-- 오름차순 정렬 -->
+	</select>
+```
+>### 관리자 회원 상세 조회 화면
+![image](https://github.com/user-attachments/assets/d5544ad6-4dca-44fb-87b3-426159bc3d03)
+- Front<br>
+	- [ 회원 상세 조회 화면 - user_detail.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/user_detail.jsp)<br>
+- Back<br>
+	- [ 회원 상세 조회 화면 - AdminUserController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/AdminUserController.java)<br>
+- SQL
+```
+<!--유저 정보 상세조회 admin -->
+	<select id="selectUserByNumber" parameterType="int"
+		resultType="dto.UsersDTO">
+		SELECT
+		user_number AS userNumber,
+		login_id AS loginId,
+		nick_name AS nickName,
+		password,
+		create_time AS createTime,
+		update_time
+		AS updateTime,
+		pw_update_time AS pwUpdateTime,
+		user_name AS userName,
+		user_email AS userEmail
+		FROM
+		users
+		WHERE
+		user_number = #{userNumber}
+	</select>
+```
 
-            ModelAndView view = new ModelAndView();
-            view.addObject("list", list);
-            view.setPath("users_list.jsp");
-            view.setRedirect(false);
-            return view;
-        } catch (Exception e) {
-            System.out.println("[AdminUserController] 사용자 목록 조회 중 예외 발생: " + e.getMessage());
-            e.printStackTrace();
-        }
+>## 관리자 회원 삭제 화면
+![image](https://github.com/user-attachments/assets/43d9f07d-65c2-4cf2-9f23-6c3bb3c0c448)
+- Front<br>
+	- [유저 삭제 화면 - user_list.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/users_list.jsp)<br>
+- Back<br>
+	- [유저 삭제 화면 -  AdminUserController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/AdminUserController.java)
+- SQL
+```
+<!-- 사용자 댓글 삭제 admin -->
+	<delete id="deleteCommentsByUserNumber" parameterType="int">
+		DELETE
+		FROM comments
+		WHERE user_number = #{userNumber}
+	</delete>
 
-        return null;
-    }
+	<!-- 사용자 게시물 삭제 admin -->
+	<delete id="deleteBoardsByUserNumber" parameterType="int">
+		DELETE FROM
+		boards
+		WHERE user_number = #{userNumber}
+	</delete>
+	<!-- 사용자 삭제 admin -->
+	<delete id="deleteUserByUserNumber" parameterType="int">
+		DELETE FROM
+		users
+		WHERE user_number = #{userNumber}
+	</delete>
+```
+
+>## 관리자 회원 검색 화면
+>![image](https://github.com/user-attachments/assets/f9b4d325-8bf8-409f-a15b-ba396ddcae10)
+- Front<br>
+	- [관리자 회원 검색 화면 - users_list.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/users_list.jsp)<br>
+- Back<br>
+	- [관리자 회원 검색 화면 - ](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/AdminUserController.java)<br>
+- SQL
+```
+<select id="selectUserByUserNumber" parameterType="int" resultType="dto.UsersDTO">
+		SELECT
+		user_number AS userNumber,
+		login_id AS loginId,
+		nick_name AS nickName,
+		password,
+		create_time AS createTime,
+		update_time
+		AS updateTime,
+		pw_update_time AS pwUpdateTime,
+		user_name AS userName,
+		user_email AS userEmail
+		FROM
+		users
+		WHERE
+		user_number = #{userNumber}
+	</select>
+```
+
 >### 게시글 신고 조회 화면
 ![image](https://github.com/user-attachments/assets/6626567d-d838-451f-98d7-f25b20c8045d)
 - Front<br>
