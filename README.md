@@ -157,9 +157,28 @@ KH 2조
 >### 게시판 글 작성
 ![image](https://github.com/user-attachments/assets/55106eff-f9a0-431f-ac86-bd1ce4a5199b)
 
-[게시판 글 작성 페이지 - board_insert.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/board_insert.jsp)
+[게시판 글 작성 페이지 - board_insert.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/board_insert.jsp) <br>
 [게시판 글 작성 컨트롤러 - BoardInsertController.class](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/ImportedClasses/controller/BoardInsertController.class)
-
+```sql
+<!-- 게시판 글쓰기 쿼리 -->
+	<insert id="insertBoard" parameterType="dto.BoardsDTO">
+		INSERT INTO
+		boards(post_number, user_number, title, description, create_time, tag)
+		VALUES(#{postNumber}, #{userNumber}, #{title}, #{description},
+		SYSDATE, #{tag})
+	</insert>
+<!-- 파일업로드 글 번호 확인 -->
+	<select id="selectPostNumber" resultType="int">
+		select
+		POST_NUMBER_SEQ.nextval from dual
+	</select>
+<!-- 파일 업로드 -->
+	<insert id="insertBoardFile" parameterType="dto.BoardFileDTO">
+		insert into
+		board_file(file_number,post_number,file_path,file_name)
+		values(FILE_NUMBER_SEQ.nextval, #{postNumber}, #{filePath}, #{fileName})
+	</insert>
+```
 >### 게시판 글 수정
 ![image](https://github.com/user-attachments/assets/ef418bab-4d5b-4558-b0e1-f9aa514cf1c4)
 
