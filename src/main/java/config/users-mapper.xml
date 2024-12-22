@@ -19,23 +19,37 @@
 		<result column="grade" property="grade" />
 		<result column="profile_image_url" property="profileImageUrl" />
 	</resultMap>
-
+	
+	<!--  추가함 * ( 2024 - 12 - 22 ) -->
 	<!-- 모든 사용자 정보 조회 -->
-	<select id="selectAllUsers" resultType="dto.UsersDTO">
-		SELECT
-		user_number AS
-		userNumber,
-		login_id AS loginId,
-		nick_name AS nickName,
-		password,
-		create_time AS createTime,
-		update_time AS updateTime,
-		pw_update_time AS
-		pwUpdateTime,
-		user_name AS userName,
-		user_email AS userEmail
-		FROM
-		users
+		<select id="selectAllUsersWithReportedInfo" resultType="dto.UsersDTO">
+		SELECT 
+			u.user_number AS userNumber,        -- 사용자 번호
+			u.login_id AS loginId,             -- 로그인 ID
+			u.nick_name AS nickName,           -- 닉네임
+			u.password,                        -- 비밀번호
+			u.create_time AS createTime,       -- 생성 시간
+			u.update_time AS updateTime,       -- 수정 시간
+			u.pw_update_time AS pwUpdateTime,  -- 비밀번호 수정 시간
+			u.user_name AS userName,           -- 사용자 이름
+			u.user_email AS userEmail          -- 사용자 이메일
+		FROM 
+			users u
+	</select>
+	<!--  추가함 * ( 2024 - 12 - 22 ) -->
+	<!-- 특정 회원 번호로 사용자 정보 조회 -->
+	<select id="findUserById" parameterType="int" resultType="dto.UsersDTO">
+		SELECT 
+			u.user_number AS userNumber,       -- 사용자 번호
+			u.login_id AS loginId,            -- 로그인 ID
+			u.nick_name AS nickName,          -- 닉네임
+			u.create_time AS createTime,      -- 생성 시간
+			u.user_name AS userName,          -- 사용자 이름
+			u.user_email AS userEmail         -- 사용자 이메일
+		FROM 
+			users u
+		WHERE 
+			u.user_number = #{memberId}       -- 특정 회원 번호 기반 조회
 	</select>
 
 	<!-- 사용자 번호로 사용자 정보 조회 -->

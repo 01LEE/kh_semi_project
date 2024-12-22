@@ -30,7 +30,8 @@ public interface UserReportMapper {
 	List<UserReportDTO> findReportsWithPagination(Map<String, Object> params);
 
 	int getTotalReportCount();
+	
+	List<UserReportDTO> findReportsWithReportedUser();
+	}
 
 
-
-}
