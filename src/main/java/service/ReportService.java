@@ -28,29 +28,29 @@ public class ReportService {
 	 * 
 	 * @return 신고 목록 (List<UserReportDTO>)
 	 */
+	//수정함 << 2024 - 12 -  22 >> 
 	public List<UserReportDTO> getAllReports() {
-		try (SqlSession session = DBManager.getInstance().getSession()) {
-			System.out.println("[reportService] getAllReports: 세션 생성 완료");
-			UserReportMapper mapper = session.getMapper(UserReportMapper.class);
-			System.out.println("[reportService] getAllReports: Mapper 연결 완료");
+	    try (SqlSession session = DBManager.getInstance().getSession()) {
+	        System.out.println("[reportService] getAllReports: 세션 생성 완료");
+	        UserReportMapper mapper = session.getMapper(UserReportMapper.class);
+	        System.out.println("[reportService] getAllReports: Mapper 연결 완료");
 
-			List<UserReportDTO> reports = mapper.selectAllReports();
-			System.out.println(
-					"[reportService] getAllReports: 쿼리 실행 완료, 결과 크기=" + (reports != null ? reports.size() : "null"));
+	        List<UserReportDTO> reports = mapper.selectAllReports();
+	        System.out.println("[reportService] getAllReports: 쿼리 실행 완료, 결과 크기=" + (reports != null ? reports.size() : "null"));
 
-			if (reports != null) {
-				for (UserReportDTO report : reports) {
-					System.out.println(
-							"[reportService] 신고 번호=" + report.getReportNumber() + ", 사용자 번호=" + report.getUserNumber());
-				}
-			}
+	        if (reports != null) {
+	            for (UserReportDTO report : reports) {
+	                System.out.println("[reportService] 신고 번호=" + report.getReportNumber() +
+	                                   ", 사용자 번호=" + report.getUserNumber());
+	            }
+	        }
 
-			return reports;
-		} catch (Exception e) {
-			System.out.println("[reportService] getAllReports: 예외 발생 - " + e.getMessage());
-			e.printStackTrace();
-			return null;
-		}
+	        return reports;
+	    } catch (Exception e) {
+	        System.out.println("[reportService] getAllReports: 예외 발생 - " + e.getMessage());
+	        e.printStackTrace();
+	        return null;
+	    }
 	}
 
 	public void createReport(int userNumber, int postNumber, String reason) {
@@ -213,7 +213,6 @@ public class ReportService {
 	// 검색 및 페이징된 신고 목록을 조회합니다.
 	public List<UserReportDTO> getReportsWithPagination(Integer memberId, int start, int end) {
 	    try (SqlSession session = DBManager.getInstance().getSession()) {
-	        // Mapper 연결
 	        UserReportMapper mapper = session.getMapper(UserReportMapper.class);
 
 	        List<UserReportDTO> reports;
@@ -222,23 +221,29 @@ public class ReportService {
 	        params.put("end", end);
 
 	        if (memberId != null) {
-	            // 특정 회원의 신고 목록 조회
 	            params.put("memberId", memberId);
 	            reports = mapper.findReportsByMemberIdWithPagination(params);
 	            System.out.println("[reportService] getReportsWithPagination: 회원번호=" + memberId + ", 결과 크기=" + (reports != null ? reports.size() : "null"));
 	        } else {
-	            // 전체 신고 목록 조회
 	            reports = mapper.findReportsWithPagination(params);
 	            System.out.println("[reportService] getReportsWithPagination: 전체 결과 크기=" + (reports != null ? reports.size() : "null"));
 	        }
+
+	        if (reports != null) {
+	            for (UserReportDTO report : reports) {
+	                System.out.println("[reportService] 신고 번호=" + report.getReportNumber() +
+	                                   ", 신고자 회원번호=" + report.getUserNumber());
+	            }
+	        }
+
 	        return reports;
 	    } catch (Exception e) {
-	        // 예외 처리
 	        System.out.println("[reportService] getReportsWithPagination: 예외 발생 - " + e.getMessage());
 	        e.printStackTrace();
-	        return null; // 실패 시 null 반환
+	        return null;
 	    }
 	}
+
 
 	// 전체 신고 수 조회 전용 메서드
 	public int getTotalReportCount() {

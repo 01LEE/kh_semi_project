@@ -494,5 +494,40 @@ public class UsersService {
             e.printStackTrace();
         }
     }
+    public List<UsersDTO> selectUserById(String memberId) {
+        System.out.println("[UsersService] selectUserById() 호출 -> memberId: " + memberId);
+
+        try {
+            List<UsersDTO> users = mapper.findUserById(memberId); // UsersMapper 호출
+            System.out.println("[UsersService] 검색된 사용자 수: " + users.size());
+            return users;
+        } catch (Exception e) {
+            System.out.println("[UsersService] 사용자 검색 중 예외 발생: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<UsersDTO> selectUserAdminById(int memberId) {
+        System.out.println("[UsersService] selectUserById 호출 -> memberId: " + memberId);
+
+        try {
+            // Mapper를 통해 사용자 조회
+            List<UsersDTO> users = mapper.findUserById(memberId);
+            System.out.println("[UsersService] 검색된 사용자 수: " + (users != null ? users.size() : 0));
+
+            if (users == null || users.isEmpty()) {
+                System.out.println("[UsersService] 검색된 사용자가 없습니다.");
+                return List.of(); // 빈 리스트 반환
+            }
+            return users;
+        } catch (Exception e) {
+            System.out.println("[UsersService] 사용자 검색 중 예외 발생: " + e.getMessage());
+            e.printStackTrace();
+            return List.of(); // 예외 발생 시 빈 리스트 반환
+        }
+    }
     
 }
+
+    

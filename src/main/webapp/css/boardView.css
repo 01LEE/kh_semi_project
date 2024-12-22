@@ -9,7 +9,7 @@ body {
 .main-container {
 	display: flex;
 	justify-content: flex-start;
-	margin: 8% auto;
+	margin: 100px auto;
 	width: 1200px;
 	background-color: rgb(249, 249, 249);
 }

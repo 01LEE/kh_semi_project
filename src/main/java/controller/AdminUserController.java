@@ -18,15 +18,22 @@ public class AdminUserController implements Controller {
 
         // action 파라미터로 동작 분기
         String action = request.getParameter("action");
-        System.out.println("[AdminUserController] 요청 시작, action: " + action);
+        String memberIdParam = request.getParameter("memberId");
+
+        System.out.println("[AdminUserController] 요청 시작, action: " + action + ", memberId: " + memberIdParam);
 
         try {
+            // memberId가 존재하면 검색 처리
+            if (memberIdParam != null && !memberIdParam.trim().isEmpty()) {
+                System.out.println("[AdminUserController] 검색 조건 감지 - memberId: " + memberIdParam);
+                return handleSearch(request);
+            }
+
+            // action에 따라 동작 분기
             if ("delete".equals(action)) {
                 return handleDelete(request, response);
-
             } else if ("detail".equals(action)) {
                 return handleDetail(request, response);
-
             } else if ("view".equals(action) || action == null) {
                 return handleView();
             }
@@ -119,5 +126,36 @@ public class AdminUserController implements Controller {
         }
 
         return null;
+    }
+
+    /**
+     * 사용자 검색 처리
+     */
+    private ModelAndView handleSearch(HttpServletRequest request) {
+        try {
+            String memberIdParam = request.getParameter("memberId");
+            System.out.println("[AdminUserController] 요청된 memberId: " + memberIdParam);
+
+            if (memberIdParam != null && !memberIdParam.trim().isEmpty()) {
+                int memberId = Integer.parseInt(memberIdParam);
+                List<UsersDTO> list = UsersService.getInstance().selectUserAdminById(memberId);
+                
+                System.out.println("[AdminUserController] 검색된 사용자 수: " + list.size());
+
+                ModelAndView view = new ModelAndView();
+                view.addObject("list", list);
+                view.setPath("users_list.jsp");
+                view.setRedirect(false);
+                return view;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("[AdminUserController] 잘못된 memberId 형식: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("[AdminUserController] 검색 처리 중 예외 발생: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        // 검색 실패 시 기본 사용자 목록 반환
+        return handleView();
     }
 }

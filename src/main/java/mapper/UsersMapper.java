@@ -144,4 +144,8 @@ public interface UsersMapper {
      */
     void updateProfileImage(@Param("userNumber") int userNumber, @Param("fileName") String fileName);
     // ---------------------------------------------------------------------------------------------
+
+	List<UsersDTO> findUserById(@Param("memberId") int memberId);
+
+	List<UsersDTO> findUserById(String memberId);
 }

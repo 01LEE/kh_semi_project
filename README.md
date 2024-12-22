@@ -63,7 +63,6 @@ KH 2조
 - Jakarta El
 - Jakarta JSP & JSTL
 - Toast UI Editor
-- JavaMail API (메일 전송 관련)
 - BCrypt (비밀번호 암호화)
 - JSON
 >### 사용 API
@@ -114,61 +113,485 @@ KH 2조
 
 >### 로그인 화면
 ![image](https://github.com/user-attachments/assets/77cd7b6e-b013-4f79-9d60-74e992624ba0)
+-Front<br>
+	-[로그인 화면 - loginView.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/loginView.jsp)<br>
+ 
+-Back<br>
+	-[로그인 화면 이동 - LoginViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginViewController.java)<br>
+ 	-[로그인 - LoginController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginController.java)<br>
+ 	-[로그아웃 - LogoutController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginController.java)<br>
+  	
+-SQL
+```
+	<select id="findUserByLoginId" parameterType="string" resultMap="users">
+		SELECT
+		user_number,
+		login_id,
+		nick_name,
+		password,
+		user_name,
+		user_email,
+		grade,
+		profile_image_url
+		FROM users
+		WHERE login_id = #{loginId}
+	</select>
+```
 
 >### 회원가입 화면
-![image](https://github.com/user-attachments/assets/ccc6af6c-cb41-4dbf-936e-c3d41760a35c)
+![image](https://github.com/user-attachments/assets/0f0eea02-0549-4206-a959-1a13ce8f0b67)
+- FRONT <br>
+    - [회원가입 - insertMember.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/insertMember.jsp)<br>
+	- [회원가입성공 - IdInsertSuccessPage.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/IdInsertSuccessPage.jsp)<br>
+	- [회원가입실패 - IdInsertErrorPage.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/IdInsertErrorPage.jsp)<br>
+
+- BACK  <br> 
+    - [회원가입 - InsertMember.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/InsertMember.java)<br>
+	- [아이디 중복 처리 - CheckLoginIdController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CheckLoginIdController.java)<br>
+	- [닉네임 중복 처리 - CheckNickNameController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CheckNickNameController.java)<br>
+	- [이메일 중복 처리 - CheckEmailController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/CheckEmailController.java)
+
+- SQL
+```
+<!-- 아이디 중복 확인 -->
+<select id="selectLoginIdCount" parameterType="string"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM users
+		WHERE login_id = #{loginId}
+	</select>
+
+	<!-- 이메일 중복 확인 -->
+	<select id="selectEmailCount" parameterType="string"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM users
+		WHERE user_email = #{email}
+	</select>
+
+	<!-- 닉네임 중복 확인 -->
+	<select id="selectNickNameCount" parameterType="string"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM users
+		WHERE nick_name = #{nickName}
+	</select>
+
+<!-- 회원 가입 -->
+	<insert id="insertMember" parameterType="dto.UsersDTO">
+		INSERT INTO users (
+		user_number,
+		login_id,
+		nick_name,
+		password,
+		create_time,
+		update_time,
+		pw_update_time,
+		user_name,
+		user_email,
+		grade
+		)
+		VALUES (
+		SEQ_USER_NUMBER.NEXTVAL,
+		#{loginId, jdbcType=VARCHAR},
+		#{nickName, jdbcType=VARCHAR},
+		#{password, jdbcType=VARCHAR},
+		#{createTime, jdbcType=TIMESTAMP},
+		NULL, <!-- update_time -->
+		NULL, <!-- pw_update_time -->
+		#{userName, jdbcType=VARCHAR},
+		#{userEmail, jdbcType=VARCHAR},
+		DEFAULT
+		)
+	</insert>
+```
+
 
 >### 아이디 찾기
 ![image](https://github.com/user-attachments/assets/4622ea14-8da0-494f-8271-6e2c61072d51)
+- FRONT <br> - [아이디 찾기 - findLoginId.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/findLoginId.jsp)
+
+- BACK  <br> - [아이디 찾기 처리 - FindLoginIdController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/FindLoginIdController.java)
+- SQL
+```
+<!-- 사용자 이름과 이메일을 기반으로 로그인 ID 찾기 -->
+	<select id="findLoginIdByUserNameAndEmail" parameterType="map"
+		resultType="string">
+		SELECT login_id
+		FROM users
+		WHERE user_name = #{userName} AND
+		user_email = #{userEmail}
+	</select>
+```
+
 
 >### 비밀번호 찾기
 ![image](https://github.com/user-attachments/assets/0436a406-ebb0-49b3-8455-241e4d697f99)
+- FRONT <br> - [비밀번호 찾기 처리 - PasswordRecovery.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/PasswordRecovery.jsp)
 
->### 마이페이지
+- BACK <br> - [비밀번호 찾기 처리 - PasswordRecoveryController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/PasswordRecoveryController.java)<br>  [비밀번호 찾기 후 처리 - PasswordUpdateController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/PasswordUpdateController.java)
+
+- SQL
+```
+<!-- pw찾기 및  pw수정 -->
+	<select id="findUserForPasswordReset" parameterType="map"
+		resultType="dto.UsersDTO">
+		SELECT user_number AS userNumber,
+		login_id,
+		user_name,
+		user_email
+		FROM users
+		WHERE user_name = #{userName}
+		AND login_id =
+		#{loginId}
+		AND user_email = #{userEmail}
+	</select>
+
+	<update id="updatePassword" parameterType="map">
+		UPDATE users
+		SET
+		password = #{password}, pw_update_time = CURRENT_TIMESTAMP
+		WHERE
+		user_number = #{userNumber}
+	</update>
+```
+
+
+>### 마이페이지 내정보
 ![image](https://github.com/user-attachments/assets/f857b35c-9fd2-48e1-b7cf-b969dc05915f)
+-Front<br>
+	-[마이페이지 - mypageView.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/mypageView.jsp)<br>
+ 	-[마이페이지 - mypageView.js](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/script/mypageView.js)<br>
+
+-Back<br>
+	-[내정보 조회 - MyPageViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/MyPageViewController.java)<br>
+
+ -SQL
+ ```
+	<select id="findUserByUserNumber" parameterType="int"
+		resultMap="users">
+		SELECT
+		user_number,
+		login_id,
+		nick_name,
+		password,
+		create_time,
+		update_time,
+		pw_update_time,
+		user_name,
+		user_email,
+		grade,
+		profile_image_url
+		FROM users
+		WHERE
+		user_number = #{userNumber}
+	</select>
+ ```
+>### 마이페이지 프로필(등록,삭제)
+-Back<br>
+	-[프로필Controller - ProfileImageController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/ProfileImageController.java)<br>
+ 	-[프로필Servlet - ProfileImageServlet.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/servlet/ProfileImageServlet.java)<br>
+  
+-SQL
+```
+    <!-- 사용자 번호를 기준으로 프로필 이미지 조회 -->
+    <select id="getProfileImage" parameterType="int" resultType="string">
+        SELECT profile_image_url
+        FROM users
+        WHERE user_number = #{userNumber}
+    </select>
+
+    <!-- 사용자 프로필 이미지 업데이트 -->
+    <update id="updateProfileImage" parameterType="map">
+        UPDATE users
+        SET profile_image_url = #{fileName}
+        WHERE user_number = #{userNumber}
+    </update>
+```
 
 >### 정보수정
 ![image](https://github.com/user-attachments/assets/c5a98eb8-8158-417b-a845-4aa9a0eb20cd)
+-Front<br>
+	-[정보수정jsp - updateUserView.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/updateUserView.jsp)<br>
+ 	-[정보수정js - updateUserView.js](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/script/updateUserView.js)<br>
+ 
+-Back<br>
+	-[정보수정 이동 - UpdateUserViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/UpdateUserViewController.java)<br>
+	-[닉네임,비밀번호,이메일 변경 - UpdateUserController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/UpdateUserController.java)<br>
+
+-SQL
+```
+	<update id="updateUser" parameterType="dto.UsersDTO">
+		UPDATE users
+		<set>
+			<!-- 닉네임 변경 -->
+			<if test="nickName != null and nickName != ''">
+				nick_name = #{nickName},
+			</if>
+			<!-- 이메일 변경 -->
+			<if test="userEmail != null and userEmail != ''">
+				user_email = #{userEmail},
+			</if>
+			<!-- 비밀번호 변경 -->
+			<if test="password != null and password != ''">
+				password = #{password},
+				pw_update_time = SYSDATE,
+			</if>
+			<!-- 항상 업데이트되는 update_time -->
+			update_time = SYSDATE
+		</set>
+		WHERE user_number = #{userNumber}
+	</update>
+```
 
 >### 지역소개
 ![image](https://github.com/user-attachments/assets/e052593a-5813-4ffa-8a20-ad4e13ea9b9b)
 
+- Front<br>
+	- [지역소개 메인 화면 - region.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/region.jsp)<br>
+- Back<br>
+	- [지역 데이터 일부 조회 - RegionIntro.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/RegionIntro.java)
+
+- SQL
+```
+<select id="selectAllRegion" resultMap="region">
+		SELECT *
+		FROM region
+		ORDER
+		BY region_number
+		OFFSET #{offset} ROWS FETCH NEXT #{pageSize}
+		ROWS ONLY
+	</select>
+```
 >### 지역소개 상세 화면
 ![image](https://github.com/user-attachments/assets/90ebac6b-a0bf-422c-9c3a-f67356cccc76)
 
+- Front<br>
+	- [지역소개 상세 화면 - regionDetail.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/regionDetail.jsp)<br>
+- Back<br>
+	- [지역 데이터 상세 조회 - RegionDetail.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/RegionDetail.java)
+
+- SQL
+```
+<select id="selectRegionByRegionNumber" resultMap="region">
+		SELECT
+		region_number,
+		title,
+		description,
+		create_time,
+		update_time,
+		image_url,
+		latitude,  
+		longitude  
+		FROM
+		region
+		WHERE
+		region_number = #{regionNumber, jdbcType=INTEGER}
+	</select>
+```
 >### 지역소개 작성
 ![image](https://github.com/user-attachments/assets/b9cf7a2c-8c25-46cf-9067-5ded60d65112)
+
+- Front<br>
+	- [지역소개 글쓰기- regionDetail.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/region_insert.jsp)<br>
+- Back<br>
+	- [데이터 추가 - RegionDetail.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/RegionInsertController.java)
+
+- SQL
+```
+<insert id="insertRegion" parameterType="dto.RegionDTO">
+		INSERT INTO region
+		(
+		region_number,
+		title,
+		description,
+		create_time,
+		image_url,
+		latitude,
+		longitude
+		)
+		VALUES
+		(
+		region_seq.NEXTVAL,
+		#{title},
+		#{description},
+		SYSDATE,
+		#{imageUrl, jdbcType=CLOB},
+		#{latitude},
+		#{longitude}
+		)
+	</insert>
+```
 
 >### 지역소개 수정
 ![image](https://github.com/user-attachments/assets/d1c1640d-8975-4203-95a5-2fb6b0cddc42)
 
+- Front<br>
+	- [지역소개 수정하기 - region_update.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/region_update.jsp)<br>
+- Back<br>
+	- [데이터 수정 - RegionUpdateController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/RegionUpdateController.java)
+
+- SQL
+```
+<update id="updateRegion" parameterType="dto.RegionDTO">
+		UPDATE region
+		SET
+		title = #{title},
+		description = #{description},
+		update_time = SYSDATE,
+		image_url = #{imageUrl}, 
+		latitude = #{latitude}, 
+		longitude = #{longitude}
+		WHERE region_number = #{regionNumber}
+	</update>
+```
+
 >### 관리자 페이지
 ![image](https://github.com/user-attachments/assets/fe700490-f698-42d4-9294-000d84a1d78d)
+- Front<br>
+	-[관리자 페이지 버튼 - admin.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/admin.jsp)<br>
 
 >### 관리자 회원 조회 화면
 ![image](https://github.com/user-attachments/assets/cdc09a4a-d516-43be-afda-0f048c075c9c)
+- Front<br>
+	- [관리자 회원 조회 화면 - users_list.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/users_list.jsp)
+- Back<br>
+	- [admin을 제외한 유저 정보 조회- AdminUserController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/AdminUserController.java)
 
->private ModelAndView handleView() {
-        System.out.println("[AdminUserController] 사용자 목록 조회 시작");
-        try {
-            List<UsersDTO> list = UsersService.getInstance().selectAllUsers();
-            System.out.println("[AdminUserController] 조회된 사용자 수: " + list.size());
+- SQL
+```
+ <!-- admin을 제외한 유저 정보 조회 -->
+	<select id="selectAllUsersExcludeAdmin"
+		resultType="dto.UsersDTO">
+		SELECT
+		user_number AS userNumber,
+		login_id AS loginId,
+		nick_name AS
+		nickName,
+		user_name AS userName,
+		user_email AS userEmail,
+		create_time AS
+		createTime
+		FROM
+		users
+		WHERE
+		grade != 'admin' OR grade IS NULL OR grade =
+		''
+		ORDER BY
+		user_number ASC  <!-- 오름차순 정렬 -->
+	</select>
+```
+>### 관리자 회원 상세 조회 화면
+![image](https://github.com/user-attachments/assets/d5544ad6-4dca-44fb-87b3-426159bc3d03)
+- Front<br>
+	- [ 회원 상세 조회 화면 - user_detail.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/user_detail.jsp)<br>
+- Back<br>
+	- [ 회원 상세 조회 화면 - AdminUserController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/AdminUserController.java)<br>
+- SQL
+```
+<!--유저 정보 상세조회 admin -->
+	<select id="selectUserByNumber" parameterType="int"
+		resultType="dto.UsersDTO">
+		SELECT
+		user_number AS userNumber,
+		login_id AS loginId,
+		nick_name AS nickName,
+		password,
+		create_time AS createTime,
+		update_time
+		AS updateTime,
+		pw_update_time AS pwUpdateTime,
+		user_name AS userName,
+		user_email AS userEmail
+		FROM
+		users
+		WHERE
+		user_number = #{userNumber}
+	</select>
+```
 
-            ModelAndView view = new ModelAndView();
-            view.addObject("list", list);
-            view.setPath("users_list.jsp");
-            view.setRedirect(false);
-            return view;
-        } catch (Exception e) {
-            System.out.println("[AdminUserController] 사용자 목록 조회 중 예외 발생: " + e.getMessage());
-            e.printStackTrace();
-        }
+>## 관리자 회원 삭제 화면
+![image](https://github.com/user-attachments/assets/43d9f07d-65c2-4cf2-9f23-6c3bb3c0c448)
+- Front<br>
+	- [유저 삭제 화면 - user_list.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/users_list.jsp)<br>
+- Back<br>
+	- [유저 삭제 화면 -  AdminUserController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/AdminUserController.java)
+- SQL
+```
+<!-- 사용자 댓글 삭제 admin -->
+	<delete id="deleteCommentsByUserNumber" parameterType="int">
+		DELETE
+		FROM comments
+		WHERE user_number = #{userNumber}
+	</delete>
 
-        return null;
-    }
+	<!-- 사용자 게시물 삭제 admin -->
+	<delete id="deleteBoardsByUserNumber" parameterType="int">
+		DELETE FROM
+		boards
+		WHERE user_number = #{userNumber}
+	</delete>
+	<!-- 사용자 삭제 admin -->
+	<delete id="deleteUserByUserNumber" parameterType="int">
+		DELETE FROM
+		users
+		WHERE user_number = #{userNumber}
+	</delete>
+```
+
+>## 관리자 회원 검색 화면
+>![image](https://github.com/user-attachments/assets/f9b4d325-8bf8-409f-a15b-ba396ddcae10)
+- Front<br>
+	- [관리자 회원 검색 화면 - users_list.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/users_list.jsp)<br>
+- Back<br>
+	- [관리자 회원 검색 화면 - ](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/AdminUserController.java)<br>
+- SQL
+```
+<select id="selectUserByUserNumber" parameterType="int" resultType="dto.UsersDTO">
+		SELECT
+		user_number AS userNumber,
+		login_id AS loginId,
+		nick_name AS nickName,
+		password,
+		create_time AS createTime,
+		update_time
+		AS updateTime,
+		pw_update_time AS pwUpdateTime,
+		user_name AS userName,
+		user_email AS userEmail
+		FROM
+		users
+		WHERE
+		user_number = #{userNumber}
+	</select>
+```
+
 >### 게시글 신고 조회 화면
 ![image](https://github.com/user-attachments/assets/6626567d-d838-451f-98d7-f25b20c8045d)
-
+- Front<br>
+	- [게시글 신고 조회 화면 - adminCommentReportList.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/adminReportList.jsp)<br>
+- Back<br>
+	- [게시판 신고 목록 조회 , 검색 , 페이징  - CommentReportListController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/AdminReportListController.java)
+- SQL
+```
+<select id="selectAllReports" resultType="dto.UserReportDTO">
+		SELECT
+		ur.REPORT_NUMBER AS reportNumber,
+		ur.USER_NUMBER AS userNumber,
+		ur.POST_NUMBER AS postNumber,
+		ur.USER_REPORT_REASON AS userReportReason,
+		ur.REPORT_STATUS AS reportStatus,
+		TO_CHAR(ur.CREATE_TIME, 'YYYY-MM-DD HH24:MI:SS') AS createTime,
+		COALESCE(ur.HANDLED_BY_ADMIN_ID, 0) AS handledByAdminId,
+		bu.NICK_NAME AS postWriterNickname,
+		u.NICK_NAME AS userNickname
+		FROM
+		USER_REPORTS ur LEFT JOIN BOARDS b ON ur.POST_NUMBER = b.POST_NUMBER
+		LEFT JOIN USERS u ON ur.USER_NUMBER = u.USER_NUMBER
+		LEFT JOIN USERS bu ON b.USER_NUMBER = bu.USER_NUMBER
+		ORDER BY ur.CREATE_TIME DESC
+	</select>
+```
 >### 댓글 신고 조회 화면
 ![image](https://github.com/user-attachments/assets/4c16b55d-79b3-4a35-965c-4ac60694dd94)
 - Front<br>
@@ -190,18 +613,186 @@ KH 2조
 		HANDLED_BY_ADMIN_ID = #{adminId}
 		WHERE REPORT_NUMBER = #{reportNumber}
 	</update>
+
+	<select id="findReportsWithPagination" parameterType="map" resultType="dto.UserReportDTO">
+    SELECT *
+    FROM (
+        SELECT
+            ur.REPORT_NUMBER AS reportNumber,
+            ur.USER_NUMBER AS userNumber,
+            ur.POST_NUMBER AS postNumber,
+            ur.USER_REPORT_REASON AS userReportReason,
+            ur.REPORT_STATUS AS reportStatus,
+            TO_CHAR(ur.CREATE_TIME, 'YYYY-MM-DD HH24:MI:SS') AS createTime,
+            COALESCE(ur.HANDLED_BY_ADMIN_ID, 0) AS handledByAdminId,
+            COALESCE(bu.NICK_NAME, 'Unknown') AS postWriterNickname,
+            COALESCE(u.NICK_NAME, 'Unknown') AS userNickname,
+            ROW_NUMBER() OVER (ORDER BY ur.CREATE_TIME DESC) AS rn
+        FROM USER_REPORTS ur
+        LEFT JOIN BOARDS b ON ur.POST_NUMBER = b.POST_NUMBER
+        LEFT JOIN USERS u ON ur.USER_NUMBER = u.USER_NUMBER
+        LEFT JOIN USERS bu ON b.USER_NUMBER = bu.USER_NUMBER
+    )
+    WHERE rn BETWEEN #{start} AND #{end}
+</select>
+
+<select id="findReportsByMemberIdWithPagination" parameterType="map" resultType="dto.UserReportDTO">
+    SELECT *
+    FROM (
+        SELECT
+            ur.REPORT_NUMBER AS reportNumber,
+            ur.USER_NUMBER AS userNumber,
+            ur.POST_NUMBER AS postNumber,
+            ur.USER_REPORT_REASON AS userReportReason,
+            ur.REPORT_STATUS AS reportStatus,
+            TO_CHAR(ur.CREATE_TIME, 'YYYY-MM-DD HH24:MI:SS') AS createTime,
+            COALESCE(ur.HANDLED_BY_ADMIN_ID, 0) AS handledByAdminId,
+            COALESCE(bu.NICK_NAME, 'Unknown') AS postWriterNickname,
+            COALESCE(u.NICK_NAME, 'Unknown') AS userNickname,
+            ROW_NUMBER() OVER (ORDER BY ur.CREATE_TIME DESC) AS rn
+        FROM USER_REPORTS ur
+        LEFT JOIN BOARDS b ON ur.POST_NUMBER = b.POST_NUMBER
+        LEFT JOIN USERS u ON ur.USER_NUMBER = u.USER_NUMBER
+        LEFT JOIN USERS bu ON b.USER_NUMBER = bu.USER_NUMBER
+        WHERE ur.USER_NUMBER = #{memberId}
+    )
+    WHERE rn BETWEEN #{start} AND #{end}
+</select>
+
 ```
+
 >### 게시판 메인 화면
 ![image](https://github.com/user-attachments/assets/2832ce1e-4034-487e-a560-83826e80ede6)
 - Front<br>
 	- [게시판 메인 화면 - board_list.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/board_list.jsp)<br>
-- Back<br>
+	
+	- Back<br>
 	- [게시판 전체 조회 - BoardMainView.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardMainView.java)<br>
 	- [게시판 글쓰기 화면으로 이동 - BoardInsertViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardInsertViewController.java)<br>
+	- [게시판 검색 및 페이징 -BoardMainView.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardMainView.java)<br>
+	- [(카테고리 , 작성자 , 제목)에 대한 검색 및 페이징 -BoardSelectController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardSelectController.java)<br>
+	- [카테고리 댓글 카운팅 -BoardsCategoryController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardsCategoryController.java)<br>
+
 - SQL
 ```
+<select id="selectAllBoards" resultMap="boards">
+		SELECT * FROM BOARD_VIEW_WITH_REPORT
+		ORDER BY POST_NUMBER DESC
+	</select>
 
+	<!-- 전체 게시판 페이징 -->
+	<select id="selectBoards" resultMap="boards">
+		SELECT *
+		FROM BOARD_VIEW_WITH_REPORT
+		ORDER BY POST_NUMBER DESC
+		OFFSET #{offset} ROWS FETCH NEXT #{limit}
+		ROWS ONLY
+	</select>
+	
+	<!-- 게시판 검색 -->
+	<select id="searchBoards" resultMap="boards">
+		SELECT
+		*
+		FROM
+		BOARD_VIEW_WITH_REPORT
+		WHERE 1=1
+		<if test="tag != null and tag.trim() != ''">
+			AND TAG = #{tag} <!-- 카테고리 필터링 -->
+		</if>
+		<if
+			test="type == 'title' and keyword != null and keyword.trim() != ''">
+			AND TITLE LIKE '%' || #{keyword} || '%' <!-- 제목 검색 -->
+		</if>
+		<if
+			test="type == 'writer' and keyword != null and keyword.trim() != ''">
+			AND NICK_NAME LIKE '%' || #{keyword} || '%' <!-- 작성자 검색 -->
+		</if>
+		ORDER BY
+		<choose>
+			<when test="sort == 'bcount'">BCOUNT</when> <!-- 조회수 -->
+			<when test="sort == 'blike'">BLIKE</when>   <!-- 좋아요 -->
+			<when test="sort == 'createTime'">CREATE_TIME</when> <!-- 작성 시간 -->
+			<otherwise>B.POST_NUMBER</otherwise>          <!-- 기본 정렬 -->
+		</choose>
+		<if test="order == 'asc'">ASC</if>
+		<if test="order == 'desc'">DESC</if>
+		OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY <!-- 페이징 처리 -->
+	</select>
+
+	<!-- 게시판 페이징 -->
+	<select id="getBoardCount" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARDS B
+		LEFT JOIN USERS U
+		ON B.USER_NUMBER =
+		U.USER_NUMBER
+		WHERE 1=1
+		<if test="tag != null and tag.trim() != ''">
+			AND B.TAG = #{tag}
+		</if>
+		<if
+			test="keyword != null and keyword.trim() != '' and type != null">
+			<choose>
+				<when test="type == 'title'">
+					AND B.TITLE LIKE '%' || #{keyword} || '%'
+				</when>
+				<when test="type == 'writer'">
+					AND U.NICK_NAME LIKE '%' || #{keyword} || '%'
+				</when>
+			</choose>
+		</if>
+	</select>
+
+	<!-- 카테고리 댓글 카운팅  -->
+	<select id="getBoardsByTagWithPaging" resultMap="boards">
+		SELECT
+		*
+		FROM
+		BOARD_VIEW 
+		WHERE
+		TAG = #{tag}
+		ORDER BY
+		CREATE_TIME DESC
+		OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+	</select>
+	
+	<!-- 카테고리 페이징 --> 
+	<select id="getBoardsByTagWithPaging" resultMap="boards">
+    	SELECT *
+    	FROM BOARD_VIEW 
+    	WHERE TAG = #{tag}
+    	ORDER BY CREATE_TIME DESC
+    	OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+	</select>
+
+	<!-- 카테고리 필터링 -->
+	<select id="searchBoards" resultMap="boards">
+   	 SELECT *
+    	FROM BOARD_VIEW_WITH_REPORT
+   	 WHERE 1=1
+ 	   <if test="tag != null and tag.trim() != ''">
+    	    AND TAG = #{tag} <!-- 카테고리 필터링 -->
+ 	   </if>
+  	  <if test="type == 'title' and keyword != null and keyword.trim() != ''">
+    	    AND TITLE LIKE '%' || #{keyword} || '%' <!-- 제목 검색 -->
+   	 </if>
+  	  <if test="type == 'writer' and keyword != null and keyword.trim() != ''">
+    	    AND NICK_NAME LIKE '%' || #{keyword} || '%' <!-- 작성자 검색 -->
+   	 </if>
+   	 ORDER BY
+  	  <choose>
+     	   <when test="sort == 'bcount'">BCOUNT</when> <!-- 조회수 -->
+     	   <when test="sort == 'blike'">BLIKE</when>   <!-- 좋아요 -->
+     	   <when test="sort == 'createTime'">CREATE_TIME</when> <!-- 작성 시간 -->
+     	   <otherwise>B.POST_NUMBER</otherwise>          <!-- 기본 정렬 -->
+  	  </choose>
+   	 <if test="order == 'asc'">ASC</if>
+   	 <if test="order == 'desc'">DESC</if>
+  	  OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY <!-- 페이징 처리 -->
+	</select>
+	
 ```
+
 >### 게시판 상세 조회 화면
 ![image](https://github.com/user-attachments/assets/c92c687a-cace-45ab-9e22-de339285436a)
 >#### 게시글
@@ -417,5 +1008,5 @@ KH 2조
 - 최승인 : 처음엔 배운 내용을 실제로 적용하는 방법에 대한 감이 잘 잡히지 않아 막막했지만, 프로젝트를 진행하면서 점차 내가 무엇을 알고 있고, 어떤 부분이 부족한지 구체적으로 파악할 수 있었습니다. 이번 프로젝트를 통해 기본적인 파일 업로드 기능을 구현했지만, 이후에는 업로드된 파일을 개별적으로 관리할 수 있도록 수정할 계획입니다.
 - 이형준 :
 - 홍필진 :
-- 장호진 :
+- 장호진 : 처음 코딩을 배우고 처음 해보는 프로젝트 였지만 물론 처음에 다 어렵고 힘들었지만 그래도 마지막에는 결과물을 통해서 내가 하고자 하는 부분들을 다 이루어 내어서 뿌듯하다.코드를 직접 작성해보며 연결 되는 부분들을 조금이나마 더 이해할 수 있었던 것 같다. 앞으로 좀 더 편리하고 보완성이 뛰어난 부분들을 더욱더 공부하여 사용해보고 싶다는 생각을 하였고 다음에는 나 혼자 뭔가를 만들어보고자라는 생각을 하게 되었다.
 >## 7. Q & A

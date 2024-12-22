@@ -6,111 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Region List</title>
-<style>
-/* 전체 레이아웃 설정 */
-body {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	background-color: #f9f9f9;
-	font-family: Arial, sans-serif;
-}
-
-/* 컨테이너 중앙 정렬 */
-.container {
-	max-width: 1200px;
-	margin: 0 auto;
-	padding: 20px;
-	z-index: 1;
-}
-
-/* 이미지 카드 레이아웃 */
-.image-container {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 30px;
-	justify-content: center;
-	z
-}
-
-.image-item {
-	flex: 0 1 calc(23% - 20px); /* 4개씩 한 줄에 표시 */
-	text-align: center;
-	background: #fff;
-	border-radius: 8px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	overflow: hidden;
-	transition: transform 0.3s ease-in-out;
-}
-
-.image-item:hover {
-	transform: scale(1.03);
-}
-
-.image-item img {
-	width: 100%;
-	height: 200px; /* 고정 높이 적용 */
-	object-fit: cover; /* 비율 유지하면서 넘치는 부분 자름 */
-	display: block;
-}
-
-.title {
-	margin: 10px 0;
-	font-size: 1rem;
-	font-weight: bold;
-	color: #333;
-}
-
-/* 페이징 버튼 스타일 */
-.pagination {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-top: 20px;
-	gap: 10px;
-}
-
-.pagination a, .pagination .current-page {
-	display: inline-block;
-	padding: 8px 12px;
-	border-radius: 4px;
-	text-decoration: none;
-	font-size: 0.9rem;
-	font-weight: bold;
-	color: #555;
-	background-color: #fff;
-	border: 1px solid #ddd;
-	transition: background-color 0.2s, color 0.2s;
-}
-
-.pagination a:hover {
-	background-color: #007bff;
-	color: #fff;
-	border-color: #007bff;
-}
-
-.pagination .current-page {
-	background-color: #007bff;
-	color: #fff;
-	border: 1px solid #007bff;
-}
-
-.footer-container {
-	position: relative; /* fixed 대신 relative로 변경 */
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	background-color: #f9f9f9;
-	padding: 10px 0;
-	text-align: center;
-	z-index: 10;
-}
-
-/* 컨테이너 하단 여백 추가 */
-.container {
-	padding-bottom: 80px; /* footer 높이만큼 여백 추가 */
-}
-</style>
+<link rel="stylesheet" type="text/css" href="css/region.css">
 </head>
 <body>
 	<!-- 헤더 포함 -->
@@ -122,12 +18,13 @@ body {
 		<c:if test="${sessionScope.user != null}">
 			<c:set var="user" value="${sessionScope.user}" />
 			<c:if test="${user.grade == 'admin'}">
-				<a href="./RegionWriteView.do">
-					<button style="margin-bottom: 20px;">글 쓰기</button>
-				</a>
-				<a href="./admin.jsp">
-					<button>관리자 페이지</button>
-				</a>
+				<div class="admin-buttons">
+					<a href="./RegionWriteView.do">
+						<button>글 쓰기</button>
+					</a> <a href="./admin.jsp">
+						<button>관리자 페이지</button>
+					</a>
+				</div>
 			</c:if>
 		</c:if>
 
@@ -175,7 +72,8 @@ body {
 				<a href="./region.do?page=${currentPage + 1}">next</a>
 			</c:if>
 		</div>
-		<jsp:include page="./views/footer.jsp"></jsp:include>
 	</div>
+	<jsp:include page="./views/footer.jsp"></jsp:include>
 </body>
+
 </html>
