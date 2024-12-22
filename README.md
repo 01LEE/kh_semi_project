@@ -473,7 +473,30 @@ KH 2조
     }
 >### 게시글 신고 조회 화면
 ![image](https://github.com/user-attachments/assets/6626567d-d838-451f-98d7-f25b20c8045d)
-
+- Front<br>
+	- [게시글 신고 조회 화면 - adminCommentReportList.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/adminReportList.jsp)<br>
+- Back<br>
+	- [게시판 신고 목록 조회 , 검색 , 페이징  - CommentReportListController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/AdminReportListController.java)
+- SQL
+```
+<select id="selectAllReports" resultType="dto.UserReportDTO">
+		SELECT
+		ur.REPORT_NUMBER AS reportNumber,
+		ur.USER_NUMBER AS userNumber,
+		ur.POST_NUMBER AS postNumber,
+		ur.USER_REPORT_REASON AS userReportReason,
+		ur.REPORT_STATUS AS reportStatus,
+		TO_CHAR(ur.CREATE_TIME, 'YYYY-MM-DD HH24:MI:SS') AS createTime,
+		COALESCE(ur.HANDLED_BY_ADMIN_ID, 0) AS handledByAdminId,
+		bu.NICK_NAME AS postWriterNickname,
+		u.NICK_NAME AS userNickname
+		FROM
+		USER_REPORTS ur LEFT JOIN BOARDS b ON ur.POST_NUMBER = b.POST_NUMBER
+		LEFT JOIN USERS u ON ur.USER_NUMBER = u.USER_NUMBER
+		LEFT JOIN USERS bu ON b.USER_NUMBER = bu.USER_NUMBER
+		ORDER BY ur.CREATE_TIME DESC
+	</select>
+```
 >### 댓글 신고 조회 화면
 ![image](https://github.com/user-attachments/assets/4c16b55d-79b3-4a35-965c-4ac60694dd94)
 - Front<br>
@@ -495,18 +518,186 @@ KH 2조
 		HANDLED_BY_ADMIN_ID = #{adminId}
 		WHERE REPORT_NUMBER = #{reportNumber}
 	</update>
+
+	<select id="findReportsWithPagination" parameterType="map" resultType="dto.UserReportDTO">
+    SELECT *
+    FROM (
+        SELECT
+            ur.REPORT_NUMBER AS reportNumber,
+            ur.USER_NUMBER AS userNumber,
+            ur.POST_NUMBER AS postNumber,
+            ur.USER_REPORT_REASON AS userReportReason,
+            ur.REPORT_STATUS AS reportStatus,
+            TO_CHAR(ur.CREATE_TIME, 'YYYY-MM-DD HH24:MI:SS') AS createTime,
+            COALESCE(ur.HANDLED_BY_ADMIN_ID, 0) AS handledByAdminId,
+            COALESCE(bu.NICK_NAME, 'Unknown') AS postWriterNickname,
+            COALESCE(u.NICK_NAME, 'Unknown') AS userNickname,
+            ROW_NUMBER() OVER (ORDER BY ur.CREATE_TIME DESC) AS rn
+        FROM USER_REPORTS ur
+        LEFT JOIN BOARDS b ON ur.POST_NUMBER = b.POST_NUMBER
+        LEFT JOIN USERS u ON ur.USER_NUMBER = u.USER_NUMBER
+        LEFT JOIN USERS bu ON b.USER_NUMBER = bu.USER_NUMBER
+    )
+    WHERE rn BETWEEN #{start} AND #{end}
+</select>
+
+<select id="findReportsByMemberIdWithPagination" parameterType="map" resultType="dto.UserReportDTO">
+    SELECT *
+    FROM (
+        SELECT
+            ur.REPORT_NUMBER AS reportNumber,
+            ur.USER_NUMBER AS userNumber,
+            ur.POST_NUMBER AS postNumber,
+            ur.USER_REPORT_REASON AS userReportReason,
+            ur.REPORT_STATUS AS reportStatus,
+            TO_CHAR(ur.CREATE_TIME, 'YYYY-MM-DD HH24:MI:SS') AS createTime,
+            COALESCE(ur.HANDLED_BY_ADMIN_ID, 0) AS handledByAdminId,
+            COALESCE(bu.NICK_NAME, 'Unknown') AS postWriterNickname,
+            COALESCE(u.NICK_NAME, 'Unknown') AS userNickname,
+            ROW_NUMBER() OVER (ORDER BY ur.CREATE_TIME DESC) AS rn
+        FROM USER_REPORTS ur
+        LEFT JOIN BOARDS b ON ur.POST_NUMBER = b.POST_NUMBER
+        LEFT JOIN USERS u ON ur.USER_NUMBER = u.USER_NUMBER
+        LEFT JOIN USERS bu ON b.USER_NUMBER = bu.USER_NUMBER
+        WHERE ur.USER_NUMBER = #{memberId}
+    )
+    WHERE rn BETWEEN #{start} AND #{end}
+</select>
+
 ```
+
 >### 게시판 메인 화면
 ![image](https://github.com/user-attachments/assets/2832ce1e-4034-487e-a560-83826e80ede6)
 - Front<br>
 	- [게시판 메인 화면 - board_list.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/board_list.jsp)<br>
-- Back<br>
+	
+	- Back<br>
 	- [게시판 전체 조회 - BoardMainView.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardMainView.java)<br>
 	- [게시판 글쓰기 화면으로 이동 - BoardInsertViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardInsertViewController.java)<br>
+	- [게시판 검색 및 페이징 -BoardMainView.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardMainView.java)<br>
+	- [(카테고리 , 작성자 , 제목)에 대한 검색 및 페이징 -BoardSelectController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardSelectController.java)<br>
+	- [카테고리 댓글 카운팅 -BoardsCategoryController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/BoardsCategoryController.java)<br>
+
 - SQL
 ```
+<select id="selectAllBoards" resultMap="boards">
+		SELECT * FROM BOARD_VIEW_WITH_REPORT
+		ORDER BY POST_NUMBER DESC
+	</select>
 
+	<!-- 전체 게시판 페이징 -->
+	<select id="selectBoards" resultMap="boards">
+		SELECT *
+		FROM BOARD_VIEW_WITH_REPORT
+		ORDER BY POST_NUMBER DESC
+		OFFSET #{offset} ROWS FETCH NEXT #{limit}
+		ROWS ONLY
+	</select>
+	
+	<!-- 게시판 검색 -->
+	<select id="searchBoards" resultMap="boards">
+		SELECT
+		*
+		FROM
+		BOARD_VIEW_WITH_REPORT
+		WHERE 1=1
+		<if test="tag != null and tag.trim() != ''">
+			AND TAG = #{tag} <!-- 카테고리 필터링 -->
+		</if>
+		<if
+			test="type == 'title' and keyword != null and keyword.trim() != ''">
+			AND TITLE LIKE '%' || #{keyword} || '%' <!-- 제목 검색 -->
+		</if>
+		<if
+			test="type == 'writer' and keyword != null and keyword.trim() != ''">
+			AND NICK_NAME LIKE '%' || #{keyword} || '%' <!-- 작성자 검색 -->
+		</if>
+		ORDER BY
+		<choose>
+			<when test="sort == 'bcount'">BCOUNT</when> <!-- 조회수 -->
+			<when test="sort == 'blike'">BLIKE</when>   <!-- 좋아요 -->
+			<when test="sort == 'createTime'">CREATE_TIME</when> <!-- 작성 시간 -->
+			<otherwise>B.POST_NUMBER</otherwise>          <!-- 기본 정렬 -->
+		</choose>
+		<if test="order == 'asc'">ASC</if>
+		<if test="order == 'desc'">DESC</if>
+		OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY <!-- 페이징 처리 -->
+	</select>
+
+	<!-- 게시판 페이징 -->
+	<select id="getBoardCount" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARDS B
+		LEFT JOIN USERS U
+		ON B.USER_NUMBER =
+		U.USER_NUMBER
+		WHERE 1=1
+		<if test="tag != null and tag.trim() != ''">
+			AND B.TAG = #{tag}
+		</if>
+		<if
+			test="keyword != null and keyword.trim() != '' and type != null">
+			<choose>
+				<when test="type == 'title'">
+					AND B.TITLE LIKE '%' || #{keyword} || '%'
+				</when>
+				<when test="type == 'writer'">
+					AND U.NICK_NAME LIKE '%' || #{keyword} || '%'
+				</when>
+			</choose>
+		</if>
+	</select>
+
+	<!-- 카테고리 댓글 카운팅  -->
+	<select id="getBoardsByTagWithPaging" resultMap="boards">
+		SELECT
+		*
+		FROM
+		BOARD_VIEW 
+		WHERE
+		TAG = #{tag}
+		ORDER BY
+		CREATE_TIME DESC
+		OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+	</select>
+	
+	<!-- 카테고리 페이징 --> 
+	<select id="getBoardsByTagWithPaging" resultMap="boards">
+    	SELECT *
+    	FROM BOARD_VIEW 
+    	WHERE TAG = #{tag}
+    	ORDER BY CREATE_TIME DESC
+    	OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+	</select>
+
+	<!-- 카테고리 필터링 -->
+	<select id="searchBoards" resultMap="boards">
+   	 SELECT *
+    	FROM BOARD_VIEW_WITH_REPORT
+   	 WHERE 1=1
+ 	   <if test="tag != null and tag.trim() != ''">
+    	    AND TAG = #{tag} <!-- 카테고리 필터링 -->
+ 	   </if>
+  	  <if test="type == 'title' and keyword != null and keyword.trim() != ''">
+    	    AND TITLE LIKE '%' || #{keyword} || '%' <!-- 제목 검색 -->
+   	 </if>
+  	  <if test="type == 'writer' and keyword != null and keyword.trim() != ''">
+    	    AND NICK_NAME LIKE '%' || #{keyword} || '%' <!-- 작성자 검색 -->
+   	 </if>
+   	 ORDER BY
+  	  <choose>
+     	   <when test="sort == 'bcount'">BCOUNT</when> <!-- 조회수 -->
+     	   <when test="sort == 'blike'">BLIKE</when>   <!-- 좋아요 -->
+     	   <when test="sort == 'createTime'">CREATE_TIME</when> <!-- 작성 시간 -->
+     	   <otherwise>B.POST_NUMBER</otherwise>          <!-- 기본 정렬 -->
+  	  </choose>
+   	 <if test="order == 'asc'">ASC</if>
+   	 <if test="order == 'desc'">DESC</if>
+  	  OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY <!-- 페이징 처리 -->
+	</select>
+	
 ```
+
 >### 게시판 상세 조회 화면
 ![image](https://github.com/user-attachments/assets/c92c687a-cace-45ab-9e22-de339285436a)
 >#### 게시글
