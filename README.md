@@ -137,6 +137,7 @@ Front<br>
 - Back<br>
 	- [지역 데이터 일부 조회 - RegionIntro.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/RegionIntro.java)
 - SQL
+```
 <select id="selectAllRegion" resultMap="region">
 		SELECT *
 		FROM region
@@ -145,13 +146,15 @@ Front<br>
 		OFFSET #{offset} ROWS FETCH NEXT #{pageSize}
 		ROWS ONLY
 	</select>
+	```
 >### 지역소개 상세 화면
 ![image](https://github.com/user-attachments/assets/90ebac6b-a0bf-422c-9c3a-f67356cccc76)
-Front<br>
+- Front<br>
 	- [지역소개 상세 화면 - regionDetail.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/regionDetail.jsp)<br>
 - Back<br>
 	- [지역 데이터 상세 조회 - RegionDetail.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/RegionDetail.java)
 - SQL
+```
 <select id="selectRegionByRegionNumber" resultMap="region">
 		SELECT
 		region_number,
@@ -167,13 +170,15 @@ Front<br>
 		WHERE
 		region_number = #{regionNumber, jdbcType=INTEGER}
 	</select>
+	```
 >### 지역소개 작성
 ![image](https://github.com/user-attachments/assets/b9cf7a2c-8c25-46cf-9067-5ded60d65112)
-Front<br>
+- Front<br>
 	- [지역소개 글쓰기- regionDetail.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/region_insert.jsp)<br>
 - Back<br>
 	- [데이터 추가 - RegionDetail.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/RegionInsertController.java)
 - SQL
+```
 <insert id="insertRegion" parameterType="dto.RegionDTO">
 		INSERT INTO region
 		(
@@ -196,14 +201,16 @@ Front<br>
 		#{longitude}
 		)
 	</insert>
+	```
 
 >### 지역소개 수정
 ![image](https://github.com/user-attachments/assets/d1c1640d-8975-4203-95a5-2fb6b0cddc42)
-Front<br>
+- Front<br>
 	- [지역소개 수정하기 - region_update.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/region_update.jsp)<br>
 - Back<br>
 	- [데이터 수정 - RegionUpdateController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/RegionUpdateController.java)
 - SQL
+```
 <update id="updateRegion" parameterType="dto.RegionDTO">
 		UPDATE region
 		SET
@@ -215,6 +222,7 @@ Front<br>
 		longitude = #{longitude}
 		WHERE region_number = #{regionNumber}
 	</update>
+	```
 
 >### 관리자 페이지
 ![image](https://github.com/user-attachments/assets/fe700490-f698-42d4-9294-000d84a1d78d)
