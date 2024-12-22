@@ -158,6 +158,7 @@ KH 2조
 ![image](https://github.com/user-attachments/assets/55106eff-f9a0-431f-ac86-bd1ce4a5199b)
 
 [게시판 글 작성 페이지 - board_insert.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/board_insert.jsp)
+[게시판 글 작성 컨트롤러 - BoardInsertController.class](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/ImportedClasses/controller/BoardInsertController.class)
 
 >### 게시판 글 수정
 ![image](https://github.com/user-attachments/assets/ef418bab-4d5b-4558-b0e1-f9aa514cf1c4)
