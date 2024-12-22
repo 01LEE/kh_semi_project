@@ -142,7 +142,8 @@ KH 2조
 >### 게시글 신고 조회 화면
 >### 댓글 신고 조회 화면
 >### 게시판 메인 화면
->![image](https://github.com/user-attachments/assets/5860c392-fbbc-4974-815b-9f73e1e8d455)
+![image](https://github.com/user-attachments/assets/2832ce1e-4034-487e-a560-83826e80ede6)
+
 
 >### 게시판 상세 조회 화면
 
