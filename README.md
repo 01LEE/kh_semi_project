@@ -114,10 +114,10 @@ KH 2조
 
 >### 로그인 화면
 ![image](https://github.com/user-attachments/assets/77cd7b6e-b013-4f79-9d60-74e992624ba0)
--Front_End<br>
+-Front<br>
 	-[로그인 화면 - loginView.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/loginView.jsp)<br>
  
--Back_End<br>
+-Back<br>
 	-[로그인 화면 이동 - LoginViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginViewController.java)<br>
  	-[로그인 - LoginController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginController.java)<br>
  	-[로그아웃 - LogoutController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginController.java)<br>
@@ -258,11 +258,11 @@ KH 2조
 
 >### 마이페이지 내정보
 ![image](https://github.com/user-attachments/assets/f857b35c-9fd2-48e1-b7cf-b969dc05915f)
--Front_End<br>
+-Front<br>
 	-[마이페이지 - mypageView.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/mypageView.jsp)<br>
  	-[마이페이지 - mypageView.js](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/script/mypageView.js)<br>
 
--Back_End<br>
+-Back<br>
 	-[내정보 조회 - MyPageViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/MyPageViewController.java)<br>
 
  -SQL
@@ -287,7 +287,7 @@ KH 2조
 	</select>
  ```
 >### 마이페이지 프로필(등록,삭제)
--Back_End<br>
+-Back<br>
 	-[프로필Controller - ProfileImageController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/ProfileImageController.java)<br>
  	-[프로필Servlet - ProfileImageServlet.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/servlet/ProfileImageServlet.java)<br>
   
@@ -310,11 +310,11 @@ KH 2조
 
 >### 정보수정
 ![image](https://github.com/user-attachments/assets/c5a98eb8-8158-417b-a845-4aa9a0eb20cd)
--Front_End<br>
+-Front<br>
 	-[정보수정jsp - updateUserView.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/updateUserView.jsp)<br>
  	-[정보수정js - updateUserView.js](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/script/updateUserView.js)<br>
  
--Back_End<br>
+-Back<br>
 	-[정보수정 이동 - UpdateUserViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/UpdateUserViewController.java)<br>
 	-[닉네임,비밀번호,이메일 변경 - UpdateUserController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/UpdateUserController.java)<br>
 
