@@ -115,12 +115,12 @@ KH 2조
 >### 로그인 화면
 ![image](https://github.com/user-attachments/assets/77cd7b6e-b013-4f79-9d60-74e992624ba0)
 -Front_End<br>
-	-[로그인 화면 - loginView.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/loginView.jsp)
+	-[로그인 화면 - loginView.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/loginView.jsp)<br>
  
 -Back_End<br>
-	-[로그인 화면 이동 - LoginViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginViewController.java)
- 	-[로그인 - LoginController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginController.java)
- 	-[로그아웃 - LogoutController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginController.java)
+	-[로그인 화면 이동 - LoginViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginViewController.java)<br>
+ 	-[로그인 - LoginController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginController.java)<br>
+ 	-[로그아웃 - LogoutController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/LoginController.java)<br>
   	
 -SQL
 ```
@@ -151,11 +151,11 @@ KH 2조
 >### 마이페이지 내정보
 ![image](https://github.com/user-attachments/assets/f857b35c-9fd2-48e1-b7cf-b969dc05915f)
 -Front_End<br>
-	-[마이페이지 - mypageView.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/mypageView.jsp)
- 	-[마이페이지 - mypageView.js](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/script/mypageView.js)
+	-[마이페이지 - mypageView.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/mypageView.jsp)<br>
+ 	-[마이페이지 - mypageView.js](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/script/mypageView.js)<br>
 
 -Back_End<br>
-	-[마이페이지 - MyPageViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/MyPageViewController.java)
+	-[내정보 조회 - MyPageViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/MyPageViewController.java)<br>
 
  -SQL
  ```
@@ -178,9 +178,11 @@ KH 2조
 		user_number = #{userNumber}
 	</select>
  ```
->### 마이페이지 프로필
+>### 마이페이지 프로필(등록,삭제)
 -Back_End<br>
-	-[프로필 - ProfileImageController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/ProfileImageController.java)
+	-[프로필Controller - ProfileImageController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/ProfileImageController.java)<br>
+ 	-[프로필Servlet - ProfileImageServlet.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/servlet/ProfileImageServlet.java)<br>
+  
 -SQL
 ```
     <!-- 사용자 번호를 기준으로 프로필 이미지 조회 -->
@@ -201,8 +203,37 @@ KH 2조
 >### 정보수정
 ![image](https://github.com/user-attachments/assets/c5a98eb8-8158-417b-a845-4aa9a0eb20cd)
 -Front_End<br>
-	-[
+	-[정보수정jsp - updateUserView.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/updateUserView.jsp)<br>
+ 	-[정보수정js - updateUserView.js](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/script/updateUserView.js)<br>
+ 
 -Back_End<br>
+	-[정보수정 이동 - UpdateUserViewController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/UpdateUserViewController.java)<br>
+	-[닉네임,비밀번호,이메일 변경 - UpdateUserController.java](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/java/controller/UpdateUserController.java)<br>
+
+-SQL
+```
+	<update id="updateUser" parameterType="dto.UsersDTO">
+		UPDATE users
+		<set>
+			<!-- 닉네임 변경 -->
+			<if test="nickName != null and nickName != ''">
+				nick_name = #{nickName},
+			</if>
+			<!-- 이메일 변경 -->
+			<if test="userEmail != null and userEmail != ''">
+				user_email = #{userEmail},
+			</if>
+			<!-- 비밀번호 변경 -->
+			<if test="password != null and password != ''">
+				password = #{password},
+				pw_update_time = SYSDATE,
+			</if>
+			<!-- 항상 업데이트되는 update_time -->
+			update_time = SYSDATE
+		</set>
+		WHERE user_number = #{userNumber}
+	</update>
+```
 
 >### 지역소개
 ![image](https://github.com/user-attachments/assets/e052593a-5813-4ffa-8a20-ad4e13ea9b9b)
