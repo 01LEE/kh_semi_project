@@ -140,7 +140,7 @@ KH 2조
 ```
 
 >### 회원가입 화면
-![image](https://github.com/user-attachments/assets/ccc6af6c-cb41-4dbf-936e-c3d41760a35c)
+![image](https://github.com/user-attachments/assets/0f0eea02-0549-4206-a959-1a13ce8f0b67)
 - FRONT <br>
     - [회원가입 - insertMember.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/insertMember.jsp)<br>
 	- [회원가입성공 - IdInsertSuccessPage.jsp](https://github.com/01LEE/kh_semi_project/blob/semi_project/src/main/webapp/IdInsertSuccessPage.jsp)<br>
